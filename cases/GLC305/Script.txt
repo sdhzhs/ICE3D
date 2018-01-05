@@ -1,0 +1,46 @@
+Give name of initial surface grids file:
+GLC305surf.xyz
+Give name of surface grids file:
+GLC305surf.xyz
+Give name of air fluid property file:
+wallflux(GLC305).dat
+Give name of drop property file:
+drop(GLC305).dat
+Set fluid property(com/incom):
+com
+Select advanced method(singl/multi):
+singl
+Include Ice Accretion(Y/N)?
+Y
+input grid scale factor:
+1.0
+input liquid water content(kg/m3):
+6.8e-4
+input mean valued diameter(m):
+2e-5
+input air far field tempreture(K):
+263.03
+input drop tempreture(K):
+263.03
+input initial solid surface tempreture(K):
+263.03
+input air far field velocity(m/s):
+111.81
+Give time step parameter(s):
+1e-2
+Give total advance time(s):
+30
+Start advance from clean surface(Y/N)?
+Y
+Give name of initial data file:(pre film height(m):)
+5e-9
+Start inner surface tempreture iteration(Y/N)?
+N
+Select solution method(explicit/implicit)?
+implicit
+Select discretation scheme(upwind/TVD)?
+upwind
+Give max step of inner implicit iteration:
+100
+Give resident of inner implicit iteration:
+1e-8
