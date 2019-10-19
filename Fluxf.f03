@@ -2,63 +2,52 @@ Subroutine Fluxf(l)
 use COM
 implicit none
 integer i,j,l,s1,s2
-real(8) DE(Ig(l),Jg(l)),DG(Ig(l),Jg(l)),DF(Ig(l),Jg(l)),DE1(In(l),Jg(l)),DE2(Ig(l),Jn(l)),DG1(In(l),Jg(l)),DG2(Ig(l),Jn(l)),&
-DF1(In(l),Jg(l)),DF2(Ig(l),Jn(l)),panel(Ig(l),Jg(l)),beta(Ig(l),Jg(l)),qe0(Ig(l),Jg(l)),qe1(Ig(l),Jg(l)),Qp1(Ig(l),Jg(l)),&
-Qp2(Ig(l),Jg(l)),dQp1(Ig(l),Jg(l)),dQp2(Ig(l),Jg(l)),sax(In(l),Jg(l)),say(Ig(l),Jn(l)),h(Ig(l),Jg(l)),b(Ig(l),Jg(l))
-real(8) hbcl(Jg(l)),hbcll(Jg(l)),hbcr(Jg(l)),hbcrr(Jg(l)),hbcu(Ig(l)),hbcuu(Ig(l)),hbcd(Ig(l)),hbcdd(Ig(l)),Qp1bcl(Jg(l)),&
-Qp1bcr(Jg(l)),Qp2bcu(Ig(l)),Qp2bcd(Ig(l)),dQp1bcl(Jg(l)),dQp1bcr(Jg(l)),dQp2bcu(Ig(l)),dQp2bcd(Ig(l)),dul(Jg(l)),dur(Jg(l)),&
-dvu(Ig(l)),dvd(Ig(l)),saxl(Jg(l)),saxr(Jg(l)),sayu(Ig(l)),sayd(Ig(l))
-real(8) lamda1(In(l),Jg(l)),lamda2(Ig(l),Jn(l)),Qup1(In(l),Jg(l)),Qup2(Ig(l),Jn(l)),Qlw1(In(l),Jg(l)),Qlw2(Ig(l),Jn(l)),&
-r1(In(l),Jg(l)),r2(Ig(l),Jn(l)),fai1(In(l),Jg(l)),fai2(Ig(l),Jn(l))
-real(8) Cp1(In(l),Jg(l)),Cp2(Ig(l),Jn(l)),Cn1(In(l),Jg(l)),Cn2(Ig(l),Jn(l)),Dp1(In(l),Jg(l)),Dp2(Ig(l),Jn(l)),Dn1(In(l),Jg(l)),&
-Dn2(Ig(l),Jn(l))
-real(8) Q1(In(l),Jg(l)),Q2(Ig(l),Jn(l)),ahP(Ig(l),Jg(l)),ahW(Ig(l),Jg(l)),ahE(Ig(l),Jg(l)),ahN(Ig(l),Jg(l)),ahS(Ig(l),Jg(l)),&
-bh(Ig(l),Jg(l))
-DE=Grids(l)%DE
-DG=Grids(l)%DG
-DF=Grids(l)%DF
-DE1=Grids(l)%DE1
-DG1=Grids(l)%DG1
-DF1=Grids(l)%DF1
-DE2=Grids(l)%DE2
-DG2=Grids(l)%DG2
-DF2=Grids(l)%DF2
-panel=Grids(l)%panel
-beta=Forces(l)%beta
-qe0=Energys(l)%qe0
-qe1=Energys(l)%qe1
-Qp1=Fluxs(l)%Qp1
-Qp2=Fluxs(l)%Qp2
-dQp1=Fluxs(l)%dQp1
-dQp2=Fluxs(l)%dQp2
-sax=Fluxs(l)%sax
-say=Fluxs(l)%say
-h=Icecoordinates(l)%h
-b=Icecoordinates(l)%b
-hbcl=Boundatas(l)%hbcl
-hbcr=Boundatas(l)%hbcr
-hbcu=Boundatas(l)%hbcu
-hbcd=Boundatas(l)%hbcd
-hbcll=Boundatas(l)%hbcll
-hbcrr=Boundatas(l)%hbcrr
-hbcuu=Boundatas(l)%hbcuu
-hbcdd=Boundatas(l)%hbcdd
-Qp1bcl=Boundatas(l)%Qp1bcl
-Qp1bcr=Boundatas(l)%Qp1bcr
-Qp2bcu=Boundatas(l)%Qp2bcu
-Qp2bcd=Boundatas(l)%Qp2bcd
-dQp1bcl=Boundatas(l)%dQp1bcl
-dQp1bcr=Boundatas(l)%dQp1bcr
-dQp2bcu=Boundatas(l)%dQp2bcu
-dQp2bcd=Boundatas(l)%dQp2bcd
-dul=Boundatas(l)%dul
-dur=Boundatas(l)%dur
-dvu=Boundatas(l)%dvu
-dvd=Boundatas(l)%dvd
-saxl=Boundatas(l)%saxl
-saxr=Boundatas(l)%saxr
-sayu=Boundatas(l)%sayu
-sayd=Boundatas(l)%sayd
+real(8),dimension(:,:),pointer::DE1,DE2,DG1,DG2,DF1,DF2,Qp1,Qp2,dQp1,dQp2,sax,say,h
+real(8),dimension(:),pointer::hbcl,hbcll,hbcr,hbcrr,hbcu,hbcuu,hbcd,hbcdd,Qp1bcl,Qp1bcr,Qp2bcu,&
+Qp2bcd,dQp1bcl,dQp1bcr,dQp2bcu,dQp2bcd,dul,dur,dvu,dvd,saxl,saxr,sayu,sayd
+real(8) panel,beta,qe0,qe1,b
+real(8) ahP,ahW,ahE,ahN,ahS,bh
+real(8) lamda1(In(l),Jg(l)),lamda2(Ig(l),Jn(l)),Qup1(In(l),Jg(l)),Qup2(Ig(l),Jn(l)),Qlw1(In(l),Jg(l)),&
+Qlw2(Ig(l),Jn(l)),r1(In(l),Jg(l)),r2(Ig(l),Jn(l)),phi1(In(l),Jg(l)),phi2(Ig(l),Jn(l))
+real(8) Cp1(In(l),Jg(l)),Cp2(Ig(l),Jn(l)),Cn1(In(l),Jg(l)),Cn2(Ig(l),Jn(l)),Dp1(In(l),Jg(l)),&
+Dp2(Ig(l),Jn(l)),Dn1(In(l),Jg(l)),Dn2(Ig(l),Jn(l)),Q1(In(l),Jg(l)),Q2(Ig(l),Jn(l))
+DE1=>Grids(l)%DE1
+DG1=>Grids(l)%DG1
+DF1=>Grids(l)%DF1
+DE2=>Grids(l)%DE2
+DG2=>Grids(l)%DG2
+DF2=>Grids(l)%DF2
+Qp1=>Fluxs(l)%Qp1
+Qp2=>Fluxs(l)%Qp2
+dQp1=>Fluxs(l)%dQp1
+dQp2=>Fluxs(l)%dQp2
+sax=>Fluxs(l)%sax
+say=>Fluxs(l)%say
+h=>Icecoordinates(l)%h
+hbcl=>Boundatas(l)%hbcl
+hbcr=>Boundatas(l)%hbcr
+hbcu=>Boundatas(l)%hbcu
+hbcd=>Boundatas(l)%hbcd
+hbcll=>Boundatas(l)%hbcll
+hbcrr=>Boundatas(l)%hbcrr
+hbcuu=>Boundatas(l)%hbcuu
+hbcdd=>Boundatas(l)%hbcdd
+Qp1bcl=>Boundatas(l)%Qp1bcl
+Qp1bcr=>Boundatas(l)%Qp1bcr
+Qp2bcu=>Boundatas(l)%Qp2bcu
+Qp2bcd=>Boundatas(l)%Qp2bcd
+dQp1bcl=>Boundatas(l)%dQp1bcl
+dQp1bcr=>Boundatas(l)%dQp1bcr
+dQp2bcu=>Boundatas(l)%dQp2bcu
+dQp2bcd=>Boundatas(l)%dQp2bcd
+dul=>Boundatas(l)%dul
+dur=>Boundatas(l)%dur
+dvu=>Boundatas(l)%dvu
+dvd=>Boundatas(l)%dvd
+saxl=>Boundatas(l)%saxl
+saxr=>Boundatas(l)%saxr
+sayu=>Boundatas(l)%sayu
+sayd=>Boundatas(l)%sayd
 lamda1=dt/DE1**0.5
 lamda2=dt/DG2**0.5
   DO i=1,In(l)
@@ -193,10 +182,10 @@ lamda2=dt/DG2**0.5
   end DO
   DO i=1,In(l)
     DO j=1,Jg(l)
-    fai1(i,j)=max(0.0,min(2*r1(i,j),1.0),min(r1(i,j),2.0))
-    !fai1(i,j)=max(0.0,min(r1(i,j),1.0))
+    phi1(i,j)=max(0.0,min(2*r1(i,j),1.0),min(r1(i,j),2.0))
+    !phi1(i,j)=max(0.0,min(r1(i,j),1.0))
     if(discretecontrol=='TVD') then
-    Q1(i,j)=(1-fai1(i,j))*Qup1(i,j)+fai1(i,j)*Qlw1(i,j)
+    Q1(i,j)=(1-phi1(i,j))*Qup1(i,j)+phi1(i,j)*Qlw1(i,j)
     else if(discretecontrol=='upwind') then
     Q1(i,j)=Qup1(i,j)
     end if
@@ -204,10 +193,10 @@ lamda2=dt/DG2**0.5
   end DO
   DO i=1,Ig(l)
     DO j=1,Jn(l)
-    fai2(i,j)=max(0.0,min(2*r2(i,j),1.0),min(r2(i,j),2.0))
-    !fai2(i,j)=max(0.0,min(r2(i,j),1.0))
+    phi2(i,j)=max(0.0,min(2*r2(i,j),1.0),min(r2(i,j),2.0))
+    !phi2(i,j)=max(0.0,min(r2(i,j),1.0))
     if(discretecontrol=='TVD') then
-    Q2(i,j)=(1-fai2(i,j))*Qup2(i,j)+fai2(i,j)*Qlw2(i,j)
+    Q2(i,j)=(1-phi2(i,j))*Qup2(i,j)+phi2(i,j)*Qlw2(i,j)
     else if(discretecontrol=='upwind') then
     Q2(i,j)=Qup2(i,j)
     end if
@@ -256,85 +245,90 @@ if(solutioncontrol=='implicit') then
   end DO
   DO i=1,Ig(l)
     DO j=1,Jg(l)
+    panel=Grids(l)%panel(i,j)
+    beta=Forces(l)%beta(i,j)
+    qe0=Energys(l)%qe0(i,j)
+    qe1=Energys(l)%qe1(i,j)
+    b=Icecoordinates(l)%b(i,j)
     if(discretecontrol=='TVD') then
-    ahP(i,j)=dt*((sqrt(DG1(i+1,j)-DF1(i+1,j)**2/DE1(i+1,j))*(1-fai1(i+1,j))*Cp1(i+1,j)-&
-    sqrt(DG1(i,j)-DF1(i,j)**2/DE1(i,j))*(1-fai1(i,j))*Cn1(i,j)+sqrt(DG1(i+1,j)-DF1(i+1,j)**2/DE1(i+1,j))*fai1(i+1,j)*Dp1(i+1,j)-&
-    sqrt(DG1(i,j)-DF1(i,j)**2/DE1(i,j))*fai1(i,j)*Dn1(i,j))/panel(i,j)+&
-    (sqrt(DE2(i,j+1)-DF2(i,j+1)**2/DG2(i,j+1))*(1-fai2(i,j+1))*Cp2(i,j+1)-&
-    sqrt(DE2(i,j)-DF2(i,j)**2/DG2(i,j))*(1-fai2(i,j))*Cn2(i,j)+sqrt(DE2(i,j+1)-DF2(i,j+1)**2/DG2(i,j+1))*fai2(i,j+1)*Dp2(i,j+1)-&
-    sqrt(DE2(i,j)-DF2(i,j)**2/DG2(i,j))*fai2(i,j)*Dn2(i,j))/panel(i,j))+1
-    ahE(i,j)=-dt*(sqrt(DG1(i+1,j)-DF1(i+1,j)**2/DE1(i+1,j))*(1-fai1(i+1,j))*Cn1(i+1,j)+&
-    sqrt(DG1(i+1,j)-DF1(i+1,j)**2/DE1(i+1,j))*fai1(i+1,j)*Dn1(i+1,j))/panel(i,j)
-    ahW(i,j)=dt*(sqrt(DG1(i,j)-DF1(i,j)**2/DE1(i,j))*(1-fai1(i,j))*Cp1(i,j)+&
-    sqrt(DG1(i,j)-DF1(i,j)**2/DE1(i,j))*fai1(i,j)*Dp1(i,j))/panel(i,j)
-    ahN(i,j)=-dt*(sqrt(DE2(i,j+1)-DF2(i,j+1)**2/DG2(i,j+1))*(1-fai2(i,j+1))*Cn2(i,j+1)+&
-    sqrt(DE2(i,j+1)-DF2(i,j+1)**2/DG2(i,j+1))*fai2(i,j+1)*Dn2(i,j+1))/panel(i,j)
-    ahS(i,j)=dt*(sqrt(DE2(i,j)-DF2(i,j)**2/DG2(i,j))*(1-fai2(i,j))*Cp2(i,j)+&
-    sqrt(DE2(i,j)-DF2(i,j)**2/DG2(i,j))*fai2(i,j)*Dp2(i,j))/panel(i,j)
+    ahP=dt*((sqrt(DG1(i+1,j)-DF1(i+1,j)**2/DE1(i+1,j))*(1-phi1(i+1,j))*Cp1(i+1,j)-&
+    sqrt(DG1(i,j)-DF1(i,j)**2/DE1(i,j))*(1-phi1(i,j))*Cn1(i,j)+sqrt(DG1(i+1,j)-DF1(i+1,j)**2/DE1(i+1,j))*phi1(i+1,j)*Dp1(i+1,j)-&
+    sqrt(DG1(i,j)-DF1(i,j)**2/DE1(i,j))*phi1(i,j)*Dn1(i,j))/panel+&
+    (sqrt(DE2(i,j+1)-DF2(i,j+1)**2/DG2(i,j+1))*(1-phi2(i,j+1))*Cp2(i,j+1)-&
+    sqrt(DE2(i,j)-DF2(i,j)**2/DG2(i,j))*(1-phi2(i,j))*Cn2(i,j)+sqrt(DE2(i,j+1)-DF2(i,j+1)**2/DG2(i,j+1))*phi2(i,j+1)*Dp2(i,j+1)-&
+    sqrt(DE2(i,j)-DF2(i,j)**2/DG2(i,j))*phi2(i,j)*Dn2(i,j))/panel)+1
+    ahE=-dt*(sqrt(DG1(i+1,j)-DF1(i+1,j)**2/DE1(i+1,j))*(1-phi1(i+1,j))*Cn1(i+1,j)+&
+    sqrt(DG1(i+1,j)-DF1(i+1,j)**2/DE1(i+1,j))*phi1(i+1,j)*Dn1(i+1,j))/panel
+    ahW=dt*(sqrt(DG1(i,j)-DF1(i,j)**2/DE1(i,j))*(1-phi1(i,j))*Cp1(i,j)+&
+    sqrt(DG1(i,j)-DF1(i,j)**2/DE1(i,j))*phi1(i,j)*Dp1(i,j))/panel
+    ahN=-dt*(sqrt(DE2(i,j+1)-DF2(i,j+1)**2/DG2(i,j+1))*(1-phi2(i,j+1))*Cn2(i,j+1)+&
+    sqrt(DE2(i,j+1)-DF2(i,j+1)**2/DG2(i,j+1))*phi2(i,j+1)*Dn2(i,j+1))/panel
+    ahS=dt*(sqrt(DE2(i,j)-DF2(i,j)**2/DG2(i,j))*(1-phi2(i,j))*Cp2(i,j)+&
+    sqrt(DE2(i,j)-DF2(i,j)**2/DG2(i,j))*phi2(i,j)*Dp2(i,j))/panel
     if(i==1.and.topos%nbl(l)==0) then
     !if(i==1.and.topos(l)%nbl(j)==0) then
-    ahW(i,j)=0
-    ahP(i,j)=ahP(i,j)+dt*(sqrt(DG1(i,j)-DF1(i,j)**2/DE1(i,j))*(1-fai1(i,j))*Cn1(i,j)+&
-    sqrt(DG1(i,j)-DF1(i,j)**2/DE1(i,j))*fai1(i,j)*Dn1(i,j))/panel(i,j)
+    ahW=0
+    ahP=ahP+dt*(sqrt(DG1(i,j)-DF1(i,j)**2/DE1(i,j))*(1-phi1(i,j))*Cn1(i,j)+&
+    sqrt(DG1(i,j)-DF1(i,j)**2/DE1(i,j))*phi1(i,j)*Dn1(i,j))/panel
     else if(i==Ig(l).and.topos%nbr(l)==0) then
     !else if(i==Ig(l).and.topos(l)%nbr(j)==0) then
-    ahE(i,j)=0
-    ahP(i,j)=ahP(i,j)-dt*(sqrt(DG1(i+1,j)-DF1(i+1,j)**2/DE1(i+1,j))*(1-fai1(i+1,j))*Cp1(i+1,j)+&
-    sqrt(DG1(i+1,j)-DF1(i+1,j)**2/DE1(i+1,j))*fai1(i+1,j)*Dp1(i+1,j))/panel(i,j)
+    ahE=0
+    ahP=ahP-dt*(sqrt(DG1(i+1,j)-DF1(i+1,j)**2/DE1(i+1,j))*(1-phi1(i+1,j))*Cp1(i+1,j)+&
+    sqrt(DG1(i+1,j)-DF1(i+1,j)**2/DE1(i+1,j))*phi1(i+1,j)*Dp1(i+1,j))/panel
     else if(j==1.and.topos%nbu(l)==0) then
     !else if(j==1.and.topos(l)%nbu(i)==0) then
-    ahS(i,j)=0
-    ahP(i,j)=ahP(i,j)+dt*(sqrt(DE2(i,j)-DF2(i,j)**2/DG2(i,j))*(1-fai2(i,j))*Cn2(i,j)+&
-    sqrt(DE2(i,j)-DF2(i,j)**2/DG2(i,j))*fai2(i,j)*Dn2(i,j))/panel(i,j)
+    ahS=0
+    ahP=ahP+dt*(sqrt(DE2(i,j)-DF2(i,j)**2/DG2(i,j))*(1-phi2(i,j))*Cn2(i,j)+&
+    sqrt(DE2(i,j)-DF2(i,j)**2/DG2(i,j))*phi2(i,j)*Dn2(i,j))/panel
     else if(j==Jg(l).and.topos%nbd(l)==0) then
     !else if(j==Jg(l).and.topos(l)%nbd(i)==0) then
-    ahN(i,j)=0
-    ahP(i,j)=ahP(i,j)-dt*(sqrt(DE2(i,j+1)-DF2(i,j+1)**2/DG2(i,j+1))*(1-fai2(i,j+1))*Cp2(i,j+1)+&
-    sqrt(DE2(i,j+1)-DF2(i,j+1)**2/DG2(i,j+1))*fai2(i,j+1)*Dp2(i,j+1))/panel(i,j)
+    ahN=0
+    ahP=ahP-dt*(sqrt(DE2(i,j+1)-DF2(i,j+1)**2/DG2(i,j+1))*(1-phi2(i,j+1))*Cp2(i,j+1)+&
+    sqrt(DE2(i,j+1)-DF2(i,j+1)**2/DG2(i,j+1))*phi2(i,j+1)*Dp2(i,j+1))/panel
     end if
     else if(discretecontrol=='upwind') then
-    ahP(i,j)=dt*((sqrt(DG1(i+1,j)-DF1(i+1,j)**2/DE1(i+1,j))*Cp1(i+1,j)-sqrt(DG1(i,j)-DF1(i,j)**2/DE1(i,j))*Cn1(i,j))/panel(i,j)+&
-    (sqrt(DE2(i,j+1)-DF2(i,j+1)**2/DG2(i,j+1))*Cp2(i,j+1)-sqrt(DE2(i,j)-DF2(i,j)**2/DG2(i,j))*Cn2(i,j))/panel(i,j))+1
-    ahE(i,j)=-dt*sqrt(DG1(i+1,j)-DF1(i+1,j)**2/DE1(i+1,j))*Cn1(i+1,j)/panel(i,j)
-    ahW(i,j)=dt*sqrt(DG1(i,j)-DF1(i,j)**2/DE1(i,j))*Cp1(i,j)/panel(i,j)
-    ahN(i,j)=-dt*sqrt(DE2(i,j+1)-DF2(i,j+1)**2/DG2(i,j+1))*Cn2(i,j+1)/panel(i,j)
-    ahS(i,j)=dt*sqrt(DE2(i,j)-DF2(i,j)**2/DG2(i,j))*Cp2(i,j)/panel(i,j)
+    ahP=dt*((sqrt(DG1(i+1,j)-DF1(i+1,j)**2/DE1(i+1,j))*Cp1(i+1,j)-sqrt(DG1(i,j)-DF1(i,j)**2/DE1(i,j))*Cn1(i,j))/panel+&
+    (sqrt(DE2(i,j+1)-DF2(i,j+1)**2/DG2(i,j+1))*Cp2(i,j+1)-sqrt(DE2(i,j)-DF2(i,j)**2/DG2(i,j))*Cn2(i,j))/panel)+1
+    ahE=-dt*sqrt(DG1(i+1,j)-DF1(i+1,j)**2/DE1(i+1,j))*Cn1(i+1,j)/panel
+    ahW=dt*sqrt(DG1(i,j)-DF1(i,j)**2/DE1(i,j))*Cp1(i,j)/panel
+    ahN=-dt*sqrt(DE2(i,j+1)-DF2(i,j+1)**2/DG2(i,j+1))*Cn2(i,j+1)/panel
+    ahS=dt*sqrt(DE2(i,j)-DF2(i,j)**2/DG2(i,j))*Cp2(i,j)/panel
     if(i==1.and.topos%nbl(l)==0) then
     !if(i==1.and.topos(l)%nbl(j)==0) then
-    ahW(i,j)=0
-    ahP(i,j)=ahP(i,j)+dt*sqrt(DG1(i,j)-DF1(i,j)**2/DE1(i,j))*Cn1(i,j)/panel(i,j)
+    ahW=0
+    ahP=ahP+dt*sqrt(DG1(i,j)-DF1(i,j)**2/DE1(i,j))*Cn1(i,j)/panel
     else if(i==Ig(l).and.topos%nbr(l)==0) then
     !else if(i==Ig(l).and.topos(l)%nbr(j)==0) then
-    ahE(i,j)=0
-    ahP(i,j)=ahP(i,j)-dt*sqrt(DG1(i+1,j)-DF1(i+1,j)**2/DE1(i+1,j))*Cp1(i+1,j)/panel(i,j)
+    ahE=0
+    ahP=ahP-dt*sqrt(DG1(i+1,j)-DF1(i+1,j)**2/DE1(i+1,j))*Cp1(i+1,j)/panel
     else if(j==1.and.topos%nbu(l)==0) then
     !else if(j==1.and.topos(l)%nbu(i)==0) then
-    ahS(i,j)=0
-    ahP(i,j)=ahP(i,j)+dt*sqrt(DE2(i,j)-DF2(i,j)**2/DG2(i,j))*Cn2(i,j)/panel(i,j)
+    ahS=0
+    ahP=ahP+dt*sqrt(DE2(i,j)-DF2(i,j)**2/DG2(i,j))*Cn2(i,j)/panel
     else if(j==Jg(l).and.topos%nbd(l)==0) then
     !else if(j==Jg(l).and.topos(l)%nbd(i)==0) then
-    ahN(i,j)=0
-    ahP(i,j)=ahP(i,j)-dt*sqrt(DE2(i,j+1)-DF2(i,j+1)**2/DG2(i,j+1))*Cp2(i,j+1)/panel(i,j)
+    ahN=0
+    ahP=ahP-dt*sqrt(DE2(i,j+1)-DF2(i,j+1)**2/DG2(i,j+1))*Cp2(i,j+1)/panel
     end if
     end if
     if(icecoupled=='Y') then
-    bh(i,j)=-dt*(sqrt(DG1(i+1,j)-DF1(i+1,j)**2/DE1(i+1,j))*Q1(i+1,j)-sqrt(DG1(i,j)-DF1(i,j)**2/DE1(i,j))*Q1(i,j)+&
-    sqrt(DE2(i,j+1)-DF2(i,j+1)**2/DG2(i,j+1))*Q2(i,j+1)-sqrt(DE2(i,j)-DF2(i,j)**2/DG2(i,j))*Q2(i,j))/panel(i,j)+&
-    lwc*beta(i,j)*Wf*dt/rouw-(alpha*ki*(Tf-Ts)/b(i,j)-kw*(qe0(i,j)+qe1(i,j)*Tf))*dt/(rouw*Lf)
+    bh=-dt*(sqrt(DG1(i+1,j)-DF1(i+1,j)**2/DE1(i+1,j))*Q1(i+1,j)-sqrt(DG1(i,j)-DF1(i,j)**2/DE1(i,j))*Q1(i,j)+&
+    sqrt(DE2(i,j+1)-DF2(i,j+1)**2/DG2(i,j+1))*Q2(i,j+1)-sqrt(DE2(i,j)-DF2(i,j)**2/DG2(i,j))*Q2(i,j))/panel+&
+    lwc*beta*Wf*dt/rhow-(alpha*ki*(Tf-Ts)/b-kw*(qe0+qe1*Tf))*dt/(rhow*Lf)
     else if(icecoupled=='N') then
-    bh(i,j)=-dt*(sqrt(DG1(i+1,j)-DF1(i+1,j)**2/DE1(i+1,j))*Q1(i+1,j)-sqrt(DG1(i,j)-DF1(i,j)**2/DE1(i,j))*Q1(i,j)+&
-    sqrt(DE2(i,j+1)-DF2(i,j+1)**2/DG2(i,j+1))*Q2(i,j+1)-sqrt(DE2(i,j)-DF2(i,j)**2/DG2(i,j))*Q2(i,j))/panel(i,j)+&
-    lwc*beta(i,j)*Wf*dt/rouw
+    bh=-dt*(sqrt(DG1(i+1,j)-DF1(i+1,j)**2/DE1(i+1,j))*Q1(i+1,j)-sqrt(DG1(i,j)-DF1(i,j)**2/DE1(i,j))*Q1(i,j)+&
+    sqrt(DE2(i,j+1)-DF2(i,j+1)**2/DG2(i,j+1))*Q2(i,j+1)-sqrt(DE2(i,j)-DF2(i,j)**2/DG2(i,j))*Q2(i,j))/panel+&
+    lwc*beta*Wf*dt/rhow
     end if
+    Imps(l)%ahP(i,j)=ahP
+    Imps(l)%ahW(i,j)=ahW
+    Imps(l)%ahE(i,j)=ahE
+    Imps(l)%ahS(i,j)=ahS
+    Imps(l)%ahN(i,j)=ahN
+    Imps(l)%bh(i,j)=bh
     end DO
   end DO
 end if
 Fluxs(l)%Q1=Q1
 Fluxs(l)%Q2=Q2
-Imps(l)%ahP=ahP
-Imps(l)%ahW=ahW
-Imps(l)%ahE=ahE
-Imps(l)%ahS=ahS
-Imps(l)%ahN=ahN
-Imps(l)%bh=bh
 end subroutine Fluxf

@@ -19,7 +19,7 @@ print *,'BC force parameter transfer completed!'
 Call Initial
 massold=0
 DO l=1,block
-massold=massold+sum((rouw*Icecoordinates(l)%h+roui*Icecoordinates(l)%b)*Grids(l)%panel)
+massold=massold+sum((rhow*Icecoordinates(l)%h+rhoi*Icecoordinates(l)%b)*Grids(l)%panel)
 end DO
 timeout=nint(t/dt)
 open(unit=4,file='water&ice.txt',status='replace')
@@ -94,8 +94,8 @@ if(mod(timestep,100)==1.or.timestep==timeout) then
   massice=0
   DO l=1,block
   massdrop=massdrop+sum(lwc*Wf*Forces(l)%beta*Grids(l)%panel*timestep*dt)
-  masswater=masswater+sum(rouw*Icecoordinates(l)%h*Grids(l)%panel)
-  massice=massice+sum(roui*Icecoordinates(l)%b*Grids(l)%panel)
+  masswater=masswater+sum(rhow*Icecoordinates(l)%h*Grids(l)%panel)
+  massice=massice+sum(rhoi*Icecoordinates(l)%b*Grids(l)%panel)
   write(4,*) timestep,maxval(abs(Icecoordinates(l)%h)),minval(abs(Icecoordinates(l)%h)),maxval(abs(Icecoordinates(l)%b)),&
   minval(abs(Icecoordinates(l)%b))
   end DO

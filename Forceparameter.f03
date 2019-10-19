@@ -4,11 +4,11 @@ implicit none
 integer i,j,l
 real(8) gx,gy,gz,dux,duy,duz,dvx,dvy,dvz,dnx,dny,dnz
 real(8) Ax,Ay,Az,DE,DG,DF,panel,A1,A2,G1,G2,G3
-real(8) Xp(In(l),Jn(l)),Yp(In(l),Jn(l)),Zp(In(l),Jn(l))
+real(8),dimension(:,:),pointer::Xp,Yp,Zp
 
-Xp=Grids(l)%Xp
-Yp=Grids(l)%Yp
-Zp=Grids(l)%Zp
+Xp=>Grids(l)%Xp
+Yp=>Grids(l)%Yp
+Zp=>Grids(l)%Zp
 gx=0
 gy=-g
 gz=0
@@ -32,15 +32,15 @@ DO i=1,Ig(l)
   dnx=(duy*dvz-duz*dvy)/panel
   dny=(duz*dvx-dux*dvz)/panel
   dnz=(dux*dvy-duy*dvx)/panel
-  G1=rouw*DE**0.5*(gx*(dvy*dnz-dvz*dny)+gy*(dvz*dnx-dvx*dnz)+gz*(dvx*dny-dvy*dnx))/panel
-  G2=rouw*DG**0.5*(gx*(duz*dny-duy*dnz)+gy*(dux*dnz-duz*dnx)+gz*(duy*dnx-dux*dny))/panel
-  !G3=-rouw*(gx*dnx+gy*dny+gz*dnz)
+  G1=rhow*DE**0.5*(gx*(dvy*dnz-dvz*dny)+gy*(dvz*dnx-dvx*dnz)+gz*(dvx*dny-dvy*dnx))/panel
+  G2=rhow*DG**0.5*(gx*(duz*dny-duy*dnz)+gy*(dux*dnz-duz*dnx)+gz*(duy*dnx-dux*dny))/panel
+  !G3=-rhow*(gx*dnx+gy*dny+gz*dnz)
   G3=0
   A1=DE**0.5*(Ax*(dvy*dnz-dvz*dny)+Ay*(dvz*dnx-dvx*dnz)+Az*(dvx*dny-dvy*dnx))/panel
   A2=DG**0.5*(Ax*(duz*dny-duy*dnz)+Ay*(dux*dnz-duz*dnx)+Az*(duy*dnx-dux*dny))/panel
-  !G1=rouw*(gx*dux+gy*duy+gz*duz)/DE**0.5
-  !G2=rouw*(gx*dvx+gy*dvy+gz*dvz)/DG**0.5
-  !G3=-rouw*(gx*dnx+gy*dny+gz*dnz)
+  !G1=rhow*(gx*dux+gy*duy+gz*duz)/DE**0.5
+  !G2=rhow*(gx*dvx+gy*dvy+gz*dvz)/DG**0.5
+  !G3=-rhow*(gx*dnx+gy*dny+gz*dnz)
   !A1=(Ax*dux+Ay*duy+Az*duz)/DE**0.5
   !A2=(Ax*dvx+Ay*dvy+Az*dvz)/DG**0.5
   Grids(l)%DE(i,j)=DE

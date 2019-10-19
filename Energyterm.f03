@@ -28,7 +28,7 @@ end if
 if(surtempcontrol=='Y') then
 Call BlanceT
 end if
-Rek=roua*Uae*ks/miua
+Rek=rhoa*Uae*ks/mua
 if(Rek>=600) then
  recov=Pr**(1./3)
 else

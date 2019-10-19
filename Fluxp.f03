@@ -46,13 +46,13 @@ real(8) Qp1,Qp2,dQp1,dQp2
     Pn=Forces(l)%P(i,j+1)
     hn=Icecoordinates(l)%h(i,j+1)
     end if
-    Qp1=hc**3*(-DE**0.5*(DG*((Pe-Pw)/2+G3*(he-hw)/2)-DF*((Pn-Ps)/2+G3*(hn-hs)/2))/(DE*DG-DF**2)+G1)/(3*miuw)+A1*hc**2/(2*miuw)
-    Qp2=hc**3*(-DG**0.5*(DE*((Pn-Ps)/2+G3*(hn-hs)/2)-DF*((Pe-Pw)/2+G3*(he-hw)/2))/(DE*DG-DF**2)+G2)/(3*miuw)+A2*hc**2/(2*miuw)
+    Qp1=hc**3*(-DE**0.5*(DG*((Pe-Pw)/2+G3*(he-hw)/2)-DF*((Pn-Ps)/2+G3*(hn-hs)/2))/(DE*DG-DF**2)+G1)/(3*muw)+A1*hc**2/(2*muw)
+    Qp2=hc**3*(-DG**0.5*(DE*((Pn-Ps)/2+G3*(hn-hs)/2)-DF*((Pe-Pw)/2+G3*(he-hw)/2))/(DE*DG-DF**2)+G2)/(3*muw)+A2*hc**2/(2*muw)
     Fluxs(l)%Qp1(i,j)=Qp1
     Fluxs(l)%Qp2(i,j)=Qp2
     if(solutioncontrol=='implicit') then
-    dQp1=hc**2*(-DE**0.5*(DG*((Pe-Pw)/2+G3*(he-hw)/2)-DF*((Pn-Ps)/2+G3*(hn-hs)/2))/(DE*DG-DF**2)+G1)/miuw+A1*hc/miuw
-    dQp2=hc**2*(-DG**0.5*(DE*((Pn-Ps)/2+G3*(hn-hs)/2)-DF*((Pe-Pw)/2+G3*(he-hw)/2))/(DE*DG-DF**2)+G2)/miuw+A2*hc/miuw
+    dQp1=hc**2*(-DE**0.5*(DG*((Pe-Pw)/2+G3*(he-hw)/2)-DF*((Pn-Ps)/2+G3*(hn-hs)/2))/(DE*DG-DF**2)+G1)/muw+A1*hc/muw
+    dQp2=hc**2*(-DG**0.5*(DE*((Pn-Ps)/2+G3*(hn-hs)/2)-DF*((Pe-Pw)/2+G3*(he-hw)/2))/(DE*DG-DF**2)+G2)/muw+A2*hc/muw
     Fluxs(l)%dQp1(i,j)=dQp1
     Fluxs(l)%dQp2(i,j)=dQp2
     end if

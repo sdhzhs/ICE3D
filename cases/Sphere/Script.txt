@@ -2,35 +2,35 @@ Give name of initial surface grids file:
 spheresurf.xyz
 Give name of surface grids file:
 spheresurf.xyz
-Give name of air fluid property file:
+Give name of air flow property file:
 wallflux(sphere).dat
 Give name of drop property file:
 drop(sphere).dat
-Set fluid property(com/incom):
+Set air fluid property(com/incom):
 com
-Select advanced method(singl/multi):
+Select march method(singl/multi):
 singl
 Include Ice Accretion(Y/N)?
 Y
-input grid scale factor:
+Input grid scale factor:
 0.0752
-input liquid water content(kg/m3):
+Input liquid water content(kg/m3):
 6.95e-4
-input mean valued diameter(m):
+Input mean volume diameter(m):
 1.86e-5
-input air far field tempreture(K):
+Input air far field tempreture(K):
 261.05
-input drop tempreture(K):
+Input drop tempreture(K):
 261.05
-input initial solid surface tempreture(K):
+Input initial solid surface tempreture(K):
 261.05
-input air far field velocity(m/s):
+Input air far field velocity(m/s):
 75
-Give time step parameter(s):
+Give time step(s):
 1e-2
-Give total advance time(s):
+Give total march time(s):
 600
-Start advance from clean surface(Y/N)?
+Start march from clean surface(Y/N)?
 Y
 Give name of initial data file:(pre film height(m):)
 5e-9
@@ -38,9 +38,9 @@ Start inner surface tempreture iteration(Y/N)?
 N
 Select solution method(explicit/implicit)?
 implicit
-Select discretation scheme(upwind/TVD)?
+Select discretization scheme(upwind/TVD)?
 upwind
 Give max step of inner implicit iteration:
 100
-Give resident of inner implicit iteration:
+Give residual of inner implicit iteration:
 1e-8

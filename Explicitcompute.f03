@@ -30,17 +30,17 @@ real(8) panel,DEw,DEe,DEs,DEn,DGw,DGe,DGs,DGn,DFw,DFe,DFs,DFn,beta,qe0,qe1,Qw,Qe
     b=Icecoordinates(l)%b(i,j)
     if(icecoupled=='Y') then
     h=h-(sqrt(DGe-DFe**2/DEe)*Qe-sqrt(DGw-DFw**2/DEw)*Qw+sqrt(DEn-DFn**2/DGn)*Qn-sqrt(DEs-DFs**2/DGs)*Qs)*dt/panel+&
-    lwc*beta*Wf*dt/rouw-(alpha*ki*(Tf-Ts)/b-kw*(qe0+qe1*Tf))*dt/(rouw*Lf)
+    lwc*beta*Wf*dt/rhow-(alpha*ki*(Tf-Ts)/b-kw*(qe0+qe1*Tf))*dt/(rhow*Lf)
     if(h>hp) then
-    b=b+(alpha*ki*(Tf-Ts)/b-kw*(qe0+qe1*Tf))*dt/(roui*Lf)
+    b=b+(alpha*ki*(Tf-Ts)/b-kw*(qe0+qe1*Tf))*dt/(rhoi*Lf)
     else
     h=hp
-    b=b+lwc*beta*Wf*dt/roui-rouw*(sqrt(DGe-DFe**2/DEe)*Qe-sqrt(DGw-DFw**2/DEw)*Qw+sqrt(DEn-DFn**2/DGn)*Qn-&
-    sqrt(DEs-DFs**2/DGs)*Qs)*dt/panel/roui
+    b=b+lwc*beta*Wf*dt/rhoi-rhow*(sqrt(DGe-DFe**2/DEe)*Qe-sqrt(DGw-DFw**2/DEw)*Qw+sqrt(DEn-DFn**2/DGn)*Qn-&
+    sqrt(DEs-DFs**2/DGs)*Qs)*dt/panel/rhoi
     end if
     else if(icecoupled=='N') then
     h=h-(sqrt(DGe-DFe**2/DEe)*Qe-sqrt(DGw-DFw**2/DEw)*Qw+sqrt(DEn-DFn**2/DGn)*Qn-sqrt(DEs-DFs**2/DGs)*Qs)*dt/panel+&
-    lwc*beta*Wf*dt/rouw
+    lwc*beta*Wf*dt/rhow
     end if
     Icecoordinates(l)%h(i,j)=h
     Icecoordinates(l)%b(i,j)=b

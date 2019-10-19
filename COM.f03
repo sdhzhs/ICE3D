@@ -31,19 +31,19 @@ character(1),allocatable,dimension(:)::topol,topor,topou,topod,orientl,orientr,o
 end type
 save
 integer block,maxl,timestep,timeout
-real(8) pi,g,R,Ma,roua,rouw,roui,miua,miuw,ka,kw,ki,ca,cw,Pr,Prt,P0,Wf,epsi,sigmar,lwc,mvd,Ta,Td,Ts,Tf,Lf,Lv,c,hp,bp,dt,t,&
+real(8) pi,g,R,Ma,rhoa,rhow,rhoi,mua,muw,ka,kw,ki,ca,cw,Pr,Prt,P0,Wf,epsi,sigmar,lwc,mvd,Ta,Td,Ts,Tf,Lf,Lv,c,hp,bp,dt,t,&
 time,err,alpha
 character(8) surtempcontrol,solutioncontrol,initialtimecontrol,discretecontrol,icecoupled,advancemethod,fluidproperty,Scpt
 character(64) filename(5)
 integer,allocatable,dimension(:)::In,Jn,Ig,Jg
 character(32),allocatable,dimension(:)::formn,formc
-type(Grid),allocatable,dimension(:)::Grids
+type(Grid),allocatable,dimension(:),target::Grids
 type(Force),allocatable,dimension(:)::Forces
 type(Energy),allocatable,dimension(:)::Energys
-type(Flux),allocatable,dimension(:)::Fluxs
+type(Flux),allocatable,dimension(:),target::Fluxs
 type(Imp),allocatable,dimension(:)::Imps
-type(Icecoordinate),allocatable,dimension(:)::Icecoordinates
-type(Boundata),allocatable,dimension(:)::Boundatas
+type(Icecoordinate),allocatable,dimension(:),target::Icecoordinates
+type(Boundata),allocatable,dimension(:),target::Boundatas
 type(topo)::topos
 
 contains
@@ -54,7 +54,7 @@ if(x>0) then
 sgn=1
 else if(x<0) then
 sgn=-1
-else if(x==0) then
+else
 sgn=0
 end if
 return
@@ -79,11 +79,11 @@ end module COM
 ! g                   Gravitational acceleration
 ! R                   Universal gas constant
 ! Ma                  Molecular weight of air
-! roua                Density of air
-! rouw                Density of water
-! roui                Density of ice
-! miua                Viscosity of air
-! miuw                Viscosity of water
+! rhoa                Density of air
+! rhow                Density of water
+! rhoi                Density of ice
+! mua                Viscosity of air
+! muw                Viscosity of water
 ! ka                  Thermal conductivity of air
 ! kw                  Thermal conductivity of water
 ! ki                  Thermal conductivity of ice

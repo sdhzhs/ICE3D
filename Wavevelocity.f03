@@ -37,7 +37,7 @@ real(8) sax,say
     if(hc-hw/=0) then
     sax=(Qp1c-Qp1w)/(hc-hw)
     else
-    sax=(-(Pc-Pw)/DE1**0.5+0.5*(G1c+G1w))*hc**2/miuw+0.5*(A1c+A1w)*hc/miuw
+    sax=(-(Pc-Pw)/DE1**0.5+0.5*(G1c+G1w))*hc**2/muw+0.5*(A1c+A1w)*hc/muw
     end if
     Fluxs(l)%sax(i,j)=sax
     end DO
@@ -74,7 +74,7 @@ real(8) sax,say
     if(hc-hs/=0) then
     say=(Qp2c-Qp2s)/(hc-hs)
     else
-    say=(-(Pc-Ps)/DG2**0.5+0.5*(G2c+G2s))*hc**2/miuw+0.5*(A2c+A2s)*hc/miuw
+    say=(-(Pc-Ps)/DG2**0.5+0.5*(G2c+G2s))*hc**2/muw+0.5*(A2c+A2s)*hc/muw
     end if
     Fluxs(l)%say(i,j)=say
     end DO
