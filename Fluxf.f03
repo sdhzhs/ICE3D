@@ -8,9 +8,10 @@ Qp2bcd,dQp1bcl,dQp1bcr,dQp2bcu,dQp2bcd,dul,dur,dvu,dvd,saxl,saxr,sayu,sayd
 real(8) panel,beta,qe0,qe1,b
 real(8) ahP,ahW,ahE,ahN,ahS,bh
 real(8) lamda1(In(l),Jg(l)),lamda2(Ig(l),Jn(l)),Qup1(In(l),Jg(l)),Qup2(Ig(l),Jn(l)),Qlw1(In(l),Jg(l)),&
-Qlw2(Ig(l),Jn(l)),r1(In(l),Jg(l)),r2(Ig(l),Jn(l)),phi1(In(l),Jg(l)),phi2(Ig(l),Jn(l))
+Qlw2(Ig(l),Jn(l)),r1(In(l),Jg(l)),r2(Ig(l),Jn(l)),phi1(In(l),Jg(l)),phi2(Ig(l),Jn(l)),Q1(In(l),Jg(l)),&
+Q2(Ig(l),Jn(l))
 real(8) Cp1(In(l),Jg(l)),Cp2(Ig(l),Jn(l)),Cn1(In(l),Jg(l)),Cn2(Ig(l),Jn(l)),Dp1(In(l),Jg(l)),&
-Dp2(Ig(l),Jn(l)),Dn1(In(l),Jg(l)),Dn2(Ig(l),Jn(l)),Q1(In(l),Jg(l)),Q2(Ig(l),Jn(l))
+Dp2(Ig(l),Jn(l)),Dn1(In(l),Jg(l)),Dn2(Ig(l),Jn(l)),Ca1(In(l),Jg(l)),Ca2(Ig(l),Jn(l))
 DE1=>Grids(l)%DE1
 DG1=>Grids(l)%DG1
 DF1=>Grids(l)%DF1
@@ -221,6 +222,7 @@ if(solutioncontrol=='implicit') then
     Cn1(i,j)=dQp1(i,j)/2-sgn(sax(i,j))*dQp1(i,j)/2
     Dn1(i,j)=dQp1(i,j)/2-lamda1(i,j)*sax(i,j)**2/2
     end if
+    Ca1(i,j)=sqrt(DG1(i,j)-DF1(i,j)**2/DE1(i,j))
     end DO
   end DO
   DO i=1,Ig(l)
@@ -241,6 +243,7 @@ if(solutioncontrol=='implicit') then
     Cn2(i,j)=dQp2(i,j)/2-sgn(say(i,j))*dQp2(i,j)/2
     Dn2(i,j)=dQp2(i,j)/2-lamda2(i,j)*say(i,j)**2/2
     end if
+    Ca2(i,j)=sqrt(DE2(i,j)-DF2(i,j)**2/DG2(i,j))
     end DO
   end DO
   DO i=1,Ig(l)
@@ -251,73 +254,58 @@ if(solutioncontrol=='implicit') then
     qe1=Energys(l)%qe1(i,j)
     b=Icecoordinates(l)%b(i,j)
     if(discretecontrol=='TVD') then
-    ahP=dt*((sqrt(DG1(i+1,j)-DF1(i+1,j)**2/DE1(i+1,j))*(1-phi1(i+1,j))*Cp1(i+1,j)-&
-    sqrt(DG1(i,j)-DF1(i,j)**2/DE1(i,j))*(1-phi1(i,j))*Cn1(i,j)+sqrt(DG1(i+1,j)-DF1(i+1,j)**2/DE1(i+1,j))*phi1(i+1,j)*Dp1(i+1,j)-&
-    sqrt(DG1(i,j)-DF1(i,j)**2/DE1(i,j))*phi1(i,j)*Dn1(i,j))/panel+&
-    (sqrt(DE2(i,j+1)-DF2(i,j+1)**2/DG2(i,j+1))*(1-phi2(i,j+1))*Cp2(i,j+1)-&
-    sqrt(DE2(i,j)-DF2(i,j)**2/DG2(i,j))*(1-phi2(i,j))*Cn2(i,j)+sqrt(DE2(i,j+1)-DF2(i,j+1)**2/DG2(i,j+1))*phi2(i,j+1)*Dp2(i,j+1)-&
-    sqrt(DE2(i,j)-DF2(i,j)**2/DG2(i,j))*phi2(i,j)*Dn2(i,j))/panel)+1
-    ahE=-dt*(sqrt(DG1(i+1,j)-DF1(i+1,j)**2/DE1(i+1,j))*(1-phi1(i+1,j))*Cn1(i+1,j)+&
-    sqrt(DG1(i+1,j)-DF1(i+1,j)**2/DE1(i+1,j))*phi1(i+1,j)*Dn1(i+1,j))/panel
-    ahW=dt*(sqrt(DG1(i,j)-DF1(i,j)**2/DE1(i,j))*(1-phi1(i,j))*Cp1(i,j)+&
-    sqrt(DG1(i,j)-DF1(i,j)**2/DE1(i,j))*phi1(i,j)*Dp1(i,j))/panel
-    ahN=-dt*(sqrt(DE2(i,j+1)-DF2(i,j+1)**2/DG2(i,j+1))*(1-phi2(i,j+1))*Cn2(i,j+1)+&
-    sqrt(DE2(i,j+1)-DF2(i,j+1)**2/DG2(i,j+1))*phi2(i,j+1)*Dn2(i,j+1))/panel
-    ahS=dt*(sqrt(DE2(i,j)-DF2(i,j)**2/DG2(i,j))*(1-phi2(i,j))*Cp2(i,j)+&
-    sqrt(DE2(i,j)-DF2(i,j)**2/DG2(i,j))*phi2(i,j)*Dp2(i,j))/panel
+    ahP=dt*((Ca1(i+1,j)*(1-phi1(i+1,j))*Cp1(i+1,j)-Ca1(i,j)*(1-phi1(i,j))*Cn1(i,j)+Ca1(i+1,j)*phi1(i+1,j)*Dp1(i+1,j)-Ca1(i,j)*phi1(i,j)*Dn1(i,j))/panel+&
+    (Ca2(i,j+1)*(1-phi2(i,j+1))*Cp2(i,j+1)-Ca2(i,j)*(1-phi2(i,j))*Cn2(i,j)+Ca2(i,j+1)*phi2(i,j+1)*Dp2(i,j+1)-Ca2(i,j)*phi2(i,j)*Dn2(i,j))/panel)+1
+    ahE=-dt*(Ca1(i+1,j)*(1-phi1(i+1,j))*Cn1(i+1,j)+Ca1(i+1,j)*phi1(i+1,j)*Dn1(i+1,j))/panel
+    ahW=dt*(Ca1(i,j)*(1-phi1(i,j))*Cp1(i,j)+Ca1(i,j)*phi1(i,j)*Dp1(i,j))/panel
+    ahN=-dt*(Ca2(i,j+1)*(1-phi2(i,j+1))*Cn2(i,j+1)+Ca2(i,j+1)*phi2(i,j+1)*Dn2(i,j+1))/panel
+    ahS=dt*(Ca2(i,j)*(1-phi2(i,j))*Cp2(i,j)+Ca2(i,j)*phi2(i,j)*Dp2(i,j))/panel
     if(i==1.and.topos%nbl(l)==0) then
     !if(i==1.and.topos(l)%nbl(j)==0) then
     ahW=0
-    ahP=ahP+dt*(sqrt(DG1(i,j)-DF1(i,j)**2/DE1(i,j))*(1-phi1(i,j))*Cn1(i,j)+&
-    sqrt(DG1(i,j)-DF1(i,j)**2/DE1(i,j))*phi1(i,j)*Dn1(i,j))/panel
+    ahP=ahP+dt*(Ca1(i,j)*(1-phi1(i,j))*Cn1(i,j)+Ca1(i,j)*phi1(i,j)*Dn1(i,j))/panel
     else if(i==Ig(l).and.topos%nbr(l)==0) then
     !else if(i==Ig(l).and.topos(l)%nbr(j)==0) then
     ahE=0
-    ahP=ahP-dt*(sqrt(DG1(i+1,j)-DF1(i+1,j)**2/DE1(i+1,j))*(1-phi1(i+1,j))*Cp1(i+1,j)+&
-    sqrt(DG1(i+1,j)-DF1(i+1,j)**2/DE1(i+1,j))*phi1(i+1,j)*Dp1(i+1,j))/panel
+    ahP=ahP-dt*(Ca1(i+1,j)*(1-phi1(i+1,j))*Cp1(i+1,j)+Ca1(i+1,j)*phi1(i+1,j)*Dp1(i+1,j))/panel
     else if(j==1.and.topos%nbu(l)==0) then
     !else if(j==1.and.topos(l)%nbu(i)==0) then
     ahS=0
-    ahP=ahP+dt*(sqrt(DE2(i,j)-DF2(i,j)**2/DG2(i,j))*(1-phi2(i,j))*Cn2(i,j)+&
-    sqrt(DE2(i,j)-DF2(i,j)**2/DG2(i,j))*phi2(i,j)*Dn2(i,j))/panel
+    ahP=ahP+dt*(Ca2(i,j)*(1-phi2(i,j))*Cn2(i,j)+Ca2(i,j)*phi2(i,j)*Dn2(i,j))/panel
     else if(j==Jg(l).and.topos%nbd(l)==0) then
     !else if(j==Jg(l).and.topos(l)%nbd(i)==0) then
     ahN=0
-    ahP=ahP-dt*(sqrt(DE2(i,j+1)-DF2(i,j+1)**2/DG2(i,j+1))*(1-phi2(i,j+1))*Cp2(i,j+1)+&
-    sqrt(DE2(i,j+1)-DF2(i,j+1)**2/DG2(i,j+1))*phi2(i,j+1)*Dp2(i,j+1))/panel
+    ahP=ahP-dt*(Ca2(i,j+1)*(1-phi2(i,j+1))*Cp2(i,j+1)+Ca2(i,j+1)*phi2(i,j+1)*Dp2(i,j+1))/panel
     end if
     else if(discretecontrol=='upwind') then
-    ahP=dt*((sqrt(DG1(i+1,j)-DF1(i+1,j)**2/DE1(i+1,j))*Cp1(i+1,j)-sqrt(DG1(i,j)-DF1(i,j)**2/DE1(i,j))*Cn1(i,j))/panel+&
-    (sqrt(DE2(i,j+1)-DF2(i,j+1)**2/DG2(i,j+1))*Cp2(i,j+1)-sqrt(DE2(i,j)-DF2(i,j)**2/DG2(i,j))*Cn2(i,j))/panel)+1
-    ahE=-dt*sqrt(DG1(i+1,j)-DF1(i+1,j)**2/DE1(i+1,j))*Cn1(i+1,j)/panel
-    ahW=dt*sqrt(DG1(i,j)-DF1(i,j)**2/DE1(i,j))*Cp1(i,j)/panel
-    ahN=-dt*sqrt(DE2(i,j+1)-DF2(i,j+1)**2/DG2(i,j+1))*Cn2(i,j+1)/panel
-    ahS=dt*sqrt(DE2(i,j)-DF2(i,j)**2/DG2(i,j))*Cp2(i,j)/panel
+    ahP=dt*((Ca1(i+1,j)*Cp1(i+1,j)-Ca1(i,j)*Cn1(i,j))/panel+(Ca2(i,j+1)*Cp2(i,j+1)-Ca2(i,j)*Cn2(i,j))/panel)+1
+    ahE=-dt*Ca1(i+1,j)*Cn1(i+1,j)/panel
+    ahW=dt*Ca1(i,j)*Cp1(i,j)/panel
+    ahN=-dt*Ca2(i,j+1)*Cn2(i,j+1)/panel
+    ahS=dt*Ca2(i,j)*Cp2(i,j)/panel
     if(i==1.and.topos%nbl(l)==0) then
     !if(i==1.and.topos(l)%nbl(j)==0) then
     ahW=0
-    ahP=ahP+dt*sqrt(DG1(i,j)-DF1(i,j)**2/DE1(i,j))*Cn1(i,j)/panel
+    ahP=ahP+dt*Ca1(i,j)*Cn1(i,j)/panel
     else if(i==Ig(l).and.topos%nbr(l)==0) then
     !else if(i==Ig(l).and.topos(l)%nbr(j)==0) then
     ahE=0
-    ahP=ahP-dt*sqrt(DG1(i+1,j)-DF1(i+1,j)**2/DE1(i+1,j))*Cp1(i+1,j)/panel
+    ahP=ahP-dt*Ca1(i+1,j)*Cp1(i+1,j)/panel
     else if(j==1.and.topos%nbu(l)==0) then
     !else if(j==1.and.topos(l)%nbu(i)==0) then
     ahS=0
-    ahP=ahP+dt*sqrt(DE2(i,j)-DF2(i,j)**2/DG2(i,j))*Cn2(i,j)/panel
+    ahP=ahP+dt*Ca2(i,j)*Cn2(i,j)/panel
     else if(j==Jg(l).and.topos%nbd(l)==0) then
     !else if(j==Jg(l).and.topos(l)%nbd(i)==0) then
     ahN=0
-    ahP=ahP-dt*sqrt(DE2(i,j+1)-DF2(i,j+1)**2/DG2(i,j+1))*Cp2(i,j+1)/panel
+    ahP=ahP-dt*Ca2(i,j+1)*Cp2(i,j+1)/panel
     end if
     end if
     if(icecoupled=='Y') then
-    bh=-dt*(sqrt(DG1(i+1,j)-DF1(i+1,j)**2/DE1(i+1,j))*Q1(i+1,j)-sqrt(DG1(i,j)-DF1(i,j)**2/DE1(i,j))*Q1(i,j)+&
-    sqrt(DE2(i,j+1)-DF2(i,j+1)**2/DG2(i,j+1))*Q2(i,j+1)-sqrt(DE2(i,j)-DF2(i,j)**2/DG2(i,j))*Q2(i,j))/panel+&
+    bh=-dt*(Ca1(i+1,j)*Q1(i+1,j)-Ca1(i,j)*Q1(i,j)+Ca2(i,j+1)*Q2(i,j+1)-Ca2(i,j)*Q2(i,j))/panel+&
     lwc*beta*Wf*dt/rhow-(alpha*ki*(Tf-Ts)/b-kw*(qe0+qe1*Tf))*dt/(rhow*Lf)
     else if(icecoupled=='N') then
-    bh=-dt*(sqrt(DG1(i+1,j)-DF1(i+1,j)**2/DE1(i+1,j))*Q1(i+1,j)-sqrt(DG1(i,j)-DF1(i,j)**2/DE1(i,j))*Q1(i,j)+&
-    sqrt(DE2(i,j+1)-DF2(i,j+1)**2/DG2(i,j+1))*Q2(i,j+1)-sqrt(DE2(i,j)-DF2(i,j)**2/DG2(i,j))*Q2(i,j))/panel+&
+    bh=-dt*(Ca1(i+1,j)*Q1(i+1,j)-Ca1(i,j)*Q1(i,j)+Ca2(i,j+1)*Q2(i,j+1)-Ca2(i,j)*Q2(i,j))/panel+&
     lwc*beta*Wf*dt/rhow
     end if
     Imps(l)%ahP(i,j)=ahP
