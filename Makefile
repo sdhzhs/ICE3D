@@ -1,7 +1,7 @@
 vpath %.o obj
 vpath %.exe bin
 FC=gfortran
-FCFLAGS=-Wall -ffree-line-length-none -O3
+FCFLAGS=-W -fdefault-real-8 -fdefault-double-8 -ffree-line-length-none -O3
 LDFLAGS=-O3 -s
 src:=$(sort $(wildcard *.f03))
 objects:=$(src:.f03=.o)

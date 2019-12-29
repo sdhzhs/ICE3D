@@ -44,186 +44,146 @@ DO l=1,block
 end DO
 DO l=1,block
  part = l-1
- nb = topos%nbl(l)-1
  bclower(1)=0
- bclower(2)=1
  bcupper(1)=0
- bcupper(2)=Jg(l)
- if(topos%topol(l)=='J'.and.topos%positl(l)=='S'.and.topos%orientl(l)=='+') then
- nblower(1)=Ig(nb+1)
- nblower(2)=1
- nbupper(1)=Ig(nb+1)
- nbupper(2)=Jg(nb+1)
- map(1)=0
- map(2)=1
- dir(1)=1
- dir(2)=1
- else if(topos%topol(l)=='I'.and.topos%positl(l)=='S'.and.topos%orientl(l)=='-') then
- nblower(1)=Ig(nb+1)
- nblower(2)=Jg(nb+1)
- nbupper(1)=1
- nbupper(2)=Jg(nb+1)
- map(1)=1
- map(2)=0
- dir(1)=1
- dir(2)=-1
- else if(topos%topol(l)=='J'.and.topos%positl(l)=='N'.and.topos%orientl(l)=='-') then
- nblower(1)=1
- nblower(2)=Jg(nb+1)
- nbupper(1)=1
- nbupper(2)=1
- map(1)=0
- map(2)=1
- dir(1)=-1
- dir(2)=-1
- else if(topos%topol(l)=='I'.and.topos%positl(l)=='N'.and.topos%orientl(l)=='+') then
- nblower(1)=1
- nblower(2)=1
- nbupper(1)=Ig(nb+1)
- nbupper(2)=1
- map(1)=1
- map(2)=0
- dir(1)=-1
- dir(2)=1
- end if
- if(topos%nbl(l)/=0) then
- Call HYPRE_SStructGridSetNeighborPart(gridmb,part,bclower,bcupper,nb,nblower,nbupper,map,dir,ierr)
- end if
- nb = topos%nbr(l)-1
+ DO j=1,Jg(l)
+  if(topos(l)%nbl(j)/=0) then
+  nb = topos(l)%nbl(j)-1
+  bclower(2)=j
+  bcupper(2)=j
+  nblower(1)=topos(l)%Iindexl(j)
+  nblower(2)=topos(l)%Jindexl(j)
+  nbupper(1)=topos(l)%Iindexl(j)
+  nbupper(2)=topos(l)%Jindexl(j)
+  if(topos(l)%Iindexl(j)/=topos(l)%Iindexll(j).and.topos(l)%Iindexl(j)==Ig(nb+1)) then
+  map(1)=0
+  map(2)=1
+  dir(1)=1
+  dir(2)=1
+  else if(topos(l)%Jindexl(j)/=topos(l)%Jindexll(j).and.topos(l)%Jindexl(j)==Jg(nb+1)) then
+  map(1)=1
+  map(2)=0
+  dir(1)=1
+  dir(2)=-1
+  else if(topos(l)%Iindexl(j)/=topos(l)%Iindexll(j).and.topos(l)%Iindexl(j)==1) then
+  map(1)=0
+  map(2)=1
+  dir(1)=-1
+  dir(2)=-1
+  else if(topos(l)%Jindexl(j)/=topos(l)%Jindexll(j).and.topos(l)%Jindexl(j)==1) then
+  map(1)=1
+  map(2)=0
+  dir(1)=-1
+  dir(2)=1
+  end if
+  Call HYPRE_SStructGridSetNeighborPart(gridmb,part,bclower,bcupper,nb,nblower,nbupper,map,dir,ierr)
+  end if
+ end DO
  bclower(1)=In(l)
- bclower(2)=1
  bcupper(1)=In(l)
- bcupper(2)=Jg(l)
- if(topos%topor(l)=='J'.and.topos%positr(l)=='S'.and.topos%orientr(l)=='+') then
- nblower(1)=1
- nblower(2)=1
- nbupper(1)=1
- nbupper(2)=Jg(nb+1)
- map(1)=0
- map(2)=1
- dir(1)=1
- dir(2)=1
- else if(topos%topor(l)=='I'.and.topos%positr(l)=='S'.and.topos%orientr(l)=='-') then
- nblower(1)=Ig(nb+1)
- nblower(2)=1
- nbupper(1)=1
- nbupper(2)=1
- map(1)=1
- map(2)=0
- dir(1)=1
- dir(2)=-1
- else if(topos%topor(l)=='J'.and.topos%positr(l)=='N'.and.topos%orientr(l)=='-') then
- nblower(1)=Ig(nb+1)
- nblower(2)=Jg(nb+1)
- nbupper(1)=Ig(nb+1)
- nbupper(2)=1
- map(1)=0
- map(2)=1
- dir(1)=-1
- dir(2)=-1
- else if(topos%topor(l)=='I'.and.topos%positr(l)=='N'.and.topos%orientr(l)=='+') then
- nblower(1)=1
- nblower(2)=Jg(nb+1)
- nbupper(1)=Ig(nb+1)
- nbupper(2)=Jg(nb+1)
- map(1)=1
- map(2)=0
- dir(1)=-1
- dir(2)=1
- end if
- if(topos%nbr(l)/=0) then
- Call HYPRE_SStructGridSetNeighborPart(gridmb,part,bclower,bcupper,nb,nblower,nbupper,map,dir,ierr)
- end if
- nb = topos%nbu(l)-1
- bclower(1)=1
+ DO j=1,Jg(l)
+  if(topos(l)%nbr(j)/=0) then
+  nb = topos(l)%nbr(j)-1
+  bclower(2)=j
+  bcupper(2)=j
+  nblower(1)=topos(l)%Iindexr(j)
+  nblower(2)=topos(l)%Jindexr(j)
+  nbupper(1)=topos(l)%Iindexr(j)
+  nbupper(2)=topos(l)%Jindexr(j)
+  if(topos(l)%Iindexr(j)/=topos(l)%Iindexrr(j).and.topos(l)%Iindexr(j)==1) then
+  map(1)=0
+  map(2)=1
+  dir(1)=1
+  dir(2)=1
+  else if(topos(l)%Jindexr(j)/=topos(l)%Jindexrr(j).and.topos(l)%Jindexr(j)==1) then
+  map(1)=1
+  map(2)=0
+  dir(1)=1
+  dir(2)=-1
+  else if(topos(l)%Iindexr(j)/=topos(l)%Iindexrr(j).and.topos(l)%Iindexr(j)==Ig(nb+1)) then
+  map(1)=0
+  map(2)=1
+  dir(1)=-1
+  dir(2)=-1
+  else if(topos(l)%Jindexr(j)/=topos(l)%Jindexrr(j).and.topos(l)%Jindexr(j)==Jg(nb+1)) then
+  map(1)=1
+  map(2)=0
+  dir(1)=-1
+  dir(2)=1
+  end if
+  Call HYPRE_SStructGridSetNeighborPart(gridmb,part,bclower,bcupper,nb,nblower,nbupper,map,dir,ierr)
+  end if
+ end DO
  bclower(2)=0
- bcupper(1)=Ig(l)
  bcupper(2)=0
- if(topos%topou(l)=='I'.and.topos%positu(l)=='S'.and.topos%orientu(l)=='+') then
- nblower(1)=1
- nblower(2)=Jg(nb+1)
- nbupper(1)=Ig(nb+1)
- nbupper(2)=Jg(nb+1)
- map(1)=0
- map(2)=1
- dir(1)=1
- dir(2)=1
- else if(topos%topou(l)=='J'.and.topos%positu(l)=='S'.and.topos%orientu(l)=='-') then
- nblower(1)=Ig(nb+1)
- nblower(2)=Jg(nb+1)
- nbupper(1)=Ig(nb+1)
- nbupper(2)=1
- map(1)=1
- map(2)=0
- dir(1)=-1
- dir(2)=1
- else if(topos%topou(l)=='I'.and.topos%positu(l)=='N'.and.topos%orientu(l)=='-') then
- nblower(1)=Ig(nb+1)
- nblower(2)=1
- nbupper(1)=1
- nbupper(2)=1
- map(1)=0
- map(2)=1
- dir(1)=-1
- dir(2)=-1
- else if(topos%topou(l)=='J'.and.topos%positu(l)=='N'.and.topos%orientu(l)=='+') then
- nblower(1)=1
- nblower(2)=1
- nbupper(1)=1
- nbupper(2)=Jg(nb+1)
- map(1)=1
- map(2)=0
- dir(1)=1
- dir(2)=-1
- end if
- if(topos%nbu(l)/=0) then
- Call HYPRE_SStructGridSetNeighborPart(gridmb,part,bclower,bcupper,nb,nblower,nbupper,map,dir,ierr)
- end if
- nb = topos%nbd(l)-1
- bclower(1)=1
+ DO i=1,Ig(l)
+  if(topos(l)%nbu(i)/=0) then
+  nb = topos(l)%nbu(i)-1
+  bclower(1)=i
+  bcupper(1)=i
+  nblower(1)=topos(l)%Iindexu(i)
+  nblower(2)=topos(l)%Jindexu(i)
+  nbupper(1)=topos(l)%Iindexu(i)
+  nbupper(2)=topos(l)%Jindexu(i)
+  if(topos(l)%Jindexu(i)/=topos(l)%Jindexuu(i).and.topos(l)%Jindexu(i)==Jg(nb+1)) then
+  map(1)=0
+  map(2)=1
+  dir(1)=1
+  dir(2)=1
+  else if(topos(l)%Iindexu(i)/=topos(l)%Iindexuu(i).and.topos(l)%Iindexu(i)==Ig(nb+1)) then
+  map(1)=1
+  map(2)=0
+  dir(1)=-1
+  dir(2)=1
+  else if(topos(l)%Jindexu(i)/=topos(l)%Jindexuu(i).and.topos(l)%Jindexu(i)==1) then
+  map(1)=0
+  map(2)=1
+  dir(1)=-1
+  dir(2)=-1
+  else if(topos(l)%Iindexu(i)/=topos(l)%Iindexuu(i).and.topos(l)%Iindexu(i)==1) then
+  map(1)=1
+  map(2)=0
+  dir(1)=1
+  dir(2)=-1
+  end if
+  Call HYPRE_SStructGridSetNeighborPart(gridmb,part,bclower,bcupper,nb,nblower,nbupper,map,dir,ierr)
+  end if
+ end DO
  bclower(2)=Jn(l)
- bcupper(1)=Ig(l)
  bcupper(2)=Jn(l)
- if(topos%topod(l)=='I'.and.topos%positd(l)=='S'.and.topos%orientd(l)=='+') then
- nblower(1)=1
- nblower(2)=1
- nbupper(1)=Ig(nb+1)
- nbupper(2)=1
- map(1)=0
- map(2)=1
- dir(1)=1
- dir(2)=1
- else if(topos%topod(l)=='J'.and.topos%positd(l)=='S'.and.topos%orientd(l)=='-') then
- nblower(1)=1
- nblower(2)=Jg(nb+1)
- nbupper(1)=1
- nbupper(2)=1
- map(1)=1
- map(2)=0
- dir(1)=-1
- dir(2)=1
- else if(topos%topod(l)=='I'.and.topos%positd(l)=='N'.and.topos%orientd(l)=='-') then
- nblower(1)=Ig(nb+1)
- nblower(2)=Jg(nb+1)
- nbupper(1)=1
- nbupper(2)=Jg(nb+1)
- map(1)=0
- map(2)=1
- dir(1)=-1
- dir(2)=-1
- else if(topos%topod(l)=='J'.and.topos%positd(l)=='N'.and.topos%orientd(l)=='+') then
- nblower(1)=Ig(nb+1)
- nblower(2)=1
- nbupper(1)=Ig(nb+1)
- nbupper(2)=Jg(nb+1)
- map(1)=1
- map(2)=0
- dir(1)=1
- dir(2)=-1
- end if
- if(topos%nbd(l)/=0) then
- Call HYPRE_SStructGridSetNeighborPart(gridmb,part,bclower,bcupper,nb,nblower,nbupper,map,dir,ierr)
- end if
+ DO i=1,Ig(l)
+  if(topos(l)%nbd(i)/=0) then
+  nb = topos(l)%nbd(i)-1
+  bclower(1)=i
+  bcupper(1)=i
+  nblower(1)=topos(l)%Iindexd(i)
+  nblower(2)=topos(l)%Jindexd(i)
+  nbupper(1)=topos(l)%Iindexd(i)
+  nbupper(2)=topos(l)%Jindexd(i)
+  if(topos(l)%Jindexd(i)/=topos(l)%Jindexdd(i).and.topos(l)%Jindexd(i)==1) then
+  map(1)=0
+  map(2)=1
+  dir(1)=1
+  dir(2)=1
+  else if(topos(l)%Iindexd(i)/=topos(l)%Iindexdd(i).and.topos(l)%Iindexd(i)==1) then
+  map(1)=1
+  map(2)=0
+  dir(1)=-1
+  dir(2)=1
+  else if(topos(l)%Jindexd(i)/=topos(l)%Jindexdd(i).and.topos(l)%Jindexd(i)==Jg(nb+1)) then
+  map(1)=0
+  map(2)=1
+  dir(1)=-1
+  dir(2)=-1
+  else if(topos(l)%Iindexd(i)/=topos(l)%Iindexdd(i).and.topos(l)%Iindexd(i)==Ig(nb+1)) then
+  map(1)=1
+  map(2)=0
+  dir(1)=1
+  dir(2)=-1
+  end if
+  Call HYPRE_SStructGridSetNeighborPart(gridmb,part,bclower,bcupper,nb,nblower,nbupper,map,dir,ierr)
+  end if
+ end DO
 end DO
 Call HYPRE_SStructGridAssemble(gridmb,ierr)
 

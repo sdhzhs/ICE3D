@@ -34,7 +34,7 @@ real(8) sax,say
     Qp1w=Fluxs(l)%Qp1(i-1,j)
     hw=Icecoordinates(l)%h(i-1,j)
     end if
-    if(hc-hw/=0) then
+    if(abs(hc-hw)>0) then
     sax=(Qp1c-Qp1w)/(hc-hw)
     else
     sax=(-(Pc-Pw)/DE1**0.5+0.5*(G1c+G1w))*hc**2/muw+0.5*(A1c+A1w)*hc/muw
@@ -71,7 +71,7 @@ real(8) sax,say
     Qp2s=Fluxs(l)%Qp2(i,j-1)
     hs=Icecoordinates(l)%h(i,j-1)
     end if
-    if(hc-hs/=0) then
+    if(abs(hc-hs)>0) then
     say=(Qp2c-Qp2s)/(hc-hs)
     else
     say=(-(Pc-Ps)/DG2**0.5+0.5*(G2c+G2s))*hc**2/muw+0.5*(A2c+A2s)*hc/muw

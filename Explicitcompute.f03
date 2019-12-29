@@ -31,7 +31,10 @@ real(8) panel,DEw,DEe,DEs,DEn,DGw,DGe,DGs,DGn,DFw,DFe,DFs,DFn,beta,qe0,qe1,Qw,Qe
     if(icecoupled=='Y') then
     h=h-(sqrt(DGe-DFe**2/DEe)*Qe-sqrt(DGw-DFw**2/DEw)*Qw+sqrt(DEn-DFn**2/DGn)*Qn-sqrt(DEs-DFs**2/DGs)*Qs)*dt/panel+&
     lwc*beta*Wf*dt/rhow-(alpha*ki*(Tf-Ts)/b-kw*(qe0+qe1*Tf))*dt/(rhow*Lf)
-    if(h>hp) then
+    if(h>1e-4) then
+    h=1e-4
+    b=b+(alpha*ki*(Tf-Ts)/b-kw*(qe0+qe1*Tf))*dt/(rhoi*Lf)
+    else if(h>hp) then
     b=b+(alpha*ki*(Tf-Ts)/b-kw*(qe0+qe1*Tf))*dt/(rhoi*Lf)
     else
     h=hp

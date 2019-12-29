@@ -48,12 +48,10 @@ DO j=1,Jn(l)
   Zpd=Grids(l)%Zp(i,j+1)
   end if
   if(i==In(l).and.j==Jn(l)) then
-  if(topos%nbr(l)==0) then
-  !if(topos(l)%nbr(j-1)==0) then
+  if(topos(l)%nbr(j-1)==0) then
   hc=Boundatas(l)%hbcd(i-1)
   bc=Boundatas(l)%bbcd(i-1)
-  else if(topos%nbd(l)==0) then
-  !else if(topos(l)%nbd(i-1)==0) then
+  else if(topos(l)%nbd(i-1)==0) then
   hc=Boundatas(l)%hbcr(j-1)
   bc=Boundatas(l)%bbcr(j-1)
   else
@@ -71,12 +69,10 @@ DO j=1,Jn(l)
   bc=Icecoordinates(l)%b(i,j)
   end if
   if(i==1.and.j==Jn(l)) then
-  if(topos%nbl(l)==0) then
-  !if(topos(l)%nbl(j-1)==0) then
+  if(topos(l)%nbl(j-1)==0) then
   hl=Boundatas(l)%hbcd(i)
   bl=Boundatas(l)%bbcd(i)
-  else if(topos%nbd(l)==0) then
-  !else if(topos(l)%nbd(i)==0) then
+  else if(topos(l)%nbd(i)==0) then
   hl=Boundatas(l)%hbcl(j-1)
   bl=Boundatas(l)%bbcl(j-1)
   else
@@ -94,12 +90,10 @@ DO j=1,Jn(l)
   bl=Icecoordinates(l)%b(i-1,j)
   end if
   if(i==In(l).and.j==1) then
-  if(topos%nbr(l)==0) then
-  !if(topos(l)%nbr(j)==0) then
+  if(topos(l)%nbr(j)==0) then
   hu=Boundatas(l)%hbcu(i-1)
   bu=Boundatas(l)%bbcu(i-1)
-  else if(topos%nbu(l)==0) then
-  !else if(topos(l)%nbu(i-1)==0) then
+  else if(topos(l)%nbu(i-1)==0) then
   hu=Boundatas(l)%hbcr(j)
   bu=Boundatas(l)%bbcr(j)
   else
@@ -117,12 +111,10 @@ DO j=1,Jn(l)
   bu=Icecoordinates(l)%b(i,j-1)
   end if
   if(i==1.and.j==1) then
-  if(topos%nbl(l)==0) then
-  !if(topos(l)%nbl(j)==0) then
+  if(topos(l)%nbl(j)==0) then
   hlu=Boundatas(l)%hbcu(i)
   blu=Boundatas(l)%bbcu(i)
-  else if(topos%nbu(l)==0) then
-  !else if(topos(l)%nbu(i)==0) then
+  else if(topos(l)%nbu(i)==0) then
   hlu=Boundatas(l)%hbcl(j)
   blu=Boundatas(l)%bbcl(j)
   else

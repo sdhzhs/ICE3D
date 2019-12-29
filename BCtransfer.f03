@@ -4,600 +4,272 @@ implicit none
 integer i,j,l
 DO l=1,block
  DO j=1,Jg(l)
-  if(topos%topol(l)=='J'.and.topos%positl(l)=='S'.and.topos%orientl(l)=='+') then
-  Boundatas(l)%Xbcl(j)=Grids(topos%nbl(l))%X(Ig(topos%nbl(l)),j)
-  Boundatas(l)%Ybcl(j)=Grids(topos%nbl(l))%Y(Ig(topos%nbl(l)),j)
-  Boundatas(l)%Zbcl(j)=Grids(topos%nbl(l))%Z(Ig(topos%nbl(l)),j)
-  Boundatas(l)%Pbcl(j)=Forces(topos%nbl(l))%P(Ig(topos%nbl(l)),j)
-  Boundatas(l)%G1bcl(j)=Forces(topos%nbl(l))%G1(Ig(topos%nbl(l)),j)
-  Boundatas(l)%A1bcl(j)=Forces(topos%nbl(l))%A1(Ig(topos%nbl(l)),j)
-  Boundatas(l)%DEbcl(j)=Grids(topos%nbl(l))%DE(Ig(topos%nbl(l)),j)
-  Boundatas(l)%DGbcl(j)=Grids(topos%nbl(l))%DG(Ig(topos%nbl(l)),j)
-  Boundatas(l)%DFbcl(j)=Grids(topos%nbl(l))%DF(Ig(topos%nbl(l)),j)
-  Boundatas(l)%dul(j)=Grids(topos%nbl(l))%DE1(Ig(topos%nbl(l)),j)
-  else if(topos%topol(l)=='J'.and.topos%positl(l)=='S'.and.topos%orientl(l)=='-') then
-  Boundatas(l)%Xbcl(j)=Grids(topos%nbl(l))%X(Ig(topos%nbl(l)),Jg(l)+1-j)
-  Boundatas(l)%Ybcl(j)=Grids(topos%nbl(l))%Y(Ig(topos%nbl(l)),Jg(l)+1-j)
-  Boundatas(l)%Zbcl(j)=Grids(topos%nbl(l))%Z(Ig(topos%nbl(l)),Jg(l)+1-j)
-  Boundatas(l)%Pbcl(j)=Forces(topos%nbl(l))%P(Ig(topos%nbl(l)),Jg(l)+1-j)
-  Boundatas(l)%G1bcl(j)=Forces(topos%nbl(l))%G1(Ig(topos%nbl(l)),Jg(l)+1-j)
-  Boundatas(l)%A1bcl(j)=Forces(topos%nbl(l))%A1(Ig(topos%nbl(l)),Jg(l)+1-j)
-  Boundatas(l)%DEbcl(j)=Grids(topos%nbl(l))%DE(Ig(topos%nbl(l)),Jg(l)+1-j)
-  Boundatas(l)%DGbcl(j)=Grids(topos%nbl(l))%DG(Ig(topos%nbl(l)),Jg(l)+1-j)
-  Boundatas(l)%DFbcl(j)=-Grids(topos%nbl(l))%DF(Ig(topos%nbl(l)),Jg(l)+1-j)
-  Boundatas(l)%dul(j)=Grids(topos%nbl(l))%DE1(Ig(topos%nbl(l)),Jg(l)+1-j)
-  else if(topos%topol(l)=='I'.and.topos%positl(l)=='S'.and.topos%orientl(l)=='-') then
-  Boundatas(l)%Xbcl(j)=Grids(topos%nbl(l))%X(Ig(topos%nbl(l))+1-j,Jg(topos%nbl(l)))
-  Boundatas(l)%Ybcl(j)=Grids(topos%nbl(l))%Y(Ig(topos%nbl(l))+1-j,Jg(topos%nbl(l)))
-  Boundatas(l)%Zbcl(j)=Grids(topos%nbl(l))%Z(Ig(topos%nbl(l))+1-j,Jg(topos%nbl(l)))
-  Boundatas(l)%Pbcl(j)=Forces(topos%nbl(l))%P(Ig(topos%nbl(l))+1-j,Jg(topos%nbl(l)))
-  Boundatas(l)%G1bcl(j)=Forces(topos%nbl(l))%G2(Ig(topos%nbl(l))+1-j,Jg(topos%nbl(l)))
-  Boundatas(l)%A1bcl(j)=Forces(topos%nbl(l))%A2(Ig(topos%nbl(l))+1-j,Jg(topos%nbl(l)))
-  Boundatas(l)%DEbcl(j)=Grids(topos%nbl(l))%DG(Ig(topos%nbl(l))+1-j,Jg(topos%nbl(l)))
-  Boundatas(l)%DGbcl(j)=Grids(topos%nbl(l))%DE(Ig(topos%nbl(l))+1-j,Jg(topos%nbl(l)))
-  Boundatas(l)%DFbcl(j)=-Grids(topos%nbl(l))%DF(Ig(topos%nbl(l))+1-j,Jg(topos%nbl(l)))
-  Boundatas(l)%dul(j)=Grids(topos%nbl(l))%DG2(Ig(topos%nbl(l))+1-j,Jg(topos%nbl(l)))
-  else if(topos%topol(l)=='I'.and.topos%positl(l)=='S'.and.topos%orientl(l)=='+') then
-  Boundatas(l)%Xbcl(j)=Grids(topos%nbl(l))%X(j,Jg(topos%nbl(l)))
-  Boundatas(l)%Ybcl(j)=Grids(topos%nbl(l))%Y(j,Jg(topos%nbl(l)))
-  Boundatas(l)%Zbcl(j)=Grids(topos%nbl(l))%Z(j,Jg(topos%nbl(l)))
-  Boundatas(l)%Pbcl(j)=Forces(topos%nbl(l))%P(j,Jg(topos%nbl(l)))
-  Boundatas(l)%G1bcl(j)=Forces(topos%nbl(l))%G2(j,Jg(topos%nbl(l)))
-  Boundatas(l)%A1bcl(j)=Forces(topos%nbl(l))%A2(j,Jg(topos%nbl(l)))
-  Boundatas(l)%DEbcl(j)=Grids(topos%nbl(l))%DG(j,Jg(topos%nbl(l)))
-  Boundatas(l)%DGbcl(j)=Grids(topos%nbl(l))%DE(j,Jg(topos%nbl(l)))
-  Boundatas(l)%DFbcl(j)=Grids(topos%nbl(l))%DF(j,Jg(topos%nbl(l)))
-  Boundatas(l)%dul(j)=Grids(topos%nbl(l))%DG2(j,Jg(topos%nbl(l)))
-  else if(topos%topol(l)=='J'.and.topos%positl(l)=='N'.and.topos%orientl(l)=='-') then
-  Boundatas(l)%Xbcl(j)=Grids(topos%nbl(l))%X(1,Jg(topos%nbl(l))+1-j)
-  Boundatas(l)%Ybcl(j)=Grids(topos%nbl(l))%Y(1,Jg(topos%nbl(l))+1-j)
-  Boundatas(l)%Zbcl(j)=Grids(topos%nbl(l))%Z(1,Jg(topos%nbl(l))+1-j)
-  Boundatas(l)%Pbcl(j)=Forces(topos%nbl(l))%P(1,Jg(topos%nbl(l))+1-j)
-  Boundatas(l)%G1bcl(j)=-Forces(topos%nbl(l))%G1(1,Jg(topos%nbl(l))+1-j)
-  Boundatas(l)%A1bcl(j)=-Forces(topos%nbl(l))%A1(1,Jg(topos%nbl(l))+1-j)
-  Boundatas(l)%DEbcl(j)=Grids(topos%nbl(l))%DE(1,Jg(topos%nbl(l))+1-j)
-  Boundatas(l)%DGbcl(j)=Grids(topos%nbl(l))%DG(1,Jg(topos%nbl(l))+1-j)
-  Boundatas(l)%DFbcl(j)=Grids(topos%nbl(l))%DF(1,Jg(topos%nbl(l))+1-j)
-  Boundatas(l)%dul(j)=Grids(topos%nbl(l))%DE1(2,Jg(topos%nbl(l))+1-j)
-  else if(topos%topol(l)=='J'.and.topos%positl(l)=='N'.and.topos%orientl(l)=='+') then
-  Boundatas(l)%Xbcl(j)=Grids(topos%nbl(l))%X(1,j)
-  Boundatas(l)%Ybcl(j)=Grids(topos%nbl(l))%Y(1,j)
-  Boundatas(l)%Zbcl(j)=Grids(topos%nbl(l))%Z(1,j)
-  Boundatas(l)%Pbcl(j)=Forces(topos%nbl(l))%P(1,j)
-  Boundatas(l)%G1bcl(j)=-Forces(topos%nbl(l))%G1(1,j)
-  Boundatas(l)%A1bcl(j)=-Forces(topos%nbl(l))%A1(1,j)
-  Boundatas(l)%DEbcl(j)=Grids(topos%nbl(l))%DE(1,j)
-  Boundatas(l)%DGbcl(j)=Grids(topos%nbl(l))%DG(1,j)
-  Boundatas(l)%DFbcl(j)=-Grids(topos%nbl(l))%DF(1,j)
-  Boundatas(l)%dul(j)=Grids(topos%nbl(l))%DE1(2,j)
-  else if(topos%topol(l)=='I'.and.topos%positl(l)=='N'.and.topos%orientl(l)=='-') then
-  Boundatas(l)%Xbcl(j)=Grids(topos%nbl(l))%X(Ig(topos%nbl(l))+1-j,1)
-  Boundatas(l)%Ybcl(j)=Grids(topos%nbl(l))%Y(Ig(topos%nbl(l))+1-j,1)
-  Boundatas(l)%Zbcl(j)=Grids(topos%nbl(l))%Z(Ig(topos%nbl(l))+1-j,1)
-  Boundatas(l)%Pbcl(j)=Forces(topos%nbl(l))%P(Ig(topos%nbl(l))+1-j,1)
-  Boundatas(l)%G1bcl(j)=-Forces(topos%nbl(l))%G2(Ig(topos%nbl(l))+1-j,1)
-  Boundatas(l)%A1bcl(j)=-Forces(topos%nbl(l))%A2(Ig(topos%nbl(l))+1-j,1)
-  Boundatas(l)%DEbcl(j)=Grids(topos%nbl(l))%DG(Ig(topos%nbl(l))+1-j,1)
-  Boundatas(l)%DGbcl(j)=Grids(topos%nbl(l))%DE(Ig(topos%nbl(l))+1-j,1)
-  Boundatas(l)%DFbcl(j)=Grids(topos%nbl(l))%DF(Ig(topos%nbl(l))+1-j,1)
-  Boundatas(l)%dul(j)=Grids(topos%nbl(l))%DG2(Ig(topos%nbl(l))+1-j,2)
-  else if(topos%topol(l)=='I'.and.topos%positl(l)=='N'.and.topos%orientl(l)=='+') then
-  Boundatas(l)%Xbcl(j)=Grids(topos%nbl(l))%X(j,1)
-  Boundatas(l)%Ybcl(j)=Grids(topos%nbl(l))%Y(j,1)
-  Boundatas(l)%Zbcl(j)=Grids(topos%nbl(l))%Z(j,1)
-  Boundatas(l)%Pbcl(j)=Forces(topos%nbl(l))%P(j,1)
-  Boundatas(l)%G1bcl(j)=-Forces(topos%nbl(l))%G2(j,1)
-  Boundatas(l)%A1bcl(j)=-Forces(topos%nbl(l))%A2(j,1)
-  Boundatas(l)%DEbcl(j)=Grids(topos%nbl(l))%DG(j,1)
-  Boundatas(l)%DGbcl(j)=Grids(topos%nbl(l))%DE(j,1)
-  Boundatas(l)%DFbcl(j)=-Grids(topos%nbl(l))%DF(j,1)
-  Boundatas(l)%dul(j)=Grids(topos%nbl(l))%DG2(j,2)
+  if(topos(l)%topol(j)/='n') then
+   Boundatas(l)%Xbcl(j)=Grids(topos(l)%nbl(j))%X(topos(l)%Iindexl(j),topos(l)%Jindexl(j))
+   Boundatas(l)%Ybcl(j)=Grids(topos(l)%nbl(j))%Y(topos(l)%Iindexl(j),topos(l)%Jindexl(j))
+   Boundatas(l)%Zbcl(j)=Grids(topos(l)%nbl(j))%Z(topos(l)%Iindexl(j),topos(l)%Jindexl(j))
+   Boundatas(l)%Pbcl(j)=Forces(topos(l)%nbl(j))%P(topos(l)%Iindexl(j),topos(l)%Jindexl(j))
+   if(topos(l)%topol(j)=='r') then
+    Boundatas(l)%G1bcl(j)=Forces(topos(l)%nbl(j))%G1(topos(l)%Iindexl(j),topos(l)%Jindexl(j))
+    Boundatas(l)%A1bcl(j)=Forces(topos(l)%nbl(j))%A1(topos(l)%Iindexl(j),topos(l)%Jindexl(j))
+    Boundatas(l)%DEbcl(j)=Grids(topos(l)%nbl(j))%DE(topos(l)%Iindexl(j),topos(l)%Jindexl(j))
+    Boundatas(l)%DGbcl(j)=Grids(topos(l)%nbl(j))%DG(topos(l)%Iindexl(j),topos(l)%Jindexl(j))
+    Boundatas(l)%DFbcl(j)=Grids(topos(l)%nbl(j))%DF(topos(l)%Iindexl(j),topos(l)%Jindexl(j))
+    Boundatas(l)%dul(j)=Grids(topos(l)%nbl(j))%DE1(topos(l)%Iindexl(j),topos(l)%Jindexl(j))
+   else if(topos(l)%topol(j)=='d') then
+    Boundatas(l)%G1bcl(j)=Forces(topos(l)%nbl(j))%G2(topos(l)%Iindexl(j),topos(l)%Jindexl(j))
+    Boundatas(l)%A1bcl(j)=Forces(topos(l)%nbl(j))%A2(topos(l)%Iindexl(j),topos(l)%Jindexl(j))
+    Boundatas(l)%DEbcl(j)=Grids(topos(l)%nbl(j))%DG(topos(l)%Iindexl(j),topos(l)%Jindexl(j))
+    Boundatas(l)%DGbcl(j)=Grids(topos(l)%nbl(j))%DE(topos(l)%Iindexl(j),topos(l)%Jindexl(j))
+    Boundatas(l)%DFbcl(j)=-Grids(topos(l)%nbl(j))%DF(topos(l)%Iindexl(j),topos(l)%Jindexl(j))
+    Boundatas(l)%dul(j)=Grids(topos(l)%nbl(j))%DG2(topos(l)%Iindexl(j),topos(l)%Jindexl(j))
+   else if(topos(l)%topol(j)=='l') then
+    Boundatas(l)%G1bcl(j)=-Forces(topos(l)%nbl(j))%G1(topos(l)%Iindexl(j),topos(l)%Jindexl(j))
+    Boundatas(l)%A1bcl(j)=-Forces(topos(l)%nbl(j))%A1(topos(l)%Iindexl(j),topos(l)%Jindexl(j))
+    Boundatas(l)%DEbcl(j)=Grids(topos(l)%nbl(j))%DE(topos(l)%Iindexl(j),topos(l)%Jindexl(j))
+    Boundatas(l)%DGbcl(j)=Grids(topos(l)%nbl(j))%DG(topos(l)%Iindexl(j),topos(l)%Jindexl(j))
+    Boundatas(l)%DFbcl(j)=Grids(topos(l)%nbl(j))%DF(topos(l)%Iindexl(j),topos(l)%Jindexl(j))
+    Boundatas(l)%dul(j)=Grids(topos(l)%nbl(j))%DE1(topos(l)%Iindexll(j),topos(l)%Jindexl(j))
+   else if(topos(l)%topol(j)=='u') then
+    Boundatas(l)%G1bcl(j)=-Forces(topos(l)%nbl(j))%G2(topos(l)%Iindexl(j),topos(l)%Jindexl(j))
+    Boundatas(l)%A1bcl(j)=-Forces(topos(l)%nbl(j))%A2(topos(l)%Iindexl(j),topos(l)%Jindexl(j))
+    Boundatas(l)%DEbcl(j)=Grids(topos(l)%nbl(j))%DG(topos(l)%Iindexl(j),topos(l)%Jindexl(j))
+    Boundatas(l)%DGbcl(j)=Grids(topos(l)%nbl(j))%DE(topos(l)%Iindexl(j),topos(l)%Jindexl(j))
+    Boundatas(l)%DFbcl(j)=-Grids(topos(l)%nbl(j))%DF(topos(l)%Iindexl(j),topos(l)%Jindexl(j))
+    Boundatas(l)%dul(j)=Grids(topos(l)%nbl(j))%DG2(topos(l)%Iindexl(j),topos(l)%Jindexll(j))
+   end if
   else
-  Boundatas(l)%Xbcl(j)=Grids(l)%X(1,j)
-  Boundatas(l)%Ybcl(j)=Grids(l)%Y(1,j)
-  Boundatas(l)%Zbcl(j)=-Grids(l)%Z(1,j)
-  Boundatas(l)%Pbcl(j)=Forces(l)%P(1,j)
-  Boundatas(l)%G1bcl(j)=-Forces(l)%G1(1,j)
-  Boundatas(l)%A1bcl(j)=-Forces(l)%A1(1,j)
-  Boundatas(l)%DEbcl(j)=Grids(l)%DE(1,j)
-  Boundatas(l)%DGbcl(j)=Grids(l)%DG(1,j)
-  Boundatas(l)%DFbcl(j)=-Grids(l)%DF(1,j)
-  Boundatas(l)%dul(j)=Grids(l)%DE1(1,j)
-  end if
-  end DO
-end DO
-DO l=1,block
- DO j=1,Jg(l)
-  if(topos%topor(l)=='J'.and.topos%positr(l)=='S'.and.topos%orientr(l)=='+') then
-  Boundatas(l)%Xbcr(j)=Grids(topos%nbr(l))%X(1,j)
-  Boundatas(l)%Ybcr(j)=Grids(topos%nbr(l))%Y(1,j)
-  Boundatas(l)%Zbcr(j)=Grids(topos%nbr(l))%Z(1,j)
-  Boundatas(l)%Pbcr(j)=Forces(topos%nbr(l))%P(1,j)
-  Boundatas(l)%G1bcr(j)=Forces(topos%nbr(l))%G1(1,j)
-  Boundatas(l)%A1bcr(j)=Forces(topos%nbr(l))%A1(1,j)
-  Boundatas(l)%DEbcr(j)=Grids(topos%nbr(l))%DE(1,j)
-  Boundatas(l)%DGbcr(j)=Grids(topos%nbr(l))%DG(1,j)
-  Boundatas(l)%DFbcr(j)=Grids(topos%nbr(l))%DF(1,j)
-  Boundatas(l)%dur(j)=Grids(topos%nbr(l))%DE1(2,j)
-  else if(topos%topor(l)=='J'.and.topos%positr(l)=='S'.and.topos%orientr(l)=='-') then
-  Boundatas(l)%Xbcr(j)=Grids(topos%nbr(l))%X(1,Jg(l)+1-j)
-  Boundatas(l)%Ybcr(j)=Grids(topos%nbr(l))%Y(1,Jg(l)+1-j)
-  Boundatas(l)%Zbcr(j)=Grids(topos%nbr(l))%Z(1,Jg(l)+1-j)
-  Boundatas(l)%Pbcr(j)=Forces(topos%nbr(l))%P(1,Jg(l)+1-j)
-  Boundatas(l)%G1bcr(j)=Forces(topos%nbr(l))%G1(1,Jg(l)+1-j)
-  Boundatas(l)%A1bcr(j)=Forces(topos%nbr(l))%A1(1,Jg(l)+1-j)
-  Boundatas(l)%DEbcr(j)=Grids(topos%nbr(l))%DE(1,Jg(l)+1-j)
-  Boundatas(l)%DGbcr(j)=Grids(topos%nbr(l))%DG(1,Jg(l)+1-j)
-  Boundatas(l)%DFbcr(j)=-Grids(topos%nbr(l))%DF(1,Jg(l)+1-j)
-  Boundatas(l)%dur(j)=Grids(topos%nbr(l))%DE1(2,Jg(l)+1-j)
-  else if(topos%topor(l)=='I'.and.topos%positr(l)=='S'.and.topos%orientr(l)=='-') then
-  Boundatas(l)%Xbcr(j)=Grids(topos%nbr(l))%X(Ig(topos%nbr(l))+1-j,1)
-  Boundatas(l)%Ybcr(j)=Grids(topos%nbr(l))%Y(Ig(topos%nbr(l))+1-j,1)
-  Boundatas(l)%Zbcr(j)=Grids(topos%nbr(l))%Z(Ig(topos%nbr(l))+1-j,1)
-  Boundatas(l)%Pbcr(j)=Forces(topos%nbr(l))%P(Ig(topos%nbr(l))+1-j,1)
-  Boundatas(l)%G1bcr(j)=Forces(topos%nbr(l))%G2(Ig(topos%nbr(l))+1-j,1)
-  Boundatas(l)%A1bcr(j)=Forces(topos%nbr(l))%A2(Ig(topos%nbr(l))+1-j,1)
-  Boundatas(l)%DEbcr(j)=Grids(topos%nbr(l))%DG(Ig(topos%nbr(l))+1-j,1)
-  Boundatas(l)%DGbcr(j)=Grids(topos%nbr(l))%DE(Ig(topos%nbr(l))+1-j,1)
-  Boundatas(l)%DFbcr(j)=-Grids(topos%nbr(l))%DF(Ig(topos%nbr(l))+1-j,1)
-  Boundatas(l)%dur(j)=Grids(topos%nbr(l))%DG2(Ig(topos%nbr(l))+1-j,2)
-  else if(topos%topor(l)=='I'.and.topos%positr(l)=='S'.and.topos%orientr(l)=='+') then
-  Boundatas(l)%Xbcr(j)=Grids(topos%nbr(l))%X(j,1)
-  Boundatas(l)%Ybcr(j)=Grids(topos%nbr(l))%Y(j,1)
-  Boundatas(l)%Zbcr(j)=Grids(topos%nbr(l))%Z(j,1)
-  Boundatas(l)%Pbcr(j)=Forces(topos%nbr(l))%P(j,1)
-  Boundatas(l)%G1bcr(j)=Forces(topos%nbr(l))%G2(j,1)
-  Boundatas(l)%A1bcr(j)=Forces(topos%nbr(l))%A2(j,1)
-  Boundatas(l)%DEbcr(j)=Grids(topos%nbr(l))%DG(j,1)
-  Boundatas(l)%DGbcr(j)=Grids(topos%nbr(l))%DE(j,1)
-  Boundatas(l)%DFbcr(j)=Grids(topos%nbr(l))%DF(j,1)
-  Boundatas(l)%dur(j)=Grids(topos%nbr(l))%DG2(j,2)
-  else if(topos%topor(l)=='J'.and.topos%positr(l)=='N'.and.topos%orientr(l)=='-') then
-  Boundatas(l)%Xbcr(j)=Grids(topos%nbr(l))%X(Ig(topos%nbr(l)),Jg(topos%nbr(l))+1-j)
-  Boundatas(l)%Ybcr(j)=Grids(topos%nbr(l))%Y(Ig(topos%nbr(l)),Jg(topos%nbr(l))+1-j)
-  Boundatas(l)%Zbcr(j)=Grids(topos%nbr(l))%Z(Ig(topos%nbr(l)),Jg(topos%nbr(l))+1-j)
-  Boundatas(l)%Pbcr(j)=Forces(topos%nbr(l))%P(Ig(topos%nbr(l)),Jg(topos%nbr(l))+1-j)
-  Boundatas(l)%G1bcr(j)=-Forces(topos%nbr(l))%G1(Ig(topos%nbr(l)),Jg(topos%nbr(l))+1-j)
-  Boundatas(l)%A1bcr(j)=-Forces(topos%nbr(l))%A1(Ig(topos%nbr(l)),Jg(topos%nbr(l))+1-j)
-  Boundatas(l)%DEbcr(j)=Grids(topos%nbr(l))%DE(Ig(topos%nbr(l)),Jg(topos%nbr(l))+1-j)
-  Boundatas(l)%DGbcr(j)=Grids(topos%nbr(l))%DG(Ig(topos%nbr(l)),Jg(topos%nbr(l))+1-j)
-  Boundatas(l)%DFbcr(j)=Grids(topos%nbr(l))%DF(Ig(topos%nbr(l)),Jg(topos%nbr(l))+1-j)
-  Boundatas(l)%dur(j)=Grids(topos%nbr(l))%DE1(Ig(topos%nbr(l)),Jg(topos%nbr(l))+1-j)
-  else if(topos%topor(l)=='J'.and.topos%positr(l)=='N'.and.topos%orientr(l)=='+') then
-  Boundatas(l)%Xbcr(j)=Grids(topos%nbr(l))%X(Ig(topos%nbr(l)),j)
-  Boundatas(l)%Ybcr(j)=Grids(topos%nbr(l))%Y(Ig(topos%nbr(l)),j)
-  Boundatas(l)%Zbcr(j)=Grids(topos%nbr(l))%Z(Ig(topos%nbr(l)),j)
-  Boundatas(l)%Pbcr(j)=Forces(topos%nbr(l))%P(Ig(topos%nbr(l)),j)
-  Boundatas(l)%G1bcr(j)=-Forces(topos%nbr(l))%G1(Ig(topos%nbr(l)),j)
-  Boundatas(l)%A1bcr(j)=-Forces(topos%nbr(l))%A1(Ig(topos%nbr(l)),j)
-  Boundatas(l)%DEbcr(j)=Grids(topos%nbr(l))%DE(Ig(topos%nbr(l)),j)
-  Boundatas(l)%DGbcr(j)=Grids(topos%nbr(l))%DG(Ig(topos%nbr(l)),j)
-  Boundatas(l)%DFbcr(j)=-Grids(topos%nbr(l))%DF(Ig(topos%nbr(l)),j)
-  Boundatas(l)%dur(j)=Grids(topos%nbr(l))%DE1(Ig(topos%nbr(l)),j)
-  else if(topos%topor(l)=='I'.and.topos%positr(l)=='N'.and.topos%orientr(l)=='-') then
-  Boundatas(l)%Xbcr(j)=Grids(topos%nbr(l))%X(Ig(topos%nbr(l))+1-j,Jg(topos%nbr(l)))
-  Boundatas(l)%Ybcr(j)=Grids(topos%nbr(l))%Y(Ig(topos%nbr(l))+1-j,Jg(topos%nbr(l)))
-  Boundatas(l)%Zbcr(j)=Grids(topos%nbr(l))%Z(Ig(topos%nbr(l))+1-j,Jg(topos%nbr(l)))
-  Boundatas(l)%Pbcr(j)=Forces(topos%nbr(l))%P(Ig(topos%nbr(l))+1-j,Jg(topos%nbr(l)))
-  Boundatas(l)%G1bcr(j)=-Forces(topos%nbr(l))%G2(Ig(topos%nbr(l))+1-j,Jg(topos%nbr(l)))
-  Boundatas(l)%A1bcr(j)=-Forces(topos%nbr(l))%A2(Ig(topos%nbr(l))+1-j,Jg(topos%nbr(l)))
-  Boundatas(l)%DEbcr(j)=Grids(topos%nbr(l))%DG(Ig(topos%nbr(l))+1-j,Jg(topos%nbr(l)))
-  Boundatas(l)%DGbcr(j)=Grids(topos%nbr(l))%DE(Ig(topos%nbr(l))+1-j,Jg(topos%nbr(l)))
-  Boundatas(l)%DFbcr(j)=Grids(topos%nbr(l))%DF(Ig(topos%nbr(l))+1-j,Jg(topos%nbr(l)))
-  Boundatas(l)%dur(j)=Grids(topos%nbr(l))%DG2(Ig(topos%nbr(l))+1-j,Jg(topos%nbr(l)))
-  else if(topos%topor(l)=='I'.and.topos%positr(l)=='N'.and.topos%orientr(l)=='+') then
-  Boundatas(l)%Xbcr(j)=Grids(topos%nbr(l))%X(j,Jg(topos%nbr(l)))
-  Boundatas(l)%Ybcr(j)=Grids(topos%nbr(l))%Y(j,Jg(topos%nbr(l)))
-  Boundatas(l)%Zbcr(j)=Grids(topos%nbr(l))%Z(j,Jg(topos%nbr(l)))
-  Boundatas(l)%Pbcr(j)=Forces(topos%nbr(l))%P(j,Jg(topos%nbr(l)))
-  Boundatas(l)%G1bcr(j)=-Forces(topos%nbr(l))%G2(j,Jg(topos%nbr(l)))
-  Boundatas(l)%A1bcr(j)=-Forces(topos%nbr(l))%A2(j,Jg(topos%nbr(l)))
-  Boundatas(l)%DEbcr(j)=Grids(topos%nbr(l))%DG(j,Jg(topos%nbr(l)))
-  Boundatas(l)%DGbcr(j)=Grids(topos%nbr(l))%DE(j,Jg(topos%nbr(l)))
-  Boundatas(l)%DFbcr(j)=-Grids(topos%nbr(l))%DF(j,Jg(topos%nbr(l)))
-  Boundatas(l)%dur(j)=Grids(topos%nbr(l))%DG2(j,Jg(topos%nbr(l)))
-  else
-  Boundatas(l)%Xbcr(j)=Grids(l)%X(Ig(l),j)
-  Boundatas(l)%Ybcr(j)=Grids(l)%Y(Ig(l),j)
-  Boundatas(l)%Zbcr(j)=-Grids(l)%Z(Ig(l),j)
-  Boundatas(l)%Pbcr(j)=Forces(l)%P(Ig(l),j)
-  Boundatas(l)%G1bcr(j)=-Forces(l)%G1(Ig(l),j)
-  Boundatas(l)%A1bcr(j)=-Forces(l)%A1(Ig(l),j)
-  Boundatas(l)%DEbcr(j)=Grids(l)%DE(Ig(l),j)
-  Boundatas(l)%DGbcr(j)=Grids(l)%DG(Ig(l),j)
-  Boundatas(l)%DFbcr(j)=-Grids(l)%DF(Ig(l),j)
-  Boundatas(l)%dur(j)=Grids(l)%DE1(In(l),j)
-  end if
-  end DO
-end DO
-DO l=1,block
- DO i=1,Ig(l)
-  if(topos%topou(l)=='J'.and.topos%positu(l)=='S'.and.topos%orientu(l)=='+') then
-  Boundatas(l)%Xbcu(i)=Grids(topos%nbu(l))%X(Ig(topos%nbu(l)),i)
-  Boundatas(l)%Ybcu(i)=Grids(topos%nbu(l))%Y(Ig(topos%nbu(l)),i)
-  Boundatas(l)%Zbcu(i)=Grids(topos%nbu(l))%Z(Ig(topos%nbu(l)),i)
-  Boundatas(l)%Pbcu(i)=Forces(topos%nbu(l))%P(Ig(topos%nbu(l)),i)
-  Boundatas(l)%G2bcu(i)=Forces(topos%nbu(l))%G1(Ig(topos%nbu(l)),i)
-  Boundatas(l)%A2bcu(i)=Forces(topos%nbu(l))%A1(Ig(topos%nbu(l)),i)
-  Boundatas(l)%DEbcu(i)=Grids(topos%nbu(l))%DG(Ig(topos%nbu(l)),i)
-  Boundatas(l)%DGbcu(i)=Grids(topos%nbu(l))%DE(Ig(topos%nbu(l)),i)
-  Boundatas(l)%DFbcu(i)=Grids(topos%nbu(l))%DF(Ig(topos%nbu(l)),i)
-  Boundatas(l)%dvu(i)=Grids(topos%nbu(l))%DE1(Ig(topos%nbu(l)),i)
-  else if(topos%topou(l)=='J'.and.topos%positu(l)=='S'.and.topos%orientu(l)=='-') then
-  Boundatas(l)%Xbcu(i)=Grids(topos%nbu(l))%X(Ig(topos%nbu(l)),Jg(topos%nbu(l))+1-i)
-  Boundatas(l)%Ybcu(i)=Grids(topos%nbu(l))%Y(Ig(topos%nbu(l)),Jg(topos%nbu(l))+1-i)
-  Boundatas(l)%Zbcu(i)=Grids(topos%nbu(l))%Z(Ig(topos%nbu(l)),Jg(topos%nbu(l))+1-i)
-  Boundatas(l)%Pbcu(i)=Forces(topos%nbu(l))%P(Ig(topos%nbu(l)),Jg(topos%nbu(l))+1-i)
-  Boundatas(l)%G2bcu(i)=Forces(topos%nbu(l))%G1(Ig(topos%nbu(l)),Jg(topos%nbu(l))+1-i)
-  Boundatas(l)%A2bcu(i)=Forces(topos%nbu(l))%A1(Ig(topos%nbu(l)),Jg(topos%nbu(l))+1-i)
-  Boundatas(l)%DEbcu(i)=Grids(topos%nbu(l))%DG(Ig(topos%nbu(l)),Jg(topos%nbu(l))+1-i)
-  Boundatas(l)%DGbcu(i)=Grids(topos%nbu(l))%DE(Ig(topos%nbu(l)),Jg(topos%nbu(l))+1-i)
-  Boundatas(l)%DFbcu(i)=-Grids(topos%nbu(l))%DF(Ig(topos%nbu(l)),Jg(topos%nbu(l))+1-i)
-  Boundatas(l)%dvu(i)=Grids(topos%nbu(l))%DE1(Ig(topos%nbu(l)),Jg(topos%nbu(l))+1-i)
-  else if(topos%topou(l)=='I'.and.topos%positu(l)=='S'.and.topos%orientu(l)=='-') then
-  Boundatas(l)%Xbcu(i)=Grids(topos%nbu(l))%X(Ig(topos%nbu(l))+1-i,Jg(topos%nbu(l)))
-  Boundatas(l)%Ybcu(i)=Grids(topos%nbu(l))%Y(Ig(topos%nbu(l))+1-i,Jg(topos%nbu(l)))
-  Boundatas(l)%Zbcu(i)=Grids(topos%nbu(l))%Z(Ig(topos%nbu(l))+1-i,Jg(topos%nbu(l)))
-  Boundatas(l)%Pbcu(i)=Forces(topos%nbu(l))%P(Ig(topos%nbu(l))+1-i,Jg(topos%nbu(l)))
-  Boundatas(l)%G2bcu(i)=Forces(topos%nbu(l))%G2(Ig(topos%nbu(l))+1-i,Jg(topos%nbu(l)))
-  Boundatas(l)%A2bcu(i)=Forces(topos%nbu(l))%A2(Ig(topos%nbu(l))+1-i,Jg(topos%nbu(l)))
-  Boundatas(l)%DEbcu(i)=Grids(topos%nbu(l))%DE(Ig(topos%nbu(l))+1-i,Jg(topos%nbu(l)))
-  Boundatas(l)%DGbcu(i)=Grids(topos%nbu(l))%DG(Ig(topos%nbu(l))+1-i,Jg(topos%nbu(l)))
-  Boundatas(l)%DFbcu(i)=-Grids(topos%nbu(l))%DF(Ig(topos%nbu(l))+1-i,Jg(topos%nbu(l)))
-  Boundatas(l)%dvu(i)=Grids(topos%nbu(l))%DG2(Ig(topos%nbu(l))+1-i,Jg(topos%nbu(l)))
-  else if(topos%topou(l)=='I'.and.topos%positu(l)=='S'.and.topos%orientu(l)=='+') then
-  Boundatas(l)%Xbcu(i)=Grids(topos%nbu(l))%X(i,Jg(topos%nbu(l)))
-  Boundatas(l)%Ybcu(i)=Grids(topos%nbu(l))%Y(i,Jg(topos%nbu(l)))
-  Boundatas(l)%Zbcu(i)=Grids(topos%nbu(l))%Z(i,Jg(topos%nbu(l)))
-  Boundatas(l)%Pbcu(i)=Forces(topos%nbu(l))%P(i,Jg(topos%nbu(l)))
-  Boundatas(l)%G2bcu(i)=Forces(topos%nbu(l))%G2(i,Jg(topos%nbu(l)))
-  Boundatas(l)%A2bcu(i)=Forces(topos%nbu(l))%A2(i,Jg(topos%nbu(l)))
-  Boundatas(l)%DEbcu(i)=Grids(topos%nbu(l))%DE(i,Jg(topos%nbu(l)))
-  Boundatas(l)%DGbcu(i)=Grids(topos%nbu(l))%DG(i,Jg(topos%nbu(l)))
-  Boundatas(l)%DFbcu(i)=Grids(topos%nbu(l))%DF(i,Jg(topos%nbu(l)))
-  Boundatas(l)%dvu(i)=Grids(topos%nbu(l))%DG2(i,Jg(topos%nbu(l)))
-  else if(topos%topou(l)=='J'.and.topos%positu(l)=='N'.and.topos%orientu(l)=='-') then
-  Boundatas(l)%Xbcu(i)=Grids(topos%nbu(l))%X(1,Jg(topos%nbu(l))+1-i)
-  Boundatas(l)%Ybcu(i)=Grids(topos%nbu(l))%Y(1,Jg(topos%nbu(l))+1-i)
-  Boundatas(l)%Zbcu(i)=Grids(topos%nbu(l))%Z(1,Jg(topos%nbu(l))+1-i)
-  Boundatas(l)%Pbcu(i)=Forces(topos%nbu(l))%P(1,Jg(topos%nbu(l))+1-i)
-  Boundatas(l)%G2bcu(i)=-Forces(topos%nbu(l))%G1(1,Jg(topos%nbu(l))+1-i)
-  Boundatas(l)%A2bcu(i)=-Forces(topos%nbu(l))%A1(1,Jg(topos%nbu(l))+1-i)
-  Boundatas(l)%DEbcu(i)=Grids(topos%nbu(l))%DG(1,Jg(topos%nbu(l))+1-i)
-  Boundatas(l)%DGbcu(i)=Grids(topos%nbu(l))%DE(1,Jg(topos%nbu(l))+1-i)
-  Boundatas(l)%DFbcu(i)=Grids(topos%nbu(l))%DF(1,Jg(topos%nbu(l))+1-i)
-  Boundatas(l)%dvu(i)=Grids(topos%nbu(l))%DE1(2,Jg(topos%nbu(l))+1-i)
-  else if(topos%topou(l)=='J'.and.topos%positu(l)=='N'.and.topos%orientu(l)=='+') then
-  Boundatas(l)%Xbcu(i)=Grids(topos%nbu(l))%X(1,i)
-  Boundatas(l)%Ybcu(i)=Grids(topos%nbu(l))%Y(1,i)
-  Boundatas(l)%Zbcu(i)=Grids(topos%nbu(l))%Z(1,i)
-  Boundatas(l)%Pbcu(i)=Forces(topos%nbu(l))%P(1,i)
-  Boundatas(l)%G2bcu(i)=-Forces(topos%nbu(l))%G1(1,i)
-  Boundatas(l)%A2bcu(i)=-Forces(topos%nbu(l))%A1(1,i)
-  Boundatas(l)%DEbcu(i)=Grids(topos%nbu(l))%DG(1,i)
-  Boundatas(l)%DGbcu(i)=Grids(topos%nbu(l))%DE(1,i)
-  Boundatas(l)%DFbcu(i)=-Grids(topos%nbu(l))%DF(1,i)
-  Boundatas(l)%dvu(i)=Grids(topos%nbu(l))%DE1(2,i)
-  else if(topos%topou(l)=='I'.and.topos%positu(l)=='N'.and.topos%orientu(l)=='-') then
-  Boundatas(l)%Xbcu(i)=Grids(topos%nbu(l))%X(Ig(topos%nbu(l))+1-i,1)
-  Boundatas(l)%Ybcu(i)=Grids(topos%nbu(l))%Y(Ig(topos%nbu(l))+1-i,1)
-  Boundatas(l)%Zbcu(i)=Grids(topos%nbu(l))%Z(Ig(topos%nbu(l))+1-i,1)
-  Boundatas(l)%Pbcu(i)=Forces(topos%nbu(l))%P(Ig(topos%nbu(l))+1-i,1)
-  Boundatas(l)%G2bcu(i)=-Forces(topos%nbu(l))%G2(Ig(topos%nbu(l))+1-i,1)
-  Boundatas(l)%A2bcu(i)=-Forces(topos%nbu(l))%A2(Ig(topos%nbu(l))+1-i,1)
-  Boundatas(l)%DEbcu(i)=Grids(topos%nbu(l))%DE(Ig(topos%nbu(l))+1-i,1)
-  Boundatas(l)%DGbcu(i)=Grids(topos%nbu(l))%DG(Ig(topos%nbu(l))+1-i,1)
-  Boundatas(l)%DFbcu(i)=Grids(topos%nbu(l))%DF(Ig(topos%nbu(l))+1-i,1)
-  Boundatas(l)%dvu(i)=Grids(topos%nbu(l))%DG2(Ig(topos%nbu(l))+1-i,2)
-  else if(topos%topou(l)=='I'.and.topos%positu(l)=='N'.and.topos%orientu(l)=='+') then
-  Boundatas(l)%Xbcu(i)=Grids(topos%nbu(l))%X(i,1)
-  Boundatas(l)%Ybcu(i)=Grids(topos%nbu(l))%Y(i,1)
-  Boundatas(l)%Zbcu(i)=Grids(topos%nbu(l))%Z(i,1)
-  Boundatas(l)%Pbcu(i)=Forces(topos%nbu(l))%P(i,1)
-  Boundatas(l)%G2bcu(i)=-Forces(topos%nbu(l))%G2(i,1)
-  Boundatas(l)%A2bcu(i)=-Forces(topos%nbu(l))%A2(i,1)
-  Boundatas(l)%DEbcu(i)=Grids(topos%nbu(l))%DE(i,1)
-  Boundatas(l)%DGbcu(i)=Grids(topos%nbu(l))%DG(i,1)
-  Boundatas(l)%DFbcu(i)=-Grids(topos%nbu(l))%DF(i,1)
-  Boundatas(l)%dvu(i)=Grids(topos%nbu(l))%DG2(i,2)
-  else
-  Boundatas(l)%Xbcu(i)=Grids(l)%X(i,1)
-  Boundatas(l)%Ybcu(i)=Grids(l)%Y(i,1)
-  Boundatas(l)%Zbcu(i)=-Grids(l)%Z(i,1)
-  Boundatas(l)%Pbcu(i)=Forces(l)%P(i,1)
-  Boundatas(l)%G2bcu(i)=-Forces(l)%G2(i,1)
-  Boundatas(l)%A2bcu(i)=-Forces(l)%A2(i,1)
-  Boundatas(l)%DEbcu(i)=Grids(l)%DE(i,1)
-  Boundatas(l)%DGbcu(i)=Grids(l)%DG(i,1)
-  Boundatas(l)%DFbcu(i)=-Grids(l)%DF(i,1)
-  Boundatas(l)%dvu(i)=Grids(l)%DG2(i,1)
-  end if
-  end DO
-end DO
-DO l=1,block
- DO i=1,Ig(l)
-  if(topos%topod(l)=='J'.and.topos%positd(l)=='S'.and.topos%orientd(l)=='+') then
-  Boundatas(l)%Xbcd(i)=Grids(topos%nbd(l))%X(1,i)
-  Boundatas(l)%Ybcd(i)=Grids(topos%nbd(l))%Y(1,i)
-  Boundatas(l)%Zbcd(i)=Grids(topos%nbd(l))%Z(1,i)
-  Boundatas(l)%Pbcd(i)=Forces(topos%nbd(l))%P(1,i)
-  Boundatas(l)%G2bcd(i)=Forces(topos%nbd(l))%G1(1,i)
-  Boundatas(l)%A2bcd(i)=Forces(topos%nbd(l))%A1(1,i)
-  Boundatas(l)%DEbcd(i)=Grids(topos%nbd(l))%DG(1,i)
-  Boundatas(l)%DGbcd(i)=Grids(topos%nbd(l))%DE(1,i)
-  Boundatas(l)%DFbcd(i)=Grids(topos%nbd(l))%DF(1,i)
-  Boundatas(l)%dvd(i)=Grids(topos%nbd(l))%DE1(2,i)
-  else if(topos%topod(l)=='J'.and.topos%positd(l)=='S'.and.topos%orientd(l)=='-') then
-  Boundatas(l)%Xbcd(i)=Grids(topos%nbd(l))%X(1,Jg(topos%nbd(l))+1-i)
-  Boundatas(l)%Ybcd(i)=Grids(topos%nbd(l))%Y(1,Jg(topos%nbd(l))+1-i)
-  Boundatas(l)%Zbcd(i)=Grids(topos%nbd(l))%Z(1,Jg(topos%nbd(l))+1-i)
-  Boundatas(l)%Pbcd(i)=Forces(topos%nbd(l))%P(1,Jg(topos%nbd(l))+1-i)
-  Boundatas(l)%G2bcd(i)=Forces(topos%nbd(l))%G1(1,Jg(topos%nbd(l))+1-i)
-  Boundatas(l)%A2bcd(i)=Forces(topos%nbd(l))%A1(1,Jg(topos%nbd(l))+1-i)
-  Boundatas(l)%DEbcd(i)=Grids(topos%nbd(l))%DG(1,Jg(topos%nbd(l))+1-i)
-  Boundatas(l)%DGbcd(i)=Grids(topos%nbd(l))%DE(1,Jg(topos%nbd(l))+1-i)
-  Boundatas(l)%DFbcd(i)=-Grids(topos%nbd(l))%DF(1,Jg(topos%nbd(l))+1-i)
-  Boundatas(l)%dvd(i)=Grids(topos%nbd(l))%DE1(2,Jg(topos%nbd(l))+1-i)
-  else if(topos%topod(l)=='I'.and.topos%positd(l)=='S'.and.topos%orientd(l)=='-') then
-  Boundatas(l)%Xbcd(i)=Grids(topos%nbd(l))%X(Ig(topos%nbd(l))+1-i,1)
-  Boundatas(l)%Ybcd(i)=Grids(topos%nbd(l))%Y(Ig(topos%nbd(l))+1-i,1)
-  Boundatas(l)%Zbcd(i)=Grids(topos%nbd(l))%Z(Ig(topos%nbd(l))+1-i,1)
-  Boundatas(l)%Pbcd(i)=Forces(topos%nbd(l))%P(Ig(topos%nbd(l))+1-i,1)
-  Boundatas(l)%G2bcd(i)=Forces(topos%nbd(l))%G2(Ig(topos%nbd(l))+1-i,1)
-  Boundatas(l)%A2bcd(i)=Forces(topos%nbd(l))%A2(Ig(topos%nbd(l))+1-i,1)
-  Boundatas(l)%DEbcd(i)=Grids(topos%nbd(l))%DE(Ig(topos%nbd(l))+1-i,1)
-  Boundatas(l)%DGbcd(i)=Grids(topos%nbd(l))%DG(Ig(topos%nbd(l))+1-i,1)
-  Boundatas(l)%DFbcd(i)=-Grids(topos%nbd(l))%DF(Ig(topos%nbd(l))+1-i,1)
-  Boundatas(l)%dvd(i)=Grids(topos%nbd(l))%DG2(Ig(topos%nbd(l))+1-i,2)
-  else if(topos%topod(l)=='I'.and.topos%positd(l)=='S'.and.topos%orientd(l)=='+') then
-  Boundatas(l)%Xbcd(i)=Grids(topos%nbd(l))%X(i,1)
-  Boundatas(l)%Ybcd(i)=Grids(topos%nbd(l))%Y(i,1)
-  Boundatas(l)%Zbcd(i)=Grids(topos%nbd(l))%Z(i,1)
-  Boundatas(l)%Pbcd(i)=Forces(topos%nbd(l))%P(i,1)
-  Boundatas(l)%G2bcd(i)=Forces(topos%nbd(l))%G2(i,1)
-  Boundatas(l)%A2bcd(i)=Forces(topos%nbd(l))%A2(i,1)
-  Boundatas(l)%DEbcd(i)=Grids(topos%nbd(l))%DE(i,1)
-  Boundatas(l)%DGbcd(i)=Grids(topos%nbd(l))%DG(i,1)
-  Boundatas(l)%DFbcd(i)=Grids(topos%nbd(l))%DF(i,1)
-  Boundatas(l)%dvd(i)=Grids(topos%nbd(l))%DG2(i,2)
-  else if(topos%topod(l)=='J'.and.topos%positd(l)=='N'.and.topos%orientd(l)=='-') then
-  Boundatas(l)%Xbcd(i)=Grids(topos%nbd(l))%X(Ig(topos%nbd(l)),Jg(topos%nbd(l))+1-i)
-  Boundatas(l)%Ybcd(i)=Grids(topos%nbd(l))%Y(Ig(topos%nbd(l)),Jg(topos%nbd(l))+1-i)
-  Boundatas(l)%Zbcd(i)=Grids(topos%nbd(l))%Z(Ig(topos%nbd(l)),Jg(topos%nbd(l))+1-i)
-  Boundatas(l)%Pbcd(i)=Forces(topos%nbd(l))%P(Ig(topos%nbd(l)),Jg(topos%nbd(l))+1-i)
-  Boundatas(l)%G2bcd(i)=-Forces(topos%nbd(l))%G1(Ig(topos%nbd(l)),Jg(topos%nbd(l))+1-i)
-  Boundatas(l)%A2bcd(i)=-Forces(topos%nbd(l))%A1(Ig(topos%nbd(l)),Jg(topos%nbd(l))+1-i)
-  Boundatas(l)%DEbcd(i)=Grids(topos%nbd(l))%DG(Ig(topos%nbd(l)),Jg(topos%nbd(l))+1-i)
-  Boundatas(l)%DGbcd(i)=Grids(topos%nbd(l))%DE(Ig(topos%nbd(l)),Jg(topos%nbd(l))+1-i)
-  Boundatas(l)%DFbcd(i)=Grids(topos%nbd(l))%DF(Ig(topos%nbd(l)),Jg(topos%nbd(l))+1-i)
-  Boundatas(l)%dvd(i)=Grids(topos%nbd(l))%DE1(Ig(topos%nbd(l)),Jg(topos%nbd(l))+1-i)
-  else if(topos%topod(l)=='J'.and.topos%positd(l)=='N'.and.topos%orientd(l)=='+') then
-  Boundatas(l)%Xbcd(i)=Grids(topos%nbd(l))%X(Ig(topos%nbd(l)),i)
-  Boundatas(l)%Ybcd(i)=Grids(topos%nbd(l))%Y(Ig(topos%nbd(l)),i)
-  Boundatas(l)%Zbcd(i)=Grids(topos%nbd(l))%Z(Ig(topos%nbd(l)),i)
-  Boundatas(l)%Pbcd(i)=Forces(topos%nbd(l))%P(Ig(topos%nbd(l)),i)
-  Boundatas(l)%G2bcd(i)=-Forces(topos%nbd(l))%G1(Ig(topos%nbd(l)),i)
-  Boundatas(l)%A2bcd(i)=-Forces(topos%nbd(l))%A1(Ig(topos%nbd(l)),i)
-  Boundatas(l)%DEbcd(i)=Grids(topos%nbd(l))%DG(Ig(topos%nbd(l)),i)
-  Boundatas(l)%DGbcd(i)=Grids(topos%nbd(l))%DE(Ig(topos%nbd(l)),i)
-  Boundatas(l)%DFbcd(i)=-Grids(topos%nbd(l))%DF(Ig(topos%nbd(l)),i)
-  Boundatas(l)%dvd(i)=Grids(topos%nbd(l))%DE1(Ig(topos%nbd(l)),i)
-  else if(topos%topod(l)=='I'.and.topos%positd(l)=='N'.and.topos%orientd(l)=='-') then
-  Boundatas(l)%Xbcd(i)=Grids(topos%nbd(l))%X(Ig(topos%nbd(l))+1-i,Jg(topos%nbd(l)))
-  Boundatas(l)%Ybcd(i)=Grids(topos%nbd(l))%Y(Ig(topos%nbd(l))+1-i,Jg(topos%nbd(l)))
-  Boundatas(l)%Zbcd(i)=Grids(topos%nbd(l))%Z(Ig(topos%nbd(l))+1-i,Jg(topos%nbd(l)))
-  Boundatas(l)%Pbcd(i)=Forces(topos%nbd(l))%P(Ig(topos%nbd(l))+1-i,Jg(topos%nbd(l)))
-  Boundatas(l)%G2bcd(i)=-Forces(topos%nbd(l))%G2(Ig(topos%nbd(l))+1-i,Jg(topos%nbd(l)))
-  Boundatas(l)%A2bcd(i)=-Forces(topos%nbd(l))%A2(Ig(topos%nbd(l))+1-i,Jg(topos%nbd(l)))
-  Boundatas(l)%DEbcd(i)=Grids(topos%nbd(l))%DE(Ig(topos%nbd(l))+1-i,Jg(topos%nbd(l)))
-  Boundatas(l)%DGbcd(i)=Grids(topos%nbd(l))%DG(Ig(topos%nbd(l))+1-i,Jg(topos%nbd(l)))
-  Boundatas(l)%DFbcd(i)=Grids(topos%nbd(l))%DF(Ig(topos%nbd(l))+1-i,Jg(topos%nbd(l)))
-  Boundatas(l)%dvd(i)=Grids(topos%nbd(l))%DG2(Ig(topos%nbd(l))+1-i,Jg(topos%nbd(l)))
-  else if(topos%topod(l)=='I'.and.topos%positd(l)=='N'.and.topos%orientd(l)=='+') then
-  Boundatas(l)%Xbcd(i)=Grids(topos%nbd(l))%X(i,Jg(topos%nbd(l)))
-  Boundatas(l)%Ybcd(i)=Grids(topos%nbd(l))%Y(i,Jg(topos%nbd(l)))
-  Boundatas(l)%Zbcd(i)=Grids(topos%nbd(l))%Z(i,Jg(topos%nbd(l)))
-  Boundatas(l)%Pbcd(i)=Forces(topos%nbd(l))%P(i,Jg(topos%nbd(l)))
-  Boundatas(l)%G2bcd(i)=-Forces(topos%nbd(l))%G2(i,Jg(topos%nbd(l)))
-  Boundatas(l)%A2bcd(i)=-Forces(topos%nbd(l))%A2(i,Jg(topos%nbd(l)))
-  Boundatas(l)%DEbcd(i)=Grids(topos%nbd(l))%DE(i,Jg(topos%nbd(l)))
-  Boundatas(l)%DGbcd(i)=Grids(topos%nbd(l))%DG(i,Jg(topos%nbd(l)))
-  Boundatas(l)%DFbcd(i)=-Grids(topos%nbd(l))%DF(i,Jg(topos%nbd(l)))
-  Boundatas(l)%dvd(i)=Grids(topos%nbd(l))%DG2(i,Jg(topos%nbd(l)))
-  else
-  Boundatas(l)%Xbcd(i)=Grids(l)%X(i,Jg(l))
-  Boundatas(l)%Ybcd(i)=Grids(l)%Y(i,Jg(l))
-  Boundatas(l)%Zbcd(i)=-Grids(l)%Z(i,Jg(l))
-  Boundatas(l)%Pbcd(i)=Forces(l)%P(i,Jg(l))
-  Boundatas(l)%G2bcd(i)=-Forces(l)%G2(i,Jg(l))
-  Boundatas(l)%A2bcd(i)=-Forces(l)%A2(i,Jg(l))
-  Boundatas(l)%DEbcd(i)=Grids(l)%DE(i,Jg(l))
-  Boundatas(l)%DGbcd(i)=Grids(l)%DG(i,Jg(l))
-  Boundatas(l)%DFbcd(i)=-Grids(l)%DF(i,Jg(l))
-  Boundatas(l)%dvd(i)=Grids(l)%DG2(i,Jn(l))
-  end if
-  end DO
-end DO
-DO l=1,block
- DO j=1,Jn(l)
-  if(topos%topol(l)=='J'.and.topos%positl(l)=='S'.and.topos%orientl(l)=='+') then
-  Boundatas(l)%Xpbcl(j)=Grids(topos%nbl(l))%Xp(Ig(topos%nbl(l)),j)
-  Boundatas(l)%Ypbcl(j)=Grids(topos%nbl(l))%Yp(Ig(topos%nbl(l)),j)
-  Boundatas(l)%Zpbcl(j)=Grids(topos%nbl(l))%Zp(Ig(topos%nbl(l)),j)
-  else if(topos%topol(l)=='J'.and.topos%positl(l)=='S'.and.topos%orientl(l)=='-') then
-  Boundatas(l)%Xpbcl(j)=Grids(topos%nbl(l))%Xp(Ig(topos%nbl(l)),Jn(l)+1-j)
-  Boundatas(l)%Ypbcl(j)=Grids(topos%nbl(l))%Yp(Ig(topos%nbl(l)),Jn(l)+1-j)
-  Boundatas(l)%Zpbcl(j)=Grids(topos%nbl(l))%Zp(Ig(topos%nbl(l)),Jn(l)+1-j)
-  else if(topos%topol(l)=='I'.and.topos%positl(l)=='S'.and.topos%orientl(l)=='-') then
-  Boundatas(l)%Xpbcl(j)=Grids(topos%nbl(l))%Xp(In(topos%nbl(l))+1-j,Jg(topos%nbl(l)))
-  Boundatas(l)%Ypbcl(j)=Grids(topos%nbl(l))%Yp(In(topos%nbl(l))+1-j,Jg(topos%nbl(l)))
-  Boundatas(l)%Zpbcl(j)=Grids(topos%nbl(l))%Zp(In(topos%nbl(l))+1-j,Jg(topos%nbl(l)))
-  else if(topos%topol(l)=='I'.and.topos%positl(l)=='S'.and.topos%orientl(l)=='+') then
-  Boundatas(l)%Xpbcl(j)=Grids(topos%nbl(l))%Xp(j,Jg(topos%nbl(l)))
-  Boundatas(l)%Ypbcl(j)=Grids(topos%nbl(l))%Yp(j,Jg(topos%nbl(l)))
-  Boundatas(l)%Zpbcl(j)=Grids(topos%nbl(l))%Zp(j,Jg(topos%nbl(l)))
-  else if(topos%topol(l)=='J'.and.topos%positl(l)=='N'.and.topos%orientl(l)=='-') then
-  Boundatas(l)%Xpbcl(j)=Grids(topos%nbl(l))%Xp(2,Jn(topos%nbl(l))+1-j)
-  Boundatas(l)%Ypbcl(j)=Grids(topos%nbl(l))%Yp(2,Jn(topos%nbl(l))+1-j)
-  Boundatas(l)%Zpbcl(j)=Grids(topos%nbl(l))%Zp(2,Jn(topos%nbl(l))+1-j)
-  else if(topos%topol(l)=='J'.and.topos%positl(l)=='N'.and.topos%orientl(l)=='+') then
-  Boundatas(l)%Xpbcl(j)=Grids(topos%nbl(l))%Xp(2,j)
-  Boundatas(l)%Ypbcl(j)=Grids(topos%nbl(l))%Yp(2,j)
-  Boundatas(l)%Zpbcl(j)=Grids(topos%nbl(l))%Zp(2,j)
-  else if(topos%topol(l)=='I'.and.topos%positl(l)=='N'.and.topos%orientl(l)=='-') then
-  Boundatas(l)%Xpbcl(j)=Grids(topos%nbl(l))%Xp(In(topos%nbl(l))+1-j,2)
-  Boundatas(l)%Ypbcl(j)=Grids(topos%nbl(l))%Yp(In(topos%nbl(l))+1-j,2)
-  Boundatas(l)%Zpbcl(j)=Grids(topos%nbl(l))%Zp(In(topos%nbl(l))+1-j,2)
-  else if(topos%topol(l)=='I'.and.topos%positl(l)=='N'.and.topos%orientl(l)=='+') then
-  Boundatas(l)%Xpbcl(j)=Grids(topos%nbl(l))%Xp(j,2)
-  Boundatas(l)%Ypbcl(j)=Grids(topos%nbl(l))%Yp(j,2)
-  Boundatas(l)%Zpbcl(j)=Grids(topos%nbl(l))%Zp(j,2)
-  else
-  Boundatas(l)%Xpbcl(j)=Grids(l)%Xp(2,j)
-  Boundatas(l)%Ypbcl(j)=Grids(l)%Yp(2,j)
-  Boundatas(l)%Zpbcl(j)=-Grids(l)%Zp(2,j)
-  end if
-  end DO
-end DO
-DO l=1,block
- DO j=1,Jn(l)
-  if(topos%topor(l)=='J'.and.topos%positr(l)=='S'.and.topos%orientr(l)=='+') then
-  Boundatas(l)%Xpbcr(j)=Grids(topos%nbr(l))%Xp(2,j)
-  Boundatas(l)%Ypbcr(j)=Grids(topos%nbr(l))%Yp(2,j)
-  Boundatas(l)%Zpbcr(j)=Grids(topos%nbr(l))%Zp(2,j)
-  else if(topos%topor(l)=='J'.and.topos%positr(l)=='S'.and.topos%orientr(l)=='-') then
-  Boundatas(l)%Xpbcr(j)=Grids(topos%nbr(l))%Xp(2,Jn(l)+1-j)
-  Boundatas(l)%Ypbcr(j)=Grids(topos%nbr(l))%Yp(2,Jn(l)+1-j)
-  Boundatas(l)%Zpbcr(j)=Grids(topos%nbr(l))%Zp(2,Jn(l)+1-j)
-  else if(topos%topor(l)=='I'.and.topos%positr(l)=='S'.and.topos%orientr(l)=='-') then
-  Boundatas(l)%Xpbcr(j)=Grids(topos%nbr(l))%Xp(In(topos%nbr(l))+1-j,2)
-  Boundatas(l)%Ypbcr(j)=Grids(topos%nbr(l))%Yp(In(topos%nbr(l))+1-j,2)
-  Boundatas(l)%Zpbcr(j)=Grids(topos%nbr(l))%Zp(In(topos%nbr(l))+1-j,2)
-  else if(topos%topor(l)=='I'.and.topos%positr(l)=='S'.and.topos%orientr(l)=='+') then
-  Boundatas(l)%Xpbcr(j)=Grids(topos%nbr(l))%Xp(j,2)
-  Boundatas(l)%Ypbcr(j)=Grids(topos%nbr(l))%Yp(j,2)
-  Boundatas(l)%Zpbcr(j)=Grids(topos%nbr(l))%Zp(j,2)
-  else if(topos%topor(l)=='J'.and.topos%positr(l)=='N'.and.topos%orientr(l)=='-') then
-  Boundatas(l)%Xpbcr(j)=Grids(topos%nbr(l))%Xp(Ig(topos%nbr(l)),Jn(topos%nbr(l))+1-j)
-  Boundatas(l)%Ypbcr(j)=Grids(topos%nbr(l))%Yp(Ig(topos%nbr(l)),Jn(topos%nbr(l))+1-j)
-  Boundatas(l)%Zpbcr(j)=Grids(topos%nbr(l))%Zp(Ig(topos%nbr(l)),Jn(topos%nbr(l))+1-j)
-  else if(topos%topor(l)=='J'.and.topos%positr(l)=='N'.and.topos%orientr(l)=='+') then
-  Boundatas(l)%Xpbcr(j)=Grids(topos%nbr(l))%Xp(Ig(topos%nbr(l)),j)
-  Boundatas(l)%Ypbcr(j)=Grids(topos%nbr(l))%Yp(Ig(topos%nbr(l)),j)
-  Boundatas(l)%Zpbcr(j)=Grids(topos%nbr(l))%Zp(Ig(topos%nbr(l)),j)
-  else if(topos%topor(l)=='I'.and.topos%positr(l)=='N'.and.topos%orientr(l)=='-') then
-  Boundatas(l)%Xpbcr(j)=Grids(topos%nbr(l))%Xp(In(topos%nbr(l))+1-j,Jg(topos%nbr(l)))
-  Boundatas(l)%Ypbcr(j)=Grids(topos%nbr(l))%Yp(In(topos%nbr(l))+1-j,Jg(topos%nbr(l)))
-  Boundatas(l)%Zpbcr(j)=Grids(topos%nbr(l))%Zp(In(topos%nbr(l))+1-j,Jg(topos%nbr(l)))
-  else if(topos%topor(l)=='I'.and.topos%positr(l)=='N'.and.topos%orientr(l)=='+') then
-  Boundatas(l)%Xpbcr(j)=Grids(topos%nbr(l))%Xp(j,Jg(topos%nbr(l)))
-  Boundatas(l)%Ypbcr(j)=Grids(topos%nbr(l))%Yp(j,Jg(topos%nbr(l)))
-  Boundatas(l)%Zpbcr(j)=Grids(topos%nbr(l))%Zp(j,Jg(topos%nbr(l)))
-  else
-  Boundatas(l)%Xpbcr(j)=Grids(l)%Xp(Ig(l),j)
-  Boundatas(l)%Ypbcr(j)=Grids(l)%Yp(Ig(l),j)
-  Boundatas(l)%Zpbcr(j)=-Grids(l)%Zp(Ig(l),j)
-  end if
-  end DO
-end DO
-DO l=1,block
- DO i=1,In(l)
-  if(topos%topou(l)=='J'.and.topos%positu(l)=='S'.and.topos%orientu(l)=='+') then
-  Boundatas(l)%Xpbcu(i)=Grids(topos%nbu(l))%Xp(Ig(topos%nbu(l)),i)
-  Boundatas(l)%Ypbcu(i)=Grids(topos%nbu(l))%Yp(Ig(topos%nbu(l)),i)
-  Boundatas(l)%Zpbcu(i)=Grids(topos%nbu(l))%Zp(Ig(topos%nbu(l)),i)
-  else if(topos%topou(l)=='J'.and.topos%positu(l)=='S'.and.topos%orientu(l)=='-') then
-  Boundatas(l)%Xpbcu(i)=Grids(topos%nbu(l))%Xp(Ig(topos%nbu(l)),Jn(topos%nbu(l))+1-i)
-  Boundatas(l)%Ypbcu(i)=Grids(topos%nbu(l))%Yp(Ig(topos%nbu(l)),Jn(topos%nbu(l))+1-i)
-  Boundatas(l)%Zpbcu(i)=Grids(topos%nbu(l))%Zp(Ig(topos%nbu(l)),Jn(topos%nbu(l))+1-i)
-  else if(topos%topou(l)=='I'.and.topos%positu(l)=='S'.and.topos%orientu(l)=='-') then
-  Boundatas(l)%Xpbcu(i)=Grids(topos%nbu(l))%Xp(In(topos%nbu(l))+1-i,Jg(topos%nbu(l)))
-  Boundatas(l)%Ypbcu(i)=Grids(topos%nbu(l))%Yp(In(topos%nbu(l))+1-i,Jg(topos%nbu(l)))
-  Boundatas(l)%Zpbcu(i)=Grids(topos%nbu(l))%Zp(In(topos%nbu(l))+1-i,Jg(topos%nbu(l)))
-  else if(topos%topou(l)=='I'.and.topos%positu(l)=='S'.and.topos%orientu(l)=='+') then
-  Boundatas(l)%Xpbcu(i)=Grids(topos%nbu(l))%Xp(i,Jg(topos%nbu(l)))
-  Boundatas(l)%Ypbcu(i)=Grids(topos%nbu(l))%Yp(i,Jg(topos%nbu(l)))
-  Boundatas(l)%Zpbcu(i)=Grids(topos%nbu(l))%Zp(i,Jg(topos%nbu(l)))
-  else if(topos%topou(l)=='J'.and.topos%positu(l)=='N'.and.topos%orientu(l)=='-') then
-  Boundatas(l)%Xpbcu(i)=Grids(topos%nbu(l))%Xp(2,Jn(topos%nbu(l))+1-i)
-  Boundatas(l)%Ypbcu(i)=Grids(topos%nbu(l))%Yp(2,Jn(topos%nbu(l))+1-i)
-  Boundatas(l)%Zpbcu(i)=Grids(topos%nbu(l))%Zp(2,Jn(topos%nbu(l))+1-i)
-  else if(topos%topou(l)=='J'.and.topos%positu(l)=='N'.and.topos%orientu(l)=='+') then
-  Boundatas(l)%Xpbcu(i)=Grids(topos%nbu(l))%Xp(2,i)
-  Boundatas(l)%Ypbcu(i)=Grids(topos%nbu(l))%Yp(2,i)
-  Boundatas(l)%Zpbcu(i)=Grids(topos%nbu(l))%Zp(2,i)
-  else if(topos%topou(l)=='I'.and.topos%positu(l)=='N'.and.topos%orientu(l)=='-') then
-  Boundatas(l)%Xpbcu(i)=Grids(topos%nbu(l))%Xp(In(topos%nbu(l))+1-i,2)
-  Boundatas(l)%Ypbcu(i)=Grids(topos%nbu(l))%Yp(In(topos%nbu(l))+1-i,2)
-  Boundatas(l)%Zpbcu(i)=Grids(topos%nbu(l))%Zp(In(topos%nbu(l))+1-i,2)
-  else if(topos%topou(l)=='I'.and.topos%positu(l)=='N'.and.topos%orientu(l)=='+') then
-  Boundatas(l)%Xpbcu(i)=Grids(topos%nbu(l))%Xp(i,2)
-  Boundatas(l)%Ypbcu(i)=Grids(topos%nbu(l))%Yp(i,2)
-  Boundatas(l)%Zpbcu(i)=Grids(topos%nbu(l))%Zp(i,2)
-  else
-  Boundatas(l)%Xpbcu(i)=Grids(l)%Xp(i,2)
-  Boundatas(l)%Ypbcu(i)=Grids(l)%Yp(i,2)
-  Boundatas(l)%Zpbcu(i)=-Grids(l)%Zp(i,2)
-  end if
-  end DO
-end DO
-DO l=1,block
- DO i=1,In(l)
-  if(topos%topod(l)=='J'.and.topos%positd(l)=='S'.and.topos%orientd(l)=='+') then
-  Boundatas(l)%Xpbcd(i)=Grids(topos%nbd(l))%Xp(2,i)
-  Boundatas(l)%Ypbcd(i)=Grids(topos%nbd(l))%Yp(2,i)
-  Boundatas(l)%Zpbcd(i)=Grids(topos%nbd(l))%Zp(2,i)
-  else if(topos%topod(l)=='J'.and.topos%positd(l)=='S'.and.topos%orientd(l)=='-') then
-  Boundatas(l)%Xpbcd(i)=Grids(topos%nbd(l))%Xp(2,Jn(topos%nbd(l))+1-i)
-  Boundatas(l)%Ypbcd(i)=Grids(topos%nbd(l))%Yp(2,Jn(topos%nbd(l))+1-i)
-  Boundatas(l)%Zpbcd(i)=Grids(topos%nbd(l))%Zp(2,Jn(topos%nbd(l))+1-i)
-  else if(topos%topod(l)=='I'.and.topos%positd(l)=='S'.and.topos%orientd(l)=='-') then
-  Boundatas(l)%Xpbcd(i)=Grids(topos%nbd(l))%Xp(In(topos%nbd(l))+1-i,2)
-  Boundatas(l)%Ypbcd(i)=Grids(topos%nbd(l))%Yp(In(topos%nbd(l))+1-i,2)
-  Boundatas(l)%Zpbcd(i)=Grids(topos%nbd(l))%Zp(In(topos%nbd(l))+1-i,2)
-  else if(topos%topod(l)=='I'.and.topos%positd(l)=='S'.and.topos%orientd(l)=='+') then
-  Boundatas(l)%Xpbcd(i)=Grids(topos%nbd(l))%Xp(i,2)
-  Boundatas(l)%Ypbcd(i)=Grids(topos%nbd(l))%Yp(i,2)
-  Boundatas(l)%Zpbcd(i)=Grids(topos%nbd(l))%Zp(i,2)
-  else if(topos%topod(l)=='J'.and.topos%positd(l)=='N'.and.topos%orientd(l)=='-') then
-  Boundatas(l)%Xpbcd(i)=Grids(topos%nbd(l))%Xp(Ig(topos%nbd(l)),Jn(topos%nbd(l))+1-i)
-  Boundatas(l)%Ypbcd(i)=Grids(topos%nbd(l))%Yp(Ig(topos%nbd(l)),Jn(topos%nbd(l))+1-i)
-  Boundatas(l)%Zpbcd(i)=Grids(topos%nbd(l))%Zp(Ig(topos%nbd(l)),Jn(topos%nbd(l))+1-i)
-  else if(topos%topod(l)=='J'.and.topos%positd(l)=='N'.and.topos%orientd(l)=='+') then
-  Boundatas(l)%Xpbcd(i)=Grids(topos%nbd(l))%Xp(Ig(topos%nbd(l)),i)
-  Boundatas(l)%Ypbcd(i)=Grids(topos%nbd(l))%Yp(Ig(topos%nbd(l)),i)
-  Boundatas(l)%Zpbcd(i)=Grids(topos%nbd(l))%Zp(Ig(topos%nbd(l)),i)
-  else if(topos%topod(l)=='I'.and.topos%positd(l)=='N'.and.topos%orientd(l)=='-') then
-  Boundatas(l)%Xpbcd(i)=Grids(topos%nbd(l))%Xp(In(topos%nbd(l))+1-i,Jg(topos%nbd(l)))
-  Boundatas(l)%Ypbcd(i)=Grids(topos%nbd(l))%Yp(In(topos%nbd(l))+1-i,Jg(topos%nbd(l)))
-  Boundatas(l)%Zpbcd(i)=Grids(topos%nbd(l))%Zp(In(topos%nbd(l))+1-i,Jg(topos%nbd(l)))
-  else if(topos%topod(l)=='I'.and.topos%positd(l)=='N'.and.topos%orientd(l)=='+') then
-  Boundatas(l)%Xpbcd(i)=Grids(topos%nbd(l))%Xp(i,Jg(topos%nbd(l)))
-  Boundatas(l)%Ypbcd(i)=Grids(topos%nbd(l))%Yp(i,Jg(topos%nbd(l)))
-  Boundatas(l)%Zpbcd(i)=Grids(topos%nbd(l))%Zp(i,Jg(topos%nbd(l)))
-  else
-  Boundatas(l)%Xpbcd(i)=Grids(l)%Xp(i,Jg(l))
-  Boundatas(l)%Ypbcd(i)=Grids(l)%Yp(i,Jg(l))
-  Boundatas(l)%Zpbcd(i)=-Grids(l)%Zp(i,Jg(l))
+   Boundatas(l)%Xbcl(j)=Grids(l)%X(1,j)
+   Boundatas(l)%Ybcl(j)=Grids(l)%Y(1,j)
+   Boundatas(l)%Zbcl(j)=-Grids(l)%Z(1,j)
+   Boundatas(l)%Pbcl(j)=Forces(l)%P(1,j)
+   Boundatas(l)%G1bcl(j)=-Forces(l)%G1(1,j)
+   Boundatas(l)%A1bcl(j)=-Forces(l)%A1(1,j)
+   Boundatas(l)%DEbcl(j)=Grids(l)%DE(1,j)
+   Boundatas(l)%DGbcl(j)=Grids(l)%DG(1,j)
+   Boundatas(l)%DFbcl(j)=-Grids(l)%DF(1,j)
+   Boundatas(l)%dul(j)=Grids(l)%DE1(1,j)
   end if
  end DO
 end DO
 DO l=1,block
-DO j=1,Jg(l)
+ DO j=1,Jg(l)
+  if(topos(l)%topor(j)/='n') then
+   Boundatas(l)%Xbcr(j)=Grids(topos(l)%nbr(j))%X(topos(l)%Iindexr(j),topos(l)%Jindexr(j))
+   Boundatas(l)%Ybcr(j)=Grids(topos(l)%nbr(j))%Y(topos(l)%Iindexr(j),topos(l)%Jindexr(j))
+   Boundatas(l)%Zbcr(j)=Grids(topos(l)%nbr(j))%Z(topos(l)%Iindexr(j),topos(l)%Jindexr(j))
+   Boundatas(l)%Pbcr(j)=Forces(topos(l)%nbr(j))%P(topos(l)%Iindexr(j),topos(l)%Jindexr(j))
+   if(topos(l)%topor(j)=='l') then
+    Boundatas(l)%G1bcr(j)=Forces(topos(l)%nbr(j))%G1(topos(l)%Iindexr(j),topos(l)%Jindexr(j))
+    Boundatas(l)%A1bcr(j)=Forces(topos(l)%nbr(j))%A1(topos(l)%Iindexr(j),topos(l)%Jindexr(j))
+    Boundatas(l)%DEbcr(j)=Grids(topos(l)%nbr(j))%DE(topos(l)%Iindexr(j),topos(l)%Jindexr(j))
+    Boundatas(l)%DGbcr(j)=Grids(topos(l)%nbr(j))%DG(topos(l)%Iindexr(j),topos(l)%Jindexr(j))
+    Boundatas(l)%DFbcr(j)=Grids(topos(l)%nbr(j))%DF(topos(l)%Iindexr(j),topos(l)%Jindexr(j))
+    Boundatas(l)%dur(j)=Grids(topos(l)%nbr(j))%DE1(topos(l)%Iindexrr(j),topos(l)%Jindexr(j))
+   else if(topos(l)%topor(j)=='u') then
+    Boundatas(l)%G1bcr(j)=Forces(topos(l)%nbr(j))%G2(topos(l)%Iindexr(j),topos(l)%Jindexr(j))
+    Boundatas(l)%A1bcr(j)=Forces(topos(l)%nbr(j))%A2(topos(l)%Iindexr(j),topos(l)%Jindexr(j))
+    Boundatas(l)%DEbcr(j)=Grids(topos(l)%nbr(j))%DG(topos(l)%Iindexr(j),topos(l)%Jindexr(j))
+    Boundatas(l)%DGbcr(j)=Grids(topos(l)%nbr(j))%DE(topos(l)%Iindexr(j),topos(l)%Jindexr(j))
+    Boundatas(l)%DFbcr(j)=-Grids(topos(l)%nbr(j))%DF(topos(l)%Iindexr(j),topos(l)%Jindexr(j))
+    Boundatas(l)%dur(j)=Grids(topos(l)%nbr(j))%DG2(topos(l)%Iindexr(j),topos(l)%Jindexrr(j))
+   else if(topos(l)%topor(j)=='r') then
+    Boundatas(l)%G1bcr(j)=-Forces(topos(l)%nbr(j))%G1(topos(l)%Iindexr(j),topos(l)%Jindexr(j))
+    Boundatas(l)%A1bcr(j)=-Forces(topos(l)%nbr(j))%A1(topos(l)%Iindexr(j),topos(l)%Jindexr(j))
+    Boundatas(l)%DEbcr(j)=Grids(topos(l)%nbr(j))%DE(topos(l)%Iindexr(j),topos(l)%Jindexr(j))
+    Boundatas(l)%DGbcr(j)=Grids(topos(l)%nbr(j))%DG(topos(l)%Iindexr(j),topos(l)%Jindexr(j))
+    Boundatas(l)%DFbcr(j)=Grids(topos(l)%nbr(j))%DF(topos(l)%Iindexr(j),topos(l)%Jindexr(j))
+    Boundatas(l)%dur(j)=Grids(topos(l)%nbr(j))%DE1(topos(l)%Iindexr(j),topos(l)%Jindexr(j))
+   else if(topos(l)%topor(j)=='d') then
+    Boundatas(l)%G1bcr(j)=-Forces(topos(l)%nbr(j))%G2(topos(l)%Iindexr(j),topos(l)%Jindexr(j))
+    Boundatas(l)%A1bcr(j)=-Forces(topos(l)%nbr(j))%A2(topos(l)%Iindexr(j),topos(l)%Jindexr(j))
+    Boundatas(l)%DEbcr(j)=Grids(topos(l)%nbr(j))%DG(topos(l)%Iindexr(j),topos(l)%Jindexr(j))
+    Boundatas(l)%DGbcr(j)=Grids(topos(l)%nbr(j))%DE(topos(l)%Iindexr(j),topos(l)%Jindexr(j))
+    Boundatas(l)%DFbcr(j)=-Grids(topos(l)%nbr(j))%DF(topos(l)%Iindexr(j),topos(l)%Jindexr(j))
+    Boundatas(l)%dur(j)=Grids(topos(l)%nbr(j))%DG2(topos(l)%Iindexr(j),topos(l)%Jindexr(j))
+   end if
+  else
+   Boundatas(l)%Xbcr(j)=Grids(l)%X(Ig(l),j)
+   Boundatas(l)%Ybcr(j)=Grids(l)%Y(Ig(l),j)
+   Boundatas(l)%Zbcr(j)=-Grids(l)%Z(Ig(l),j)
+   Boundatas(l)%Pbcr(j)=Forces(l)%P(Ig(l),j)
+   Boundatas(l)%G1bcr(j)=-Forces(l)%G1(Ig(l),j)
+   Boundatas(l)%A1bcr(j)=-Forces(l)%A1(Ig(l),j)
+   Boundatas(l)%DEbcr(j)=Grids(l)%DE(Ig(l),j)
+   Boundatas(l)%DGbcr(j)=Grids(l)%DG(Ig(l),j)
+   Boundatas(l)%DFbcr(j)=-Grids(l)%DF(Ig(l),j)
+   Boundatas(l)%dur(j)=Grids(l)%DE1(Ig(l),j)
+  end if
+ end DO
+end DO
+DO l=1,block
+ DO i=1,Ig(l)
+  if(topos(l)%topou(i)/='n') then
+   Boundatas(l)%Xbcu(i)=Grids(topos(l)%nbu(i))%X(topos(l)%Iindexu(i),topos(l)%Jindexu(i))
+   Boundatas(l)%Ybcu(i)=Grids(topos(l)%nbu(i))%Y(topos(l)%Iindexu(i),topos(l)%Jindexu(i))
+   Boundatas(l)%Zbcu(i)=Grids(topos(l)%nbu(i))%Z(topos(l)%Iindexu(i),topos(l)%Jindexu(i))
+   Boundatas(l)%Pbcu(i)=Forces(topos(l)%nbu(i))%P(topos(l)%Iindexu(i),topos(l)%Jindexu(i))
+   if(topos(l)%topou(i)=='r') then
+    Boundatas(l)%G2bcu(i)=Forces(topos(l)%nbu(i))%G1(topos(l)%Iindexu(i),topos(l)%Jindexu(i))
+    Boundatas(l)%A2bcu(i)=Forces(topos(l)%nbu(i))%A1(topos(l)%Iindexu(i),topos(l)%Jindexu(i))
+    Boundatas(l)%DEbcu(i)=Grids(topos(l)%nbu(i))%DG(topos(l)%Iindexu(i),topos(l)%Jindexu(i))
+    Boundatas(l)%DGbcu(i)=Grids(topos(l)%nbu(i))%DE(topos(l)%Iindexu(i),topos(l)%Jindexu(i))
+    Boundatas(l)%DFbcu(i)=-Grids(topos(l)%nbu(i))%DF(topos(l)%Iindexu(i),topos(l)%Jindexu(i))
+    Boundatas(l)%dvu(i)=Grids(topos(l)%nbu(i))%DE1(topos(l)%Iindexu(i),topos(l)%Jindexu(i))
+   else if(topos(l)%topou(i)=='d') then
+    Boundatas(l)%G2bcu(i)=Forces(topos(l)%nbu(i))%G2(topos(l)%Iindexu(i),topos(l)%Jindexu(i))
+    Boundatas(l)%A2bcu(i)=Forces(topos(l)%nbu(i))%A2(topos(l)%Iindexu(i),topos(l)%Jindexu(i))
+    Boundatas(l)%DEbcu(i)=Grids(topos(l)%nbu(i))%DE(topos(l)%Iindexu(i),topos(l)%Jindexu(i))
+    Boundatas(l)%DGbcu(i)=Grids(topos(l)%nbu(i))%DG(topos(l)%Iindexu(i),topos(l)%Jindexu(i))
+    Boundatas(l)%DFbcu(i)=Grids(topos(l)%nbu(i))%DF(topos(l)%Iindexu(i),topos(l)%Jindexu(i))
+    Boundatas(l)%dvu(i)=Grids(topos(l)%nbu(i))%DG2(topos(l)%Iindexu(i),topos(l)%Jindexu(i))
+   else if(topos(l)%topou(i)=='l') then
+    Boundatas(l)%G2bcu(i)=-Forces(topos(l)%nbu(i))%G1(topos(l)%Iindexu(i),topos(l)%Jindexu(i))
+    Boundatas(l)%A2bcu(i)=-Forces(topos(l)%nbu(i))%A1(topos(l)%Iindexu(i),topos(l)%Jindexu(i))
+    Boundatas(l)%DEbcu(i)=Grids(topos(l)%nbu(i))%DG(topos(l)%Iindexu(i),topos(l)%Jindexu(i))
+    Boundatas(l)%DGbcu(i)=Grids(topos(l)%nbu(i))%DE(topos(l)%Iindexu(i),topos(l)%Jindexu(i))
+    Boundatas(l)%DFbcu(i)=-Grids(topos(l)%nbu(i))%DF(topos(l)%Iindexu(i),topos(l)%Jindexu(i))
+    Boundatas(l)%dvu(i)=Grids(topos(l)%nbu(i))%DE1(topos(l)%Iindexuu(i),topos(l)%Jindexu(i))
+   else if(topos(l)%topou(i)=='u') then
+    Boundatas(l)%G2bcu(i)=-Forces(topos(l)%nbu(i))%G2(topos(l)%Iindexu(i),topos(l)%Jindexu(i))
+    Boundatas(l)%A2bcu(i)=-Forces(topos(l)%nbu(i))%A2(topos(l)%Iindexu(i),topos(l)%Jindexu(i))
+    Boundatas(l)%DEbcu(i)=Grids(topos(l)%nbu(i))%DE(topos(l)%Iindexu(i),topos(l)%Jindexu(i))
+    Boundatas(l)%DGbcu(i)=Grids(topos(l)%nbu(i))%DG(topos(l)%Iindexu(i),topos(l)%Jindexu(i))
+    Boundatas(l)%DFbcu(i)=Grids(topos(l)%nbu(i))%DF(topos(l)%Iindexu(i),topos(l)%Jindexu(i))
+    Boundatas(l)%dvu(i)=Grids(topos(l)%nbu(i))%DG2(topos(l)%Iindexu(i),topos(l)%Jindexuu(i))
+   end if
+  else
+   Boundatas(l)%Xbcu(i)=Grids(l)%X(i,1)
+   Boundatas(l)%Ybcu(i)=Grids(l)%Y(i,1)
+   Boundatas(l)%Zbcu(i)=-Grids(l)%Z(i,1)
+   Boundatas(l)%Pbcu(i)=Forces(l)%P(i,1)
+   Boundatas(l)%G2bcu(i)=-Forces(l)%G2(i,1)
+   Boundatas(l)%A2bcu(i)=-Forces(l)%A2(i,1)
+   Boundatas(l)%DEbcu(i)=Grids(l)%DE(i,1)
+   Boundatas(l)%DGbcu(i)=Grids(l)%DG(i,1)
+   Boundatas(l)%DFbcu(i)=-Grids(l)%DF(i,1)
+   Boundatas(l)%dvu(i)=Grids(l)%DG2(i,1)
+  end if
+ end DO
+end DO
+DO l=1,block
+ DO i=1,Ig(l)
+  if(topos(l)%topod(i)/='n') then
+   Boundatas(l)%Xbcd(i)=Grids(topos(l)%nbd(i))%X(topos(l)%Iindexd(i),topos(l)%Jindexd(i))
+   Boundatas(l)%Ybcd(i)=Grids(topos(l)%nbd(i))%Y(topos(l)%Iindexd(i),topos(l)%Jindexd(i))
+   Boundatas(l)%Zbcd(i)=Grids(topos(l)%nbd(i))%Z(topos(l)%Iindexd(i),topos(l)%Jindexd(i))
+   Boundatas(l)%Pbcd(i)=Forces(topos(l)%nbd(i))%P(topos(l)%Iindexd(i),topos(l)%Jindexd(i))
+   if(topos(l)%topod(i)=='l') then
+    Boundatas(l)%G2bcd(i)=Forces(topos(l)%nbd(i))%G1(topos(l)%Iindexd(i),topos(l)%Jindexd(i))
+    Boundatas(l)%A2bcd(i)=Forces(topos(l)%nbd(i))%A1(topos(l)%Iindexd(i),topos(l)%Jindexd(i))
+    Boundatas(l)%DEbcd(i)=Grids(topos(l)%nbd(i))%DG(topos(l)%Iindexd(i),topos(l)%Jindexd(i))
+    Boundatas(l)%DGbcd(i)=Grids(topos(l)%nbd(i))%DE(topos(l)%Iindexd(i),topos(l)%Jindexd(i))
+    Boundatas(l)%DFbcd(i)=-Grids(topos(l)%nbd(i))%DF(topos(l)%Iindexd(i),topos(l)%Jindexd(i))
+    Boundatas(l)%dvd(i)=Grids(topos(l)%nbd(i))%DE1(topos(l)%Iindexdd(i),topos(l)%Jindexd(i))
+   else if(topos(l)%topod(i)=='u') then
+    Boundatas(l)%G2bcd(i)=Forces(topos(l)%nbd(i))%G2(topos(l)%Iindexd(i),topos(l)%Jindexd(i))
+    Boundatas(l)%A2bcd(i)=Forces(topos(l)%nbd(i))%A2(topos(l)%Iindexd(i),topos(l)%Jindexd(i))
+    Boundatas(l)%DEbcd(i)=Grids(topos(l)%nbd(i))%DE(topos(l)%Iindexd(i),topos(l)%Jindexd(i))
+    Boundatas(l)%DGbcd(i)=Grids(topos(l)%nbd(i))%DG(topos(l)%Iindexd(i),topos(l)%Jindexd(i))
+    Boundatas(l)%DFbcd(i)=Grids(topos(l)%nbd(i))%DF(topos(l)%Iindexd(i),topos(l)%Jindexd(i))
+    Boundatas(l)%dvd(i)=Grids(topos(l)%nbd(i))%DG2(topos(l)%Iindexd(i),topos(l)%Jindexdd(i))
+   else if(topos(l)%topod(i)=='r') then
+    Boundatas(l)%G2bcd(i)=-Forces(topos(l)%nbd(i))%G1(topos(l)%Iindexd(i),topos(l)%Jindexd(i))
+    Boundatas(l)%A2bcd(i)=-Forces(topos(l)%nbd(i))%A1(topos(l)%Iindexd(i),topos(l)%Jindexd(i))
+    Boundatas(l)%DEbcd(i)=Grids(topos(l)%nbd(i))%DG(topos(l)%Iindexd(i),topos(l)%Jindexd(i))
+    Boundatas(l)%DGbcd(i)=Grids(topos(l)%nbd(i))%DE(topos(l)%Iindexd(i),topos(l)%Jindexd(i))
+    Boundatas(l)%DFbcd(i)=-Grids(topos(l)%nbd(i))%DF(topos(l)%Iindexd(i),topos(l)%Jindexd(i))
+    Boundatas(l)%dvd(i)=Grids(topos(l)%nbd(i))%DE1(topos(l)%Iindexd(i),topos(l)%Jindexd(i))
+   else if(topos(l)%topod(i)=='d') then
+    Boundatas(l)%G2bcd(i)=-Forces(topos(l)%nbd(i))%G2(topos(l)%Iindexd(i),topos(l)%Jindexd(i))
+    Boundatas(l)%A2bcd(i)=-Forces(topos(l)%nbd(i))%A2(topos(l)%Iindexd(i),topos(l)%Jindexd(i))
+    Boundatas(l)%DEbcd(i)=Grids(topos(l)%nbd(i))%DE(topos(l)%Iindexd(i),topos(l)%Jindexd(i))
+    Boundatas(l)%DGbcd(i)=Grids(topos(l)%nbd(i))%DG(topos(l)%Iindexd(i),topos(l)%Jindexd(i))
+    Boundatas(l)%DFbcd(i)=Grids(topos(l)%nbd(i))%DF(topos(l)%Iindexd(i),topos(l)%Jindexd(i))
+    Boundatas(l)%dvd(i)=Grids(topos(l)%nbd(i))%DG2(topos(l)%Iindexd(i),topos(l)%Jindexd(i))
+   end if
+  else
+   Boundatas(l)%Xbcd(i)=Grids(l)%X(i,Jg(l))
+   Boundatas(l)%Ybcd(i)=Grids(l)%Y(i,Jg(l))
+   Boundatas(l)%Zbcd(i)=-Grids(l)%Z(i,Jg(l))
+   Boundatas(l)%Pbcd(i)=Forces(l)%P(i,Jg(l))
+   Boundatas(l)%G2bcd(i)=-Forces(l)%G2(i,Jg(l))
+   Boundatas(l)%A2bcd(i)=-Forces(l)%A2(i,Jg(l))
+   Boundatas(l)%DEbcd(i)=Grids(l)%DE(i,Jg(l))
+   Boundatas(l)%DGbcd(i)=Grids(l)%DG(i,Jg(l))
+   Boundatas(l)%DFbcd(i)=-Grids(l)%DF(i,Jg(l))
+   Boundatas(l)%dvd(i)=Grids(l)%DG2(i,Jg(l))
+  end if
+ end DO
+end DO
+DO l=1,block
+ DO j=1,Jn(l)
+  if(topos(l)%topopl(j)/='n') then
+   Boundatas(l)%Xpbcl(j)=Grids(topos(l)%nbpl(j))%Xp(topos(l)%Ipindexl(j),topos(l)%Jpindexl(j))
+   Boundatas(l)%Ypbcl(j)=Grids(topos(l)%nbpl(j))%Yp(topos(l)%Ipindexl(j),topos(l)%Jpindexl(j))
+   Boundatas(l)%Zpbcl(j)=Grids(topos(l)%nbpl(j))%Zp(topos(l)%Ipindexl(j),topos(l)%Jpindexl(j))
+  else
+   Boundatas(l)%Xpbcl(j)=Grids(l)%Xp(2,j)
+   Boundatas(l)%Ypbcl(j)=Grids(l)%Yp(2,j)
+   Boundatas(l)%Zpbcl(j)=-Grids(l)%Zp(2,j)
+  end if
+ end DO
+end DO
+DO l=1,block
+ DO j=1,Jn(l)
+  if(topos(l)%topopr(j)/='n') then
+   Boundatas(l)%Xpbcr(j)=Grids(topos(l)%nbpr(j))%Xp(topos(l)%Ipindexr(j),topos(l)%Jpindexr(j))
+   Boundatas(l)%Ypbcr(j)=Grids(topos(l)%nbpr(j))%Yp(topos(l)%Ipindexr(j),topos(l)%Jpindexr(j))
+   Boundatas(l)%Zpbcr(j)=Grids(topos(l)%nbpr(j))%Zp(topos(l)%Ipindexr(j),topos(l)%Jpindexr(j))
+  else
+   Boundatas(l)%Xpbcr(j)=Grids(l)%Xp(Ig(l),j)
+   Boundatas(l)%Ypbcr(j)=Grids(l)%Yp(Ig(l),j)
+   Boundatas(l)%Zpbcr(j)=-Grids(l)%Zp(Ig(l),j)
+  end if
+ end DO
+end DO
+DO l=1,block
+ DO i=1,In(l)
+  if(topos(l)%topopu(i)/='n') then
+   Boundatas(l)%Xpbcu(i)=Grids(topos(l)%nbpu(i))%Xp(topos(l)%Ipindexu(i),topos(l)%Jpindexu(i))
+   Boundatas(l)%Ypbcu(i)=Grids(topos(l)%nbpu(i))%Yp(topos(l)%Ipindexu(i),topos(l)%Jpindexu(i))
+   Boundatas(l)%Zpbcu(i)=Grids(topos(l)%nbpu(i))%Zp(topos(l)%Ipindexu(i),topos(l)%Jpindexu(i))
+  else
+   Boundatas(l)%Xpbcu(i)=Grids(l)%Xp(i,2)
+   Boundatas(l)%Ypbcu(i)=Grids(l)%Yp(i,2)
+   Boundatas(l)%Zpbcu(i)=-Grids(l)%Zp(i,2)
+  end if
+ end DO
+end DO
+DO l=1,block
+ DO i=1,In(l)
+  if(topos(l)%topopd(i)/='n') then
+   Boundatas(l)%Xpbcd(i)=Grids(topos(l)%nbpd(i))%Xp(topos(l)%Ipindexd(i),topos(l)%Jpindexd(i))
+   Boundatas(l)%Ypbcd(i)=Grids(topos(l)%nbpd(i))%Yp(topos(l)%Ipindexd(i),topos(l)%Jpindexd(i))
+   Boundatas(l)%Zpbcd(i)=Grids(topos(l)%nbpd(i))%Zp(topos(l)%Ipindexd(i),topos(l)%Jpindexd(i))
+  else
+   Boundatas(l)%Xpbcd(i)=Grids(l)%Xp(i,Jg(l))
+   Boundatas(l)%Ypbcd(i)=Grids(l)%Yp(i,Jg(l))
+   Boundatas(l)%Zpbcd(i)=-Grids(l)%Zp(i,Jg(l))
+  end if
+ end DO
+end DO
+DO l=1,block
+ DO j=1,Jg(l)
   Grids(l)%DE1(1,j)=0.5*(Grids(l)%DE(1,j)+Boundatas(l)%DEbcl(j))
   Grids(l)%DE1(In(l),j)=0.5*(Grids(l)%DE(Ig(l),j)+Boundatas(l)%DEbcr(j))
   Grids(l)%DG1(1,j)=0.5*(Grids(l)%DG(1,j)+Boundatas(l)%DGbcl(j))
   Grids(l)%DG1(In(l),j)=0.5*(Grids(l)%DG(Ig(l),j)+Boundatas(l)%DGbcr(j))
   Grids(l)%DF1(1,j)=0.5*(Grids(l)%DF(1,j)+Boundatas(l)%DFbcl(j))
   Grids(l)%DF1(In(l),j)=0.5*(Grids(l)%DF(Ig(l),j)+Boundatas(l)%DFbcr(j))
-end DO
-DO i=1,Ig(l)
+ end DO
+ DO i=1,Ig(l)
   Grids(l)%DE2(i,1)=0.5*(Grids(l)%DE(i,1)+Boundatas(l)%DEbcu(i))
   Grids(l)%DE2(i,Jn(l))=0.5*(Grids(l)%DE(i,Jg(l))+Boundatas(l)%DEbcd(i))
   Grids(l)%DG2(i,1)=0.5*(Grids(l)%DG(i,1)+Boundatas(l)%DGbcu(i))
   Grids(l)%DG2(i,Jn(l))=0.5*(Grids(l)%DG(i,Jg(l))+Boundatas(l)%DGbcd(i))
   Grids(l)%DF2(i,1)=0.5*(Grids(l)%DF(i,1)+Boundatas(l)%DFbcu(i))
   Grids(l)%DF2(i,Jn(l))=0.5*(Grids(l)%DF(i,Jg(l))+Boundatas(l)%DFbcd(i))
-end DO
+ end DO
 end DO
 end Subroutine BCtransfer

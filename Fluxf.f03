@@ -260,20 +260,16 @@ if(solutioncontrol=='implicit') then
     ahW=dt*(Ca1(i,j)*(1-phi1(i,j))*Cp1(i,j)+Ca1(i,j)*phi1(i,j)*Dp1(i,j))/panel
     ahN=-dt*(Ca2(i,j+1)*(1-phi2(i,j+1))*Cn2(i,j+1)+Ca2(i,j+1)*phi2(i,j+1)*Dn2(i,j+1))/panel
     ahS=dt*(Ca2(i,j)*(1-phi2(i,j))*Cp2(i,j)+Ca2(i,j)*phi2(i,j)*Dp2(i,j))/panel
-    if(i==1.and.topos%nbl(l)==0) then
-    !if(i==1.and.topos(l)%nbl(j)==0) then
+    if(i==1.and.topos(l)%nbl(j)==0) then
     ahW=0
     ahP=ahP+dt*(Ca1(i,j)*(1-phi1(i,j))*Cn1(i,j)+Ca1(i,j)*phi1(i,j)*Dn1(i,j))/panel
-    else if(i==Ig(l).and.topos%nbr(l)==0) then
-    !else if(i==Ig(l).and.topos(l)%nbr(j)==0) then
+    else if(i==Ig(l).and.topos(l)%nbr(j)==0) then
     ahE=0
     ahP=ahP-dt*(Ca1(i+1,j)*(1-phi1(i+1,j))*Cp1(i+1,j)+Ca1(i+1,j)*phi1(i+1,j)*Dp1(i+1,j))/panel
-    else if(j==1.and.topos%nbu(l)==0) then
-    !else if(j==1.and.topos(l)%nbu(i)==0) then
+    else if(j==1.and.topos(l)%nbu(i)==0) then
     ahS=0
     ahP=ahP+dt*(Ca2(i,j)*(1-phi2(i,j))*Cn2(i,j)+Ca2(i,j)*phi2(i,j)*Dn2(i,j))/panel
-    else if(j==Jg(l).and.topos%nbd(l)==0) then
-    !else if(j==Jg(l).and.topos(l)%nbd(i)==0) then
+    else if(j==Jg(l).and.topos(l)%nbd(i)==0) then
     ahN=0
     ahP=ahP-dt*(Ca2(i,j+1)*(1-phi2(i,j+1))*Cp2(i,j+1)+Ca2(i,j+1)*phi2(i,j+1)*Dp2(i,j+1))/panel
     end if
@@ -283,20 +279,16 @@ if(solutioncontrol=='implicit') then
     ahW=dt*Ca1(i,j)*Cp1(i,j)/panel
     ahN=-dt*Ca2(i,j+1)*Cn2(i,j+1)/panel
     ahS=dt*Ca2(i,j)*Cp2(i,j)/panel
-    if(i==1.and.topos%nbl(l)==0) then
-    !if(i==1.and.topos(l)%nbl(j)==0) then
+    if(i==1.and.topos(l)%nbl(j)==0) then
     ahW=0
     ahP=ahP+dt*Ca1(i,j)*Cn1(i,j)/panel
-    else if(i==Ig(l).and.topos%nbr(l)==0) then
-    !else if(i==Ig(l).and.topos(l)%nbr(j)==0) then
+    else if(i==Ig(l).and.topos(l)%nbr(j)==0) then
     ahE=0
     ahP=ahP-dt*Ca1(i+1,j)*Cp1(i+1,j)/panel
-    else if(j==1.and.topos%nbu(l)==0) then
-    !else if(j==1.and.topos(l)%nbu(i)==0) then
+    else if(j==1.and.topos(l)%nbu(i)==0) then
     ahS=0
     ahP=ahP+dt*Ca2(i,j)*Cn2(i,j)/panel
-    else if(j==Jg(l).and.topos%nbd(l)==0) then
-    !else if(j==Jg(l).and.topos(l)%nbd(i)==0) then
+    else if(j==Jg(l).and.topos(l)%nbd(i)==0) then
     ahN=0
     ahP=ahP-dt*Ca2(i,j+1)*Cp2(i,j+1)/panel
     end if

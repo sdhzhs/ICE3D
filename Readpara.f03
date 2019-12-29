@@ -75,29 +75,29 @@ print *,'Give name of drop property file:'
 read *,filename(4)
 print *,'Set fluid property(com/incom):'
 read *,fluidproperty
-print *,'Select advanced method(singl/multi):'
+print *,'Select march method(singl/multi):'
 read *,advancemethod
 print *,'Include Ice Accretion(Y/N)?'
 read *,icecoupled
-print *,'input grid scale factor:'
+print *,'Input grid scale factor:'
 read *,c
-print *,'input liquid water content(kg/m3):'
+print *,'Input liquid water content(kg/m3):'
 read *,lwc
-print *,'input mean volumn diameter(m):'
+print *,'Input mean volumn diameter(m):'
 read *,mvd
-print *,'input air far field tempreture(K):'
+print *,'Input air far field tempreture(K):'
 read *,Ta
-print *,'input drop tempreture(K):'
+print *,'Input drop tempreture(K):'
 read *,Td
-print *,'input initial solid surface tempreture(K):'
+print *,'Input initial solid surface tempreture(K):'
 read *,Ts
-print *,'input air far field velocity(m/s):'
+print *,'Input air far field velocity(m/s):'
 read *,Wf
-print *,'Give time step parameter(s):'
+print *,'Give time step(s):'
 read *,dt
-print *,'Give total advance time(s):'
+print *,'Give total march time(s):'
 read *,t
-print *,'Start advance from clean surface(Y/N)?'
+print *,'Start march from clean surface(Y/N)?'
 read *,initialtimecontrol
 if(initialtimecontrol=='Y') then
 print *,'Input presuror film height:'
@@ -115,7 +115,7 @@ print *,'Start inner surface tempreture iteration(Y/N)?'
 read *,surtempcontrol
 print *,'Select solution method(explicit/implicit)?'
 read *,solutioncontrol
-print *,'Select discretation scheme(upwind/TVD)?'
+print *,'Select discretization scheme(upwind/TVD)?'
 read *,discretecontrol
 if(solutioncontrol/='explicit') then
 print *,'Give max step of inner implicit iteration:'

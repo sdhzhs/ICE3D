@@ -2,27 +2,24 @@ Subroutine Readdata
 use COM
 implicit none
 integer i,j,l,ib
-! real(8) X1(10000),Y1(10000),Z1(10000),P1(10000),Uae1(10000),Ax1(10000),Ay1(10000),Az1(10000),hcv1(10000)
-character(1) ch
+!real(8) au1
+character(1) ch1
 open(unit=1,file=filename(2),status='old')
 read(1,*) block
 allocate(Grids(block),Forces(block),Energys(block),Fluxs(block),Imps(block),Icecoordinates(block),Boundatas(block),&
-In(block),Jn(block),Ig(block),Jg(block),formn(block),formc(block))
-allocate(topos%nbl(block),topos%nbr(block),topos%nbu(block),topos%nbd(block),topos%topol(block),topos%topor(block),&
-topos%topou(block),topos%topod(block),topos%orientl(block),topos%orientr(block),topos%orientu(block),topos%orientd(block),&
-topos%positl(block),topos%positr(block),topos%positu(block),topos%positd(block))
+topos(block),In(block),Jn(block),Ig(block),Jg(block),formn(block),formc(block))
 DO i=1,block
 read(1,*) In(i),Jn(i)
 Ig(i)=In(i)-1
 Jg(i)=Jn(i)-1
-allocate(Grids(i)%Xp(In(i),Jn(i)),Grids(i)%Yp(In(i),Jn(i)),Grids(i)%Zp(In(i),Jn(i)),Grids(i)%Xp0(In(i),Jn(i)),&
-Grids(i)%Yp0(In(i),Jn(i)),Grids(i)%Zp0(In(i),Jn(i)),Grids(i)%X(Ig(i),Jg(i)),Grids(i)%Y(Ig(i),Jg(i)),Grids(i)%Z(Ig(i),Jg(i)),&
-Grids(i)%X0(Ig(i),Jg(i)),Grids(i)%Y0(Ig(i),Jg(i)),Grids(i)%Z0(Ig(i),Jg(i)),Grids(i)%panel(Ig(i),Jg(i)),Grids(i)%DE(Ig(i),Jg(i)),&
-Grids(i)%DG(Ig(i),Jg(i)),Grids(i)%DF(Ig(i),Jg(i)),Grids(i)%DE1(In(i),Jg(i)),Grids(i)%DE2(Ig(i),Jn(i)),Grids(i)%DG1(In(i),Jg(i)),&
-Grids(i)%DG2(Ig(i),Jn(i)),Grids(i)%DF1(In(i),Jg(i)),Grids(i)%DF2(Ig(i),Jn(i)))
+allocate(Grids(i)%Xp(In(i),Jn(i)),Grids(i)%Yp(In(i),Jn(i)),Grids(i)%Zp(In(i),Jn(i)),Grids(i)%Xp0(In(i),Jn(i)),Grids(i)%Yp0(In(i),Jn(i)),&
+Grids(i)%Zp0(In(i),Jn(i)),Grids(i)%X(Ig(i),Jg(i)),Grids(i)%Y(Ig(i),Jg(i)),Grids(i)%Z(Ig(i),Jg(i)),Grids(i)%X0(Ig(i),Jg(i)),&
+Grids(i)%Y0(Ig(i),Jg(i)),Grids(i)%Z0(Ig(i),Jg(i)),Grids(i)%panel(Ig(i),Jg(i)),Grids(i)%DE(Ig(i),Jg(i)),Grids(i)%DG(Ig(i),Jg(i)),&
+Grids(i)%DF(Ig(i),Jg(i)),Grids(i)%DE1(In(i),Jg(i)),Grids(i)%DE2(Ig(i),Jn(i)),Grids(i)%DG1(In(i),Jg(i)),Grids(i)%DG2(Ig(i),Jn(i)),&
+Grids(i)%DF1(In(i),Jg(i)),Grids(i)%DF2(Ig(i),Jn(i)))
 allocate(Forces(i)%P(Ig(i),Jg(i)),Forces(i)%Ax(Ig(i),Jg(i)),Forces(i)%Ay(Ig(i),Jg(i)),Forces(i)%Az(Ig(i),Jg(i)),&
-Forces(i)%beta(Ig(i),Jg(i)),Forces(i)%dropv(Ig(i),Jg(i)),Forces(i)%A1(Ig(i),Jg(i)),Forces(i)%A2(Ig(i),Jg(i)),&
-Forces(i)%G1(Ig(i),Jg(i)),Forces(i)%G2(Ig(i),Jg(i)),Forces(i)%G3(Ig(i),Jg(i)))
+Forces(i)%beta(Ig(i),Jg(i)),Forces(i)%dropv(Ig(i),Jg(i)),Forces(i)%A1(Ig(i),Jg(i)),Forces(i)%A2(Ig(i),Jg(i)),Forces(i)%G1(Ig(i),Jg(i)),&
+Forces(i)%G2(Ig(i),Jg(i)),Forces(i)%G3(Ig(i),Jg(i)))
 allocate(Energys(i)%Uae(Ig(i),Jg(i)),Energys(i)%hcv(Ig(i),Jg(i)),Energys(i)%Tb(Ig(i),Jg(i)),Energys(i)%qe0(Ig(i),Jg(i)),&
 Energys(i)%qe1(Ig(i),Jg(i)),Energys(i)%qr0(Ig(i),Jg(i)),Energys(i)%qr1(Ig(i),Jg(i)),Energys(i)%mev(Ig(i),Jg(i)),&
 Energys(i)%msv(Ig(i),Jg(i)))
@@ -32,6 +29,7 @@ allocate(Imps(i)%ahP(Ig(i),Jg(i)),Imps(i)%ahW(Ig(i),Jg(i)),Imps(i)%ahE(Ig(i),Jg(
 Imps(i)%bh(Ig(i),Jg(i)),Imps(i)%dh(Ig(i),Jg(i)),Imps(i)%dh0(Ig(i),Jg(i)))
 allocate(Icecoordinates(i)%h(Ig(i),Jg(i)),Icecoordinates(i)%b(Ig(i),Jg(i)),Icecoordinates(i)%b0(Ig(i),Jg(i)),&
 Icecoordinates(i)%Xi(In(i),Jn(i)),Icecoordinates(i)%Yi(In(i),Jn(i)),Icecoordinates(i)%Zi(In(i),Jn(i)),&
+Icecoordinates(i)%Xi0(In(i),Jn(i)),Icecoordinates(i)%Yi0(In(i),Jn(i)),Icecoordinates(i)%Zi0(In(i),Jn(i)),&
 Icecoordinates(i)%Xw(In(i),Jn(i)),Icecoordinates(i)%Yw(In(i),Jn(i)),Icecoordinates(i)%Zw(In(i),Jn(i)),&
 Icecoordinates(i)%hn(In(i),Jn(i)),Icecoordinates(i)%bn(In(i),Jn(i)))
 allocate(Boundatas(i)%Xbcl(Jg(i)),Boundatas(i)%Ybcl(Jg(i)),Boundatas(i)%Zbcl(Jg(i)),Boundatas(i)%Xpbcl(Jn(i)),Boundatas(i)%Ypbcl(Jn(i)),&
@@ -52,6 +50,14 @@ Boundatas(i)%DEbcu(Ig(i)),Boundatas(i)%DEbcd(Ig(i)),Boundatas(i)%DGbcl(Jg(i)),Bo
 Boundatas(i)%DGbcd(Ig(i)),Boundatas(i)%DFbcl(Jg(i)),Boundatas(i)%DFbcr(Jg(i)),Boundatas(i)%DFbcu(Ig(i)),Boundatas(i)%DFbcd(Ig(i)),&
 Boundatas(i)%hbcll(Jg(i)),Boundatas(i)%hbcrr(Jg(i)),Boundatas(i)%hbcuu(Ig(i)),Boundatas(i)%hbcdd(Ig(i)),Boundatas(i)%bbcll(Jg(i)),&
 Boundatas(i)%bbcrr(Jg(i)),Boundatas(i)%bbcuu(Ig(i)),Boundatas(i)%bbcdd(Ig(i)))
+allocate(topos(i)%nbl(Jg(i)),topos(i)%nbr(Jg(i)),topos(i)%nbu(Ig(i)),topos(i)%nbd(Ig(i)),topos(i)%topol(Jg(i)),topos(i)%topor(Jg(i)),&
+topos(i)%topou(Ig(i)),topos(i)%topod(Ig(i)),topos(i)%Iindexl(Jg(i)),topos(i)%Iindexr(Jg(i)),topos(i)%Iindexu(Ig(i)),&
+topos(i)%Iindexd(Ig(i)),topos(i)%Jindexl(Jg(i)),topos(i)%Jindexr(Jg(i)),topos(i)%Jindexu(Ig(i)),topos(i)%Jindexd(Ig(i)),&
+topos(i)%Iindexll(Jg(i)),topos(i)%Iindexrr(Jg(i)),topos(i)%Iindexuu(Ig(i)),topos(i)%Iindexdd(Ig(i)),topos(i)%Jindexll(Jg(i)),&
+topos(i)%Jindexrr(Jg(i)),topos(i)%Jindexuu(Ig(i)),topos(i)%Jindexdd(Ig(i)),topos(i)%nbpl(Jn(i)),topos(i)%nbpr(Jn(i)),&
+topos(i)%nbpu(In(i)),topos(i)%nbpd(In(i)),topos(i)%topopl(Jn(i)),topos(i)%topopr(Jn(i)),topos(i)%topopu(In(i)),topos(i)%topopd(In(i)),&
+topos(i)%Ipindexl(Jn(i)),topos(i)%Ipindexr(Jn(i)),topos(i)%Ipindexu(In(i)),topos(i)%Ipindexd(In(i)),topos(i)%Jpindexl(Jn(i)),&
+topos(i)%Jpindexr(Jn(i)),topos(i)%Jpindexu(In(i)),topos(i)%Jpindexd(In(i)))
 formc(i)='(1X,000(ES11.4,2X))'
 formn(i)='(1X,000(ES11.4,2X))'
 write(formc(i)(5:7),'(I3.3)') Ig(i)
@@ -92,7 +98,7 @@ read(2,*) ((Forces(l)%Ay(i,j),i=1,Ig(l)),j=1,Jg(l))
 read(2,*) ((Forces(l)%Az(i,j),i=1,Ig(l)),j=1,Jg(l))
 end DO
 close(2)
-print *,'Read near wall air flow property completed!'
+print *,'Read air fluid property completed!'
 open(unit=3,file=filename(4),status='old')
 read(3,*) ib
 DO i=1,block
@@ -103,5 +109,5 @@ read(3,*) ((Forces(l)%beta(i,j),i=1,Ig(l)),j=1,Jg(l))
 read(3,*) ((Forces(l)%dropv(i,j),i=1,Ig(l)),j=1,Jg(l))
 end DO
 close(3)
-print *,'Read drop impingement property completed!'
+print *,'Read drop property completed!'
 end Subroutine Readdata

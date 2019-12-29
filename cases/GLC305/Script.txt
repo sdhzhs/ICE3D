@@ -27,7 +27,7 @@ Input initial solid surface tempreture(K):
 Input air far field velocity(m/s):
 111.81
 Give time step(s):
-1e-2
+2e-3
 Give total march time(s):
 120
 Start march from clean surface(Y/N)?
