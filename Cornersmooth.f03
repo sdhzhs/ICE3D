@@ -90,7 +90,7 @@ if(k/=l) then
   numcorn(4)=numcorn(4)+1
   end if
  end DO
- DO i=1,In(k)
+ DO i=2,Ig(k)
   if(abs(Grids(k)%Xp(i,Jn(k))-Grids(l)%Xp(1,1))<tol.and.abs(Grids(k)%Yp(i,Jn(k))-Grids(l)%Yp(1,1))<tol.and.&
   abs(Grids(k)%Zp(i,Jn(k))-Grids(l)%Zp(1,1))<tol) then
   sumXcorn(1)=sumXcorn(1)+Icecoordinates(k)%Xi(i,Jn(k))
@@ -177,7 +177,7 @@ DO j=2,Jg(l)
   numlr(j,2)=numlr(j,2)+1
   end if
   end DO
-  DO m=1,In(k)
+  DO m=2,Ig(k)
   if(abs(Grids(k)%Xp(m,1)-Grids(l)%Xp(1,j))<tol.and.abs(Grids(k)%Yp(m,1)-Grids(l)%Yp(1,j))<tol.and.&
   abs(Grids(k)%Zp(m,1)-Grids(l)%Zp(1,j))<tol) then
   sumXlr(j,1)=sumXlr(j,1)+Icecoordinates(k)%Xi(m,1)
@@ -239,7 +239,7 @@ DO i=2,Ig(l)
   numud(i,2)=numud(i,2)+1
   end if
   end DO
-  DO m=1,In(k)
+  DO m=2,Ig(k)
   if(abs(Grids(k)%Xp(m,1)-Grids(l)%Xp(i,1))<tol.and.abs(Grids(k)%Yp(m,1)-Grids(l)%Yp(i,1))<tol.and.&
   abs(Grids(k)%Zp(m,1)-Grids(l)%Zp(i,1))<tol) then
   sumXud(i,1)=sumXud(i,1)+Icecoordinates(k)%Xi(m,1)
