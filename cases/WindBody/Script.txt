@@ -1,0 +1,46 @@
+Give name of initial surface grids file:
+wingbodysurf.xyz
+Give name of surface grids file:
+wingbodysurf.xyz
+Give name of air flow property file:
+wallflux_wingbody.dat
+Give name of drop property file:
+drop_wingbody.dat
+Set air fluid property(com/incom):
+com
+Select march method(singl/multi):
+singl
+Include Ice Accretion(Y/N)?
+Y
+Input grid scale factor:
+1.0
+Input liquid water content(kg/m3):
+6.8e-4
+Input mean volume diameter(m):
+2e-5
+Input air far field tempreture(K):
+262.04
+Input drop tempreture(K):
+262.04
+Input initial solid surface tempreture(K):
+262.04
+Input air far field velocity(m/s):
+75
+Give time step(s):
+5e-3
+Give total march time(s):
+180
+Start march from clean surface(Y/N)?
+Y
+Give name of initial data file:(pre film height(m):)
+5e-9
+Start inner surface tempreture iteration(Y/N)?
+N
+Select solution method(explicit/implicit)?
+implicit
+Select discretization scheme(upwind/TVD)?
+upwind
+Give max step of inner implicit iteration:
+100
+Give residual of inner implicit iteration:
+1e-8

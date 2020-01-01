@@ -3,9 +3,9 @@ spheresurf.xyz
 Give name of surface grids file:
 spheresurf.xyz
 Give name of air flow property file:
-wallflux(sphere).dat
+wallflux_sphere.dat
 Give name of drop property file:
-drop(sphere).dat
+drop_sphere.dat
 Set air fluid property(com/incom):
 com
 Select march method(singl/multi):

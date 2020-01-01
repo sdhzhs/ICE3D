@@ -3,9 +3,9 @@ GLC305surf.xyz
 Give name of surface grids file:
 GLC305surf.xyz
 Give name of air flow property file:
-wallflux(GLC305).dat
+wallflux_GLC305.dat
 Give name of drop property file:
-drop(GLC305).dat
+drop_GLC305.dat
 Set air fluid property(com/incom):
 com
 Select march method(singl/multi):
