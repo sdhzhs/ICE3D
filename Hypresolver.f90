@@ -224,15 +224,9 @@ DO m=1,block
   DO i=1,Ig(m)
    DO k=1,nentries
     if(k==1) then
-    values(l)=Imps(m)%ahP(i,j)
-    else if(k==2) then
-    values(l)=-Imps(m)%ahW(i,j)
-    else if(k==3) then
-    values(l)=-Imps(m)%ahE(i,j)
-    else if(k==4) then
-    values(l)=-Imps(m)%ahS(i,j)
-    else if(k==5) then
-    values(l)=-Imps(m)%ahN(i,j)
+     values(l)=Imps(m)%ahM(1,i,j)
+    else
+     values(l)=-Imps(m)%ahM(k,i,j)
     end if
     l=l+1
    end DO

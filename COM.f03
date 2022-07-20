@@ -13,7 +13,8 @@ type Flux
 real(8),allocatable,dimension(:,:)::Q1,Q2,Qp1,Qp2,dQp1,dQp2,sax,say
 end type
 type Imp
-real(8),allocatable,dimension(:,:)::ahP,ahW,ahE,ahN,ahS,bh,dh,dh0
+real(8),allocatable,dimension(:,:,:)::ahM
+real(8),allocatable,dimension(:,:)::bh,dh,dh0
 end type
 type Icecoordinate
 real(8),allocatable,dimension(:,:)::h,b,b0,Xi,Yi,Zi,Xi0,Yi0,Zi0,Xw,Yw,Zw,hn,bn

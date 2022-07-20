@@ -300,11 +300,11 @@ if(solutioncontrol=='implicit') then
     bh=-dt*(Ca1(i+1,j)*Q1(i+1,j)-Ca1(i,j)*Q1(i,j)+Ca2(i,j+1)*Q2(i,j+1)-Ca2(i,j)*Q2(i,j))/panel+&
     lwc*beta*Wf*dt/rhow
     end if
-    Imps(l)%ahP(i,j)=ahP
-    Imps(l)%ahW(i,j)=ahW
-    Imps(l)%ahE(i,j)=ahE
-    Imps(l)%ahS(i,j)=ahS
-    Imps(l)%ahN(i,j)=ahN
+    Imps(l)%ahM(1,i,j)=ahP
+    Imps(l)%ahM(2,i,j)=ahW
+    Imps(l)%ahM(3,i,j)=ahE
+    Imps(l)%ahM(4,i,j)=ahS
+    Imps(l)%ahM(5,i,j)=ahN
     Imps(l)%bh(i,j)=bh
     end DO
   end DO

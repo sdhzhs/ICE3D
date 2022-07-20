@@ -25,8 +25,7 @@ Energys(i)%qe1(Ig(i),Jg(i)),Energys(i)%qr0(Ig(i),Jg(i)),Energys(i)%qr1(Ig(i),Jg(
 Energys(i)%msv(Ig(i),Jg(i)))
 allocate(Fluxs(i)%Q1(In(i),Jg(i)),Fluxs(i)%Q2(Ig(i),Jn(i)),Fluxs(i)%Qp1(Ig(i),Jg(i)),Fluxs(i)%Qp2(Ig(i),Jg(i)),Fluxs(i)%sax(In(i),Jg(i)),&
 Fluxs(i)%say(Ig(i),Jn(i)),Fluxs(i)%dQp1(Ig(i),Jg(i)),Fluxs(i)%dQp2(Ig(i),Jg(i)))
-allocate(Imps(i)%ahP(Ig(i),Jg(i)),Imps(i)%ahW(Ig(i),Jg(i)),Imps(i)%ahE(Ig(i),Jg(i)),Imps(i)%ahN(Ig(i),Jg(i)),Imps(i)%ahS(Ig(i),Jg(i)),&
-Imps(i)%bh(Ig(i),Jg(i)),Imps(i)%dh(Ig(i),Jg(i)),Imps(i)%dh0(Ig(i),Jg(i)))
+allocate(Imps(i)%ahM(5,Ig(i),Jg(i)),Imps(i)%bh(Ig(i),Jg(i)),Imps(i)%dh(Ig(i),Jg(i)),Imps(i)%dh0(Ig(i),Jg(i)))
 allocate(Icecoordinates(i)%h(Ig(i),Jg(i)),Icecoordinates(i)%b(Ig(i),Jg(i)),Icecoordinates(i)%b0(Ig(i),Jg(i)),&
 Icecoordinates(i)%Xi(In(i),Jn(i)),Icecoordinates(i)%Yi(In(i),Jn(i)),Icecoordinates(i)%Zi(In(i),Jn(i)),&
 Icecoordinates(i)%Xi0(In(i),Jn(i)),Icecoordinates(i)%Yi0(In(i),Jn(i)),Icecoordinates(i)%Zi0(In(i),Jn(i)),&

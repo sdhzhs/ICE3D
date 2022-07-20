@@ -8,11 +8,11 @@ real(8) dh,dhc,dhw,dhe,dhs,dhn,ahP,ahW,ahE,ahS,ahN,bh
 omiga=1
    DO j=1,Jg(l)
      DO i=1,Ig(l)
-     ahP=Imps(l)%ahP(i,j)
-     ahW=Imps(l)%ahW(i,j)
-     ahE=Imps(l)%ahE(i,j)
-     ahS=Imps(l)%ahS(i,j)
-     ahN=Imps(l)%ahN(i,j)
+     ahP=Imps(l)%ahM(1,i,j)
+     ahW=Imps(l)%ahM(2,i,j)
+     ahE=Imps(l)%ahM(3,i,j)
+     ahS=Imps(l)%ahM(4,i,j)
+     ahN=Imps(l)%ahM(5,i,j)
      bh=Imps(l)%bh(i,j)
      dhc=Imps(l)%dh(i,j)
      if(i==1) then
