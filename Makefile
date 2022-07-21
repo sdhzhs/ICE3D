@@ -1,6 +1,7 @@
 vpath %.o obj
 vpath %.exe bin
-FC=x86_64-w64-mingw32-gfortran
+FC=gfortran
+#FC=x86_64-w64-mingw32-gfortran
 FCFLAGS=-Wall -ffree-line-length-none -O3
 #FCFLAGS+=-ID:\Libsrc\hypre-2.11.1\src\hypre\dll\include
 LDFLAGS=-O3 -s
