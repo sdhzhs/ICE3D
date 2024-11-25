@@ -3,8 +3,10 @@ vpath %.exe bin
 FC=gfortran
 #FC=x86_64-w64-mingw32-gfortran
 FCFLAGS=-Wall -ffree-line-length-none -O3
+#FCFLAGS=-Wall -ffree-line-length-none -Og -g
 #FCFLAGS+=-ID:\Libsrc\hypre-2.11.1\src\hypre\dll\include
-LDFLAGS=-O3 -s
+LDFLAGS=-O3 -static
+#LDFLAGS=-Og -static -g
 #LDFLAGS+=-LD:\Libsrc\hypre-2.11.1\src\hypre\dll\lib -lHYPRE
 src:=$(sort $(wildcard *.f03))
 objects:=$(src:.f03=.o)

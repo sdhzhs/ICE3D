@@ -1,11 +1,11 @@
 Give name of initial surface grids file:
-spheresurf.xyz
+'cases/Sphere/spheresurf.xyz'
 Give name of surface grids file:
-spheresurf.xyz
+'cases/Sphere/spheresurf.xyz'
 Give name of air flow property file:
-wallflux_sphere.dat
+'cases/Sphere/wallflux_sphere.dat'
 Give name of drop property file:
-drop_sphere.dat
+'cases/Sphere/drop_sphere.dat'
 Set air fluid property(com/incom):
 com
 Select march method(singl/multi):

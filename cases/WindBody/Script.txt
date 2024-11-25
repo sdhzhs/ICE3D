@@ -1,11 +1,11 @@
 Give name of initial surface grids file:
-wingbodysurf.xyz
+'cases/WindBody/wingbodysurf.xyz'
 Give name of surface grids file:
-wingbodysurf.xyz
+'cases/WindBody/wingbodysurf.xyz'
 Give name of air flow property file:
-wallflux_wingbody.dat
+'cases/WindBody/wallflux_wingbody.dat'
 Give name of drop property file:
-drop_wingbody.dat
+'cases/WindBody/drop_wingbody.dat'
 Set air fluid property(com/incom):
 com
 Select march method(singl/multi):

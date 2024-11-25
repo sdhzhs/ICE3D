@@ -22,8 +22,8 @@ DO l=1,block
 massold=massold+sum((rhow*Icecoordinates(l)%h+rhoi*Icecoordinates(l)%b)*Grids(l)%panel)
 end DO
 timeout=nint(t/dt)
-open(unit=4,file='water&ice.txt',status='replace')
-open(unit=7,file='Energy term.txt',status='replace')
+open(unit=4,file='water_ice.txt',status='replace')
+open(unit=7,file='Energy_term.txt',status='replace')
 open(unit=8,file='implicitinner.txt',status='replace')
 write(4,*) surtempcontrol,icecoupled,initialtimecontrol
 write(4,*) fluidproperty,advancemethod,solutioncontrol,discretecontrol

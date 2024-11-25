@@ -85,8 +85,8 @@ end module COM
 ! rhoa                Density of air
 ! rhow                Density of water
 ! rhoi                Density of ice
-! mua                Viscosity of air
-! muw                Viscosity of water
+! mua                 Viscosity of air
+! muw                 Viscosity of water
 ! ka                  Thermal conductivity of air
 ! kw                  Thermal conductivity of water
 ! ki                  Thermal conductivity of ice
