@@ -68,7 +68,7 @@ write (1,formc(l)) Forces(l)%G2
 end DO
 close(1)
 if(icecoupled=='N') then
-filename(1)='Grids(t=00).xyz'
+filename(1)='Grids_t=00.xyz'
 open(unit=1,file=filename(1),status='replace')
 write(1,*) block
 DO l=1,block
@@ -80,7 +80,7 @@ write(1,formc(l)) Grids(l)%Y
 write(1,formc(l)) Grids(l)%Z
 end DO
 close(1)
-filename(1)='Filmsol(t=00).dat'
+filename(1)='Filmsol_t=00.dat'
 open(unit=2,file=filename(1),status='replace')
 write(2,*) block
 DO l=1,block

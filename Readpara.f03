@@ -5,7 +5,7 @@ character(1) ch
 print *,'Input from script file(Y/N)?'
 Scpt='Y'
 if(Scpt=='Y') then
-open(unit=10,file='Script.txt',status='old')
+open(unit=10,file='Script',status='old')
 read(10,*) ch
 read(10,*) filename(1)
 read(10,*) ch
