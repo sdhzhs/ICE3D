@@ -53,8 +53,11 @@ DO timestep=1,timeout
   DO l=1,block
    Imps(l)%dh=0
   end DO
+#ifdef HYPRE
+  Call hypresolve(3)
+#else
   Call MBSolve
-  !Call hypresolve(3)
+#endif
   DO l=1,block
    Icecoordinates(l)%h=Icecoordinates(l)%h+Imps(l)%dh
   end DO

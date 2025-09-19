@@ -4,12 +4,21 @@ FC=gfortran
 #FC=x86_64-w64-mingw32-gfortran
 FCFLAGS=-Wall -ffree-line-length-none -O3
 #FCFLAGS=-Wall -ffree-line-length-none -Og -g -fcheck=bounds -ffpe-trap=invalid,zero,overflow
-#FCFLAGS+=-ID:\Libsrc\hypre-2.11.1\src\hypre\dll\include
-LDFLAGS=-O3 -static
+ifdef HYPRE
+	FCFLAGS += -DHYPRE -I/home/sdhzhs/library/hypre-2.11.2/src/hypre/include
+endif
+LDFLAGS=-O3
 #LDFLAGS=-Og -g -static -fcheck=bounds -ffpe-trap=invalid,zero,overflow
-#LDFLAGS+=-LD:\Libsrc\hypre-2.11.1\src\hypre\dll\lib -lHYPRE
-src:=$(sort $(wildcard *.f03))
+ifdef HYPRE
+	LIBS=/home/sdhzhs/library/hypre-2.11.2/src/hypre/lib/libHYPRE.so
+endif
+src:=$(sort $(wildcard *.[fF]03))
 objects:=$(src:.f03=.o)
+objects:=$(objects:.F03=.o)
+ifdef HYPRE
+	src += Hypresolver.f90
+	objects += Hypresolver.o
+endif
 exec:=ICE3D.exe
 bprefix:=bin/
 oprefix:=obj/
@@ -26,12 +35,16 @@ del:=rm -f
 cp:=cp -f
 cd:=cp -r -f
 zip:=7z a -tzip
+%.o:%.f90 COM.mod
+	$(FC) -c $(FCFLAGS) -I$(odir) $< -o $(addprefix $(oprefix),$@)
 %.o:%.f03 COM.mod
+	$(FC) -c $(FCFLAGS) -I$(odir) $< -o $(addprefix $(oprefix),$@)
+%.o:%.F03 COM.mod
 	$(FC) -c $(FCFLAGS) -I$(odir) $< -o $(addprefix $(oprefix),$@)
 %.mod:%.f03|$(odir)
 	$(FC) -c $(FCFLAGS) -J$(odir) $< -o $(addprefix $(oprefix),$(subst .mod,.o,$@))
 $(exec):$(objects)|$(bdir)
-	$(FC) $(LDFLAGS) $(addprefix $(oprefix),$(objects)) -o $(addprefix $(bprefix),$(exec))
+	$(FC) $(LDFLAGS) $(addprefix $(oprefix),$(objects)) $(LIBS) -o $(addprefix $(bprefix),$(exec))
 $(odir):
 	-$(md) $(odir)
 $(bdir):
