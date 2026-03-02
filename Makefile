@@ -3,12 +3,10 @@ vpath %.exe bin
 FC=gfortran
 #FC=x86_64-w64-mingw32-gfortran
 FCFLAGS=-Wall -ffree-line-length-none -O3
-#FCFLAGS=-Wall -ffree-line-length-none -Og -g -fcheck=bounds -ffpe-trap=invalid,zero,overflow
 ifdef HYPRE
 	FCFLAGS += -DHYPRE -I/home/sdhzhs/library/hypre-2.11.2/src/hypre/include
 endif
 LDFLAGS=-O3
-#LDFLAGS=-Og -g -static -fcheck=bounds -ffpe-trap=invalid,zero,overflow
 ifdef HYPRE
 	LIBS=/home/sdhzhs/library/hypre-2.11.2/src/hypre/lib/libHYPRE.so
 endif
@@ -68,3 +66,7 @@ $(installdir):
 .PHONY:uninstall
 uninstall:
 	-$(rd) $(installdir)
+.PHONY:debug
+debug: FCFLAGS = -Wall -ffree-line-length-none -Og -g -fcheck=bounds -ffpe-trap=invalid,zero,overflow
+debug: LDFLAGS = -Og -g -static -fcheck=bounds -ffpe-trap=invalid,zero,overflow
+debug: clean $(exec)
