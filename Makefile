@@ -69,4 +69,4 @@ uninstall:
 .PHONY:debug
 debug: FCFLAGS = -Wall -ffree-line-length-none -Og -g -fcheck=bounds -ffpe-trap=invalid,zero,overflow
 debug: LDFLAGS = -Og -g -static -fcheck=bounds -ffpe-trap=invalid,zero,overflow
-debug: clean $(exec)
+debug: $(exec)

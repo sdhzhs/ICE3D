@@ -4,52 +4,66 @@ implicit none
 integer l
 real(8) massold,massdrop,massice,masswater
 logical lret
+
+! ============================================================================
+! Configuration phase
 Call Readpara
 Call Readdata
 Call Constants
 Call Pre
 Call Topology
+
+! ============================================================================
+! Initialization phase
 Call BCtransfer
 DO l=1,block
-Call Forceparameter(l)
+ Call Forceparameter(l)
 end DO
 print *,'Force parameter compute completed!'
 Call BCtransfer
 print *,'BC force parameter transfer completed!'
 Call Initial
+! Calculate initial mass
 massold=0
 DO l=1,block
-massold=massold+sum((rhow*Icecoordinates(l)%h+rhoi*Icecoordinates(l)%b)*Grids(l)%panel)
+ massold=massold+sum((rhow*Icecoordinates(l)%h+rhoi*Icecoordinates(l)%b)*Grids(l)%panel)
 end DO
 timeout=nint(t/dt)
+
+! Setup output files
 open(unit=4,file='water_ice.txt',status='replace')
 open(unit=7,file='Energy_term.txt',status='replace')
 open(unit=8,file='implicitinner.txt',status='replace')
 write(4,*) surtempcontrol,icecoupled,initialtimecontrol
 write(4,*) fluidproperty,advancemethod,solutioncontrol,discretecontrol
+
+! ============================================================================
+! Time advancement loop
 print *,'Time advancing is beginning...'
 DO timestep=1,timeout
-  if(icecoupled=='Y') then
+ ! Physics computation phase
+ if(icecoupled=='Y') then
   DO l=1,block
    Call Energyterm(l)
   end DO
-  end if
-  DO l=1,block
-   Call Fluxp(l)
-  end DO
-  Call innerBCtransfer
-  DO l=1,block
-   Call Wavevelocity(l)
-  end DO
-  Call saBCtransfer
-  DO l=1,block
-   Call Fluxf(l)
-  end DO
-  if(solutioncontrol=='explicit') then
+ end if
+ DO l=1,block
+  Call Fluxp(l)
+ end DO
+ Call innerBCtransfer
+ DO l=1,block
+  Call Wavevelocity(l)
+ end DO
+ Call saBCtransfer
+ DO l=1,block
+  Call Fluxf(l)
+ end DO
+ ! Solution advancement phase
+ if(solutioncontrol=='explicit') then
   DO l=1,block
    Call Explicitcompute(l)
   end DO
-  else if(solutioncontrol=='implicit') then
+ else if(solutioncontrol=='implicit') then
   DO l=1,block
    Imps(l)%dh=0
   end DO
@@ -62,31 +76,32 @@ DO timestep=1,timeout
    Icecoordinates(l)%h=Icecoordinates(l)%h+Imps(l)%dh
   end DO
   if(icecoupled=='Y') then
-  DO l=1,block
-   Call Impliciticecompute(l)
-  end DO
+   DO l=1,block
+    Call Impliciticecompute(l)
+   end DO
   end if
-  end if
-  Call innerBCtransfer
-  if(mod(timestep,nint(timeout/4.))==0.or.timestep==timeout) then
+ end if
+ Call innerBCtransfer
+ ! Periodic output and smoothing phase
+ if(mod(timestep,nint(timeout/4.))==0.or.timestep==timeout) then
   if(icecoupled=='Y') then
-  DO l=1,block
-  if(advancemethod=='multi') then
-  Icecoordinates(l)%b=Icecoordinates(l)%b-Icecoordinates(l)%b0
-  Boundatas(l)%bbcl=Boundatas(l)%bbcl-Boundatas(l)%bbcl0
-  Boundatas(l)%bbcr=Boundatas(l)%bbcr-Boundatas(l)%bbcr0
-  Boundatas(l)%bbcu=Boundatas(l)%bbcu-Boundatas(l)%bbcu0
-  Boundatas(l)%bbcd=Boundatas(l)%bbcd-Boundatas(l)%bbcd0
-  end if
-  Call Iceshape(l)
-  if(advancemethod=='multi') then
-  Icecoordinates(l)%b=Icecoordinates(l)%b+Icecoordinates(l)%b0
-  Boundatas(l)%bbcl=Boundatas(l)%bbcl+Boundatas(l)%bbcl0
-  Boundatas(l)%bbcr=Boundatas(l)%bbcr+Boundatas(l)%bbcr0
-  Boundatas(l)%bbcu=Boundatas(l)%bbcu+Boundatas(l)%bbcu0
-  Boundatas(l)%bbcd=Boundatas(l)%bbcd+Boundatas(l)%bbcd0
-  end if
-  end DO
+   DO l=1,block
+    if(advancemethod=='multi') then
+     Icecoordinates(l)%b=Icecoordinates(l)%b-Icecoordinates(l)%b0
+     Boundatas(l)%bbcl=Boundatas(l)%bbcl-Boundatas(l)%bbcl0
+     Boundatas(l)%bbcr=Boundatas(l)%bbcr-Boundatas(l)%bbcr0
+     Boundatas(l)%bbcu=Boundatas(l)%bbcu-Boundatas(l)%bbcu0
+     Boundatas(l)%bbcd=Boundatas(l)%bbcd-Boundatas(l)%bbcd0
+    end if
+    Call Iceshape(l)
+    if(advancemethod=='multi') then
+     Icecoordinates(l)%b=Icecoordinates(l)%b+Icecoordinates(l)%b0
+     Boundatas(l)%bbcl=Boundatas(l)%bbcl+Boundatas(l)%bbcl0
+     Boundatas(l)%bbcr=Boundatas(l)%bbcr+Boundatas(l)%bbcr0
+     Boundatas(l)%bbcu=Boundatas(l)%bbcu+Boundatas(l)%bbcu0
+     Boundatas(l)%bbcd=Boundatas(l)%bbcd+Boundatas(l)%bbcd0
+    end if
+   end DO
   end if
   DO l=1,block
    Icecoordinates(l)%Xi0=Icecoordinates(l)%Xi
@@ -100,8 +115,9 @@ DO timestep=1,timeout
    Icecoordinates(l)%Zi=Icecoordinates(l)%Zi0
   end DO
   Call SaveResults
-  end if
-  if(mod(timestep,100)==1.or.timestep==timeout) then
+ end if
+ ! Diagnostic output phase
+ if(mod(timestep,100)==1.or.timestep==timeout) then
   masswater=0
   massdrop=0
   massice=0
@@ -113,16 +129,20 @@ DO timestep=1,timeout
    minval(abs(Icecoordinates(l)%b))
   end DO
   print *,massold+massdrop,masswater+massice,timestep
-  end if
-  lret=.false.
-  DO l=1,block
-   lret=lret.or.maxval(abs(Icecoordinates(l)%h))>1e+5.or.maxval(abs(Icecoordinates(l)%b))>1e+5
-  end DO
-  if(lret) then
+ end if
+ ! Convergence check
+ lret=.false.
+ DO l=1,block
+  lret=lret.or.maxval(abs(Icecoordinates(l)%h))>1e+5.or.maxval(abs(Icecoordinates(l)%b))>1e+5
+ end DO
+ if(lret) then
   print *,'Time step of advance diverge!'
   stop
-  end if
+ end if
 end DO
+
+! ============================================================================
+! Cleanup and final report
 close(4)
 close(7)
 close(8)

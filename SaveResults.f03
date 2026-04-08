@@ -2,11 +2,11 @@ Subroutine SaveResults
 use COM
 implicit none
 integer l
-filename(2)='Grid_t=00.xyz'
+filename(2)='Grid_t-00.xyz'
 write(filename(2)(8:9),'(I2.2)') nint(4.*timestep/timeout)
-filename(3)='iced_t=00.dat'
+filename(3)='iced_t-00.dat'
 write(filename(3)(8:9),'(I2.2)') nint(4.*timestep/timeout)
-filename(4)='Plot3D_t=00.xyz'
+filename(4)='Plot3D_t-00.xyz'
 write(filename(4)(10:11),'(I2.2)') nint(4.*timestep/timeout)
 if(icecoupled=='Y') then
 open(unit=1,file=filename(2),status='replace')
@@ -28,7 +28,7 @@ DO l=1,block
   write(1,*) Icecoordinates(l)%Zi
 end DO
 close(1)
-filename(2)='Solution_t=00.dat'
+filename(2)='Solution_t-00.dat'
 write(filename(2)(12:13),'(I2.2)') nint(4.*timestep/timeout)
 open(unit=1,file=filename(2),status='replace')
 write(1,*) block
@@ -71,7 +71,7 @@ write(3,*) Grids(l)%Y
 write(3,*) Grids(l)%Z
 end DO
 close(3)
-filename(2)='Solution_t=00.dat'
+filename(2)='Solution_t-00.dat'
 write(filename(2)(12:13),'(I2.2)') nint(4.*timestep/timeout)
 open(unit=1,file=filename(2),status='replace')
 write(1,*) block
